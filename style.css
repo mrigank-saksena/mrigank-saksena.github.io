@@ -70,6 +70,7 @@ body a:hover
     z-index: 99 !important;
     background-color: #19134E;
     width: 100% !important;
+    height: 64px;
     top: 0;
     position: fixed;
 }
@@ -149,7 +150,7 @@ body a:hover
 
 .section-title-holder
 {
-    background-color: #32DB8A;
+    background-color: #19134E;
     width: 370px;
     height: 370px;    
     z-index: 2;
@@ -158,7 +159,7 @@ body a:hover
 .section-num span
 {    
     margin-left: 5px;
-    color: #55B286;
+    color: #19134E;
     font-family: 'Montserrat', sans-serif;
     font-weight: 700;
     font-size: 90px;
@@ -253,7 +254,7 @@ body a:hover
 
 
 
-/* HOME SECTION */
+/* HOME AND LESSONS SECTION */
 
 .intro-page 
 {
@@ -267,6 +268,19 @@ body a:hover
     z-index: 10;
 }
 
+.lessons-intro-page 
+{
+    position: relative;
+    padding-bottom: 170px;
+    min-height: calc(100vh - 170px);
+    background-color: #19134E; 
+    background-image:url(images/lessonsbg.png); 
+    background-repeat: repeat; 
+    background-position: center top; 
+    background-size: cover;
+    z-index:1;
+}
+ 
 .top-logo
 {
     width: 160px !important;    
@@ -776,8 +790,59 @@ footer
 
 /* END FOOTER */
 
+/* LESSONS */
 
+#lessonbar{
+    position: fixed;
+    width: 250px;
+    height: 100%;
+    background: #19134E;
+    top: 64px;
+    left: -250px;
+    transition: all 500ms linear;
+    z-index: 10;
+   }
+   
+#lessonbar.active{
+    left:0px;
+   }
+#lessonbar ul li{
+    color: rgba(230,230,230,0.9);
+    list-style: none;
+    padding: 15px 10px;
+    border-bottom: 1px solid rgba(100,100,100,0.3);
+   }
+#lessonbar .menu-button{
+    position: relative;
+    z-index: 10;
+    top: 30px;
+    left: 280px;
+   }
+   
+#lessonbar .menu-button span{
+    display: block;
+    width: 30px;
+    height: 5px;
+    background: #ffffff;
+    margin: 5px 0px;
+}
 
+.lesson-button{
+  background-color: #19134E; 
+  border: none;
+  color: white;
+  padding: 15px 32px;
+  text-align: center;
+  text-decoration: none;
+  display: inline-block;
+  border-radius: 10px;
+  font-size: 16px;
+}
+
+.lesson-button:hover {
+    background-color: white;
+    color: #19134E;
+  }
 /* SINGLE PORTFOLIO PAGE */
 
 #portfolio-1
@@ -869,6 +934,18 @@ footer
 }
 
 /* END SINGLE PORTFOLIO */
+
+.section lessons-home 
+{
+    padding-bottom: 170px;
+    min-height: calc(100vh - 170px);
+    background-color: #19134E; 
+    background-image:url(images/bghome.png); 
+    background-repeat: repeat; 
+    background-position: center top; 
+    background-size: cover;
+    z-index: 10;
+}
 
 
 /* RESPONSIVE PART */
