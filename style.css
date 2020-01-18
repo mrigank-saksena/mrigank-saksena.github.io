@@ -813,8 +813,21 @@ span.contact-form-not-valid-tip
 .post_background{
     position: relative;
     background-color: #ffffff;
+    padding: 100px 75px;
     left: 250px;
     height: 2000px;
+}
+h1.post_title{
+    font-family: 'Montserrat', sans-serif;
+    font-size: 36px;
+    font-weight: 600;
+    line-height: 100%;
+    padding-top: 100px;
+    color: #fff;
+    letter-spacing: -1px;    
+    width: 95%;
+    margin-left: auto;
+    margin-right: auto;
 }
 
 .lesson-button:hover {
