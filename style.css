@@ -323,6 +323,17 @@ h1.big-title
     width: 100%;
 }
 
+.lesson-redirect {
+    font: bold 16px Arial;
+    text-decoration: none;
+    background-color: #19134E;
+    color: #ffffff;
+    padding: 10px 20px 10px 20px;
+    border-top: 2px solid #CCCCCC;
+    border-right: 2px solid #CCCCCC;
+    border-bottom: 2px solid #CCCCCC;
+    border-left: 2px solid #CCCCCC;
+  }
 /* END HOME SECTION */
 
 
@@ -750,46 +761,6 @@ span.contact-form-not-valid-tip
 /* END CONTACT SECTION */
 
 
-/* FOOTER */
-
-footer
-{
-    background-color: #19134E;
-}
-
-.footer
-{
-    font-size: 16px;
-    line-height: 36px;
-    clear: both;
-    color: #5b5881;
-    text-align: center;    
-    padding: 100px 0;
-}
-
-.footer-left, .footer-right
-{
-    width: 810px;
-}
-
-.footer-right
-{
-    margin-left: 370px;
-}
-
-.footer a
-{
-    color: #5b5881;
-}
-
-.social-footer a 
-{
-    margin: 0 10px;
-    font-size: 20px;
-}
-
-/* END FOOTER */
-
 /* LESSONS */
 
 #lessonbar{
@@ -797,6 +768,7 @@ footer
     width: 250px;
     height: 100%;
     background: #19134E;
+    overflow-y: scroll;
     top: 64px;
     left: -250px;
     transition: all 500ms linear;
@@ -838,11 +810,72 @@ footer
   border-radius: 10px;
   font-size: 16px;
 }
+.post_background{
+    position: relative;
+    background-color: #ffffff;
+    left: 250px;
+    height: 2000px;
+}
 
 .lesson-button:hover {
     background-color: white;
     color: #19134E;
   }
+
+  h1.lesson-topic
+{
+    font-family: 'Montserrat', sans-serif;
+    font-size: 36px;
+    font-weight: 600;
+    line-height: 100%;
+    padding-top: 100px;
+    color: #fff;
+    letter-spacing: -1px;    
+    width: 95%;
+    margin-left: auto;
+    margin-right: auto;
+}
+
+/* FOOTER */
+
+footer
+{
+    background-color: #19134E;
+}
+
+.footer
+{
+    font-size: 16px;
+    line-height: 36px;
+    clear: both;
+    color: #5b5881;
+    text-align: center;    
+    padding: 100px 0;
+}
+
+.footer-left, .footer-right
+{
+    width: 810px;
+}
+
+.footer-right
+{
+    margin-left: 370px;
+}
+
+.footer a
+{
+    color: #5b5881;
+}
+
+.social-footer a 
+{
+    margin: 0 10px;
+    font-size: 20px;
+}
+
+/* END FOOTER */
+
 /* SINGLE PORTFOLIO PAGE */
 
 #portfolio-1
