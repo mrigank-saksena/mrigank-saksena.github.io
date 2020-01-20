@@ -18,6 +18,7 @@
         <link rel="stylesheet" type="text/css"  href='css/prettyPhoto.css' />
         <link rel="stylesheet" type="text/css"  href='css/sm-clean.css' />
         <link rel="stylesheet" type="text/css"  href='style.css' />
+        <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/9.12.10/styles/agate.min.css"/>
 
         <!--[if lt IE 9]>
                 <script src="js/html5.js"></script>
@@ -28,7 +29,7 @@
                 background-color: #19134E;
             }
         </style>
-
+       
         <script type="text/javascript">
             function toggleLessonbar(){
              document.getElementById("lessonbar").classList.toggle('active');
@@ -58,7 +59,7 @@
                     <img class="top-logo" src="images/logo.png" alt="TWD" />
                     <br>
                     <h1 class="big-title">Lessons</h1>
-                    <button class="lesson-button" onclick="toggleLessonbar()"> View Lessons </button>
+                    <!--<button class="lesson-button" onclick="toggleLessonbar()"> View Lessons </button>-->
                 </div>
             </div>
             <div></div>
@@ -72,29 +73,177 @@
                 </div>    
                 <ul>
                     <li><h1 class="lesson-topic">Queries</h1></li>
-                    <li>Temp</li>
-                    <li>Temp</li>
-                    <li>Temp</li>
-                    <li><h1 class="lesson-topic">Data Preparation</h1></li>
-                    <li>Temp</li>
-                    <li>Temp</li>
-                    <li>Temp</li>
+                    <li>Setup and Introduction</li>
+                    <li>Relational Databases</li>
+                    <li>SQL Commands</li>
+                    <li>Writing SQL Queries</li>
+                    <li>Useful Resources</li>
+                    <li><h1 class="lesson-topic"><a class="lesson-item" href="#DP">Data Preparation</a></h1></li>
+                    <li><a class="lesson-item" href="#Configuring-Pandas">Setup and Introduction</a></li>
+                    <li><a class="lesson-item" href="#Structuring-Data">Structuring Data</a></li>
+                    <li>Dealing with Missing Data</li>
+                    <li><a class="lesson-item" href="#1Resources">Useful Resources</a></li>
                     <li><h1 class="lesson-topic">Data Exploration</h1></li>
+                    <li>Setup and Introduction</li>
                     <li>Temp</li>
-                    <li>Temp</li>
-                    <li>Temp</li>
+                    <li>Useful Resources</li>
                     <li><h1 class="lesson-topic">Data Modeling</h1></li>
+                    <li>Setup and Introduction</li>
                     <li>Temp</li>
-                    <li>Temp</li>
-                    <li>Temp</li>
+                    <li>Useful Resources</li>
                 </ul>
             </div>
 
+
+
+
+
+
+            <!-- POSTS -->
+
             <div id="lesson-post" class="post_background">
+                  
+                <!-- DATA PREPERATION TITLE -->
+                <h1 id = "DP" class="topic_title">Data Preperation </h1>
+                <!-- DATA PREPERATION TITLE -->
+
+
+                <div id="Configuring-Pandas">
+                <!-- SETUP AND INSTRUCTIONS -->
+                <h1 class="post_title"> Setup and Instructions </h1>
+                <p class="lesson-text">    In order to get started, make sure you have your environment set up. In order to do this, I recommend referencing these links:</p>
+                <br>
+                <ul class = "bullets">
+                    <li>  You can download Python <a href="https://www.python.org/downloads/"><u>here</u></a>.</li>
+
+                    <li>  Most Python code written here will be written on a Jupyter Notebook. You can reference 
+                        <a href="https://jupyter.org/install"><u>this guide</u></a> on Jupyter's site for installation.</li>
+  
+                    <li>  Some important libraries we'll be using for data preprocessing include pandas, numpy, matplotlib, and seaborn. All of which can be installed
+                        following these <a href="https://docs.python.org/3/installing/index.html"><u>guidelines</u></a>.
+                    </li>
+                </ul>
+                </div>
+
+
+                <!-- Structuring Data -->
+                <div id="Structuring-Data">
+                <h1 class="post_title"> Structuring Data </h1>
+                <p class="lesson-text">    The first thing we have to do is load our data into our Jupyter Notebook. To open up your Jupyter Notebook, 
+                    simply open up terminal and type <code>jupyter notebook</code>. A full guide on the interface can be found 
+                    <a href="https://jupyter-notebook.readthedocs.io/en/latest/notebook.html"><u>here</u></a>.
+                    Let's first import pandas into our notebook. We'll reference it as "pd" for simplicity.
+                    <br><br>
+                    <pre class="hljs" style="display: block; overflow-x: auto; padding: 0.5em; background-color: rgb(244, 244, 244); color: rgb(0, 0, 0);"><span class="hljs-keyword" style="font-weight: 700; color: navy;">import</span> pandas <span class="hljs-keyword" style="font-weight: 700; color: navy;">as</span> pd</pre>
+                </p>
+                <p class="lesson-text"> Pandas is a powerful tool used for manipulating data providing functioanlities to make working with out data easier. The Excel file referenced in this part of the tutorial can be downloaded 
+                    <a href="https://jupyter-notebook.readthedocs.io/en/latest/notebook.html"><u>here (I need to actually put the download link in).</u></a>. The first powerful tool in pandas we'll make use of is a dataframe.
+                    You can think of a dataframe like a spreadsheet or data table. It's a data structure representing a two-dimensional table. Let's read in our data from Excel into a dataframe object and look at the first few rows of our data.
+                    <br><br>
+                    <pre class="hljs" style="display: block; overflow-x: auto; padding: 0.5em; background-color: rgb(244, 244, 244); color: rgb(0, 0, 0);"><span class="hljs-attribute" style="color: rgb(0, 85, 0);">stock_data</span> = pd.read_csv(<span class="hljs-string" style="color: rgb(0, 85, 0);">'Sample_Stocks.csv'</span>) <span class="hljs-comment" style="color: rgb(136, 0, 0);"></span>
+stock_data.head()   </pre>
+                    <br>
+                    <img  src="images/headfunction.png" alt="Head Output" />
+                </p>
+                <p class="lesson-text"> 
                     
-                <p class="portfolio-sec-text">Learn to use Python for aggregating, cleansing, and exploring data.</p>
+                    The <code>head(n)</code> function displays the first few rows of our table. You can specify the last few rows using tail(). Placing a integer parameter (<code>head(n) or tail(n)</code>) displays the first or last <code>n</code> rows. We can get summary statistics of our data as well through the <code>describe()</code> function. 
+                    <br><br>
+                    <pre class="hljs" style="display: block; overflow-x: auto; padding: 0.5em; background-color: rgb(244, 244, 244); color: rgb(0, 0, 0);">stock_data[<span class="hljs-string" style="color: rgb(0, 85, 0);">'HINDEX'</span>].describe() <span class="hljs-comment" style="color: rgb(136, 0, 0);"># Describes the HINDEX attribute</span>
+stock_data.groupby(<span class="hljs-keyword" style="font-weight: 700; color: navy;">by</span>=<span class="hljs-string" style="color: rgb(0, 85, 0);">'Stock'</span>).describe() <span class="hljs-comment" style="color: rgb(136, 0, 0);"># Describes all attributes grouped by 'Stock'</span>
+stock_data.groupby(<span class="hljs-keyword" style="font-weight: 700; color: navy;">by</span>=<span class="hljs-string" style="color: rgb(0, 85, 0);">'Stock'</span>)[<span class="hljs-string" style="color: rgb(0, 85, 0);">'Volume'</span>].describe() <span class="hljs-comment" style="color: rgb(136, 0, 0);"># Output shown below</span></pre>    
+                    <br>
+                    <img  src="images/volumedescribe.png" alt="Volume describe() Output" />        
+                </p>
+                <p class="lesson-text"> 
+                    After looking through the columns, you may realize "HINDEX" is relatively useless as its always zero. We can delete 
+                    this column using: 
+                    <br><br><pre class="hljs" style="display: block; overflow-x: auto; padding: 0.5em; background-color: rgb(244, 244, 244); color: rgb(0, 0, 0);">stock_data.drop(columns = [<span class="hljs-string" style="color: rgb(0, 85, 0);">'HINDEX'</span>])</pre> 
+                </p>
+                <p class="lesson-text"> 
+                    Using SQL, we were able to query a database in order to retrieve specific information. Thankfully, pandas provides a similar functionality. Let's
+                    say we were interested in finding all the entries of stock A with a price of over $46.00. We can do this by using conditionals within
+                    the pandas <code>loc</code> function. Let's try this out. 
+                        <br><br><pre class="hljs" style="display: block; overflow-x: auto; padding: 0.5em; background-color: rgb(244, 244, 244); color: rgb(0, 0, 0);">stock_data.loc[(stock_data[<span class="hljs-string" style="color: rgb(0, 85, 0);">'Stock'</span>]==<span class="hljs-string" style="color: rgb(0, 85, 0);">'A'</span>) &amp; (stock_data[<span class="hljs-string" style="color: rgb(0, 85, 0);">'Price'</span>]&gt;<span class="hljs-number" style="color: rgb(136, 0, 0);">46</span>)]</pre>
+                        
+                </p>
+                <p class="lesson-text"> 
+                    When we run this, we get an error message saying <code>TypeError: '>' not supported between instances of 'str' and 'int'</code>
+                    What this message is telling us is we're trying to compare a string type variable to an integer. We'll have to 
+                    convert the 'Price' column into floating point numbers before running our query. We can make use of the <code>replace()</code> and <code>astype()</code> functions.<br><br><pre class="hljs" style="display: block; overflow-x: auto; padding: 0.5em; background-color: rgb(244, 244, 244); color: rgb(0, 0, 0);">stock_data[<span class="hljs-string" style="color: rgb(0, 85, 0);">'Price'</span>] = stock_data[<span class="hljs-string" style="color: rgb(0, 85, 0);">'Price'</span>].replace(<span class="hljs-string" style="color: rgb(0, 85, 0);">'[\$,]'</span>, <span class="hljs-string" style="color: rgb(0, 85, 0);">''</span>, regex=<span class="hljs-symbol" style="color: rgb(0, 85, 0);">True</span>).astype(float)
+stock_data.loc[(stock_data[<span class="hljs-string" style="color: rgb(0, 85, 0);">'Stock'</span>]==<span class="hljs-string" style="color: rgb(0, 85, 0);">'A'</span>) &amp; (stock_data[<span class="hljs-string" style="color: rgb(0, 85, 0);">'Price'</span>]&gt;<span class="hljs-number" style="color: rgb(136, 0, 0);">46</span>)]</pre>      
+                <br>
+                <img  src="images/pandasquery.png" alt="Query Result" />
+                </p>
+                <p class="lesson-text"> 
+                        So far, we've looked into the very basics of pandas. We'll continue to make use of this library
+                        in future lessons which is why I highly recommend getting more comfortable with the pandas library and its
+                        various functionalities. This will make understanding future lessons much easier.
+                        Feel free to utilize the references provided in the <a href="#1Resources"><u>Useful Resources</u></a> section.
+                    </p>
+
+                </div>
+               
+
+
+
+                <div id="1Resources">
+                    <h1 class="post_title"> Useful Resources </h1>
+                </div>
                 
+
+
+
+                    </p>
+                    <br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br>
             </div>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
             <footer>
                 <div class="footer content-1170 center-relative">
@@ -121,6 +270,8 @@
             <script type='text/javascript' src='js/imagesloaded.pkgd.js'></script>
             <script type='text/javascript' src='js/jquery.prettyPhoto.js'></script>
             <script type='text/javascript' src='js/main.js'></script>
+            <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/9.12.0/highlight.min.js"></script>
+            <script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.5.0/prism.min.js"></script>
             
         </body>
 </html>
