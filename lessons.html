@@ -81,7 +81,7 @@
                     <li><h1 class="lesson-topic"><a class="lesson-item" href="#DP">Data Preparation</a></h1></li>
                     <li><a class="lesson-item" href="#Configuring-Pandas">Setup and Introduction</a></li>
                     <li><a class="lesson-item" href="#Structuring-Data">Structuring Data</a></li>
-                    <li>Dealing with Missing Data</li>
+                    <li><a class="lesson-item" href="#Missing">Dealing with Missing Data</a></li>
                     <li><a class="lesson-item" href="#1Resources">Useful Resources</a></li>
                     <li><h1 class="lesson-topic">Data Exploration</h1></li>
                     <li>Setup and Introduction</li>
@@ -102,7 +102,64 @@
             <!-- POSTS -->
 
             <div id="lesson-post" class="post_background">
-                  
+                
+                <!-- QUERIES TITLE -->
+                <h1 id = "queries" class="topic_title">Queries </h1>
+                <!-- QUERIES TITLE -->
+
+
+                <div id="SQL-Setup">
+                <!-- SETUP AND INSTRUCTIONS -->
+                <h1 class="post_title"> Setup and Instructions </h1>
+                <p class="lesson-text">    In order to get started, make sure you have your environment set up. To do this, I recommend referencing these links:</p>
+                
+                <ul class = "bullets">
+                    <li>  You can download MySQL <a href="https://dev.mysql.com/downloads/mysql/"><u>here</u></a>.</li>
+
+                    <li>  One free interface I find very useful in writing SQL commands is PopSQL. Which you can download 
+
+                        <a href="https://popsql.com/"><u>here</u></a>.</li>
+                </ul>
+                <p class="lesson-text">     Before we dive into writing SQL queries, it's important to understand what SQL and MySQL are.
+                        SQL represents the syntax used in manipulating relational databases, whereas MYSQL is a RDBMS (Relational Database Management System).
+                        In other words MySQL uses Structured Query Language to manipulate databases.
+                </p>
+                </div>
+                    
+                <div id="RD">
+                <!-- RELATIONAL DATABASES -->
+                <h1 class="post_title"> Relational Databases </h1>
+                <p class="lesson-text">    
+                </p>
+                <p class="lesson-text">    
+                    </p>
+                
+                <ul class = "bullets">
+                    <li>  You can download MySQL <a href="https://dev.mysql.com/downloads/mysql/"><u>here</u></a>.</li>
+
+                    <li>  One free interface I find very useful in writing SQL commands is PopSQL. Which you can download 
+
+                        <a href="https://popsql.com/"><u>here</u></a>.</li>
+                </ul>
+                </div>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
                 <!-- DATA PREPERATION TITLE -->
                 <h1 id = "DP" class="topic_title">Data Preperation </h1>
                 <!-- DATA PREPERATION TITLE -->
@@ -112,7 +169,7 @@
                 <!-- SETUP AND INSTRUCTIONS -->
                 <h1 class="post_title"> Setup and Instructions </h1>
                 <p class="lesson-text">    In order to get started, make sure you have your environment set up. In order to do this, I recommend referencing these links:</p>
-                <br>
+                
                 <ul class = "bullets">
                     <li>  You can download Python <a href="https://www.python.org/downloads/"><u>here</u></a>.</li>
 
@@ -185,10 +242,71 @@ stock_data.loc[(stock_data[<span class="hljs-string" style="color: rgb(0, 85, 0)
                 </div>
                
 
+                <div id="Missing">
+                        <h1 class="post_title"> Missing Data </h1>
+                        <p class="lesson-text">    Part of cleaning your data is dealing with missing values. One way to detect if your dataset has missing values
+                            is to use the <code>.info()</code> function. Using the dataset from the <a href="#Structuring-Data"><u>previous lesson</u></a>,  <code>stock_data.info()</code> outputs the following:
+                            <br><br>
+                            <img  src="images/nulldetection.png" alt="info() output" />
+                            <br><br>
+                            <a href="https://pandas.pydata.org/pandas-docs/stable/reference/api/pandas.DataFrame.dropna.html"><u><strong><code>dropna()</code></strong></u></a><br>
+                            We can see our dataset only has 35 non-null price values and 37 non-null volume values out of 40 total values.
+                            One way to deal with missing values is to delete the rows that have at least one value missing. Using pandas,
+                            this can be done through the <code>dropna()</code> function, which will return a dataframe with all rows containing
+                            missing values deleted. <br>
+                            <br>
+                            <a href="https://pandas.pydata.org/pandas-docs/stable/reference/api/pandas.DataFrame.fillna.html"><u><strong><code>fillna()</code></strong></u></a><br>
+                            However, deleted entries may not always be the best option, especially when 
+                            the entry has other important information we might want to keep. This leads us to our first method of handling
+                            missing data using the <code>fillna()</code> function. The <code>fillna()</code> function
+                            allows us to quickly find all NaN values and replace them using a specified method. You can learn more about 
+                            <code>fillna()</code> <a href="https://pandas.pydata.org/pandas-docs/stable/reference/api/pandas.DataFrame.fillna.html"><u>here</u></a>.
+                            One way to use <code>fillna()</code> is with the parameter <code>method = 'ffill' </code>. This parameter
+                            propogates all non-null values forward, replacing each null value with the previous non-null value.
+                            Similarly <code>method = 'bfil'</code> does the opposite. <br><br>
+                            <pre class="hljs" style="display: block; overflow-x: auto; padding: 0.5em; background-color: rgb(244, 244, 244); color: rgb(0, 0, 0);">stock_data.drop(columns = [<span class="hljs-string" style="color: rgb(0, 85, 0);">'HINDEX'</span>], inplace = <span class="hljs-keyword" style="font-weight: 700; color: navy;">True</span>)
+stock_data</pre>
+                            <br>
+                            <img  src="images/fillna2.png" alt="FFill" />
+                            </p>
+                            <p class="lesson-text"> Previously the values for 'Price' and 'Volume' for the entry at index 12
+                                were both NaN. After using the <code>ffill</code> method of <code>fillna()</code> the values for 'Price'
+                                and 'Volume' were replaced with the 'Price' and 'Volume' values for the entry at index 11. A snippet showing this change is
+                                shown above. The inplace parameter in the above function call signifies that the outputted dataframe
+                                should replace our current dataframe.
+                                <br>
+                                <br>
+                                <a href="https://pandas.pydata.org/pandas-docs/version/0.16/generated/pandas.DataFrame.interpolate.html"><u><strong><code>interpolate()</code></strong></u></a><br>
+                                Another way to fill missing values, especially useful for time-series data, is the interpolate method. Interpolating data
+                                is very helpful and there are many ways to do it. One way of the simplest ways that does not involve the fitting
+                                of a complex model to our data is using the <code>interpolate()</code> function. It defaults to a linear method
+                                which replaces all missing values with the <i>linear average</i> of the non-null values surrounding it. It can be called on
+                                an entire dataframe object like shown below, however, is often useful for individual serieses as well (like our 'Price' column alone). Read more about that
+                                <a href="https://pandas.pydata.org/pandas-docs/stable/reference/api/pandas.Series.interpolate.html"><u>here</u></a>.
+                                <br><br>
+                                <pre class="hljs" style="display: block; overflow-x: auto; padding: 0.5em; background-color: rgb(244, 244, 244); color: rgb(0, 0, 0);">stock_data.interpolate(<span class="hljs-function"><span class="hljs-keyword" style="font-weight: 700; color: navy;">method</span>='<span class="hljs-title" style="font-weight: 700; color: navy;">linear</span>', <span class="hljs-title" style="font-weight: 700; color: navy;">inplace</span>=<span class="hljs-title" style="font-weight: 700; color: navy;">True</span>) </span></pre>
+                                <br>
+                                <img  src="images/interpolate.png" alt="interpolate()" />
 
+                </div>
 
                 <div id="1Resources">
                     <h1 class="post_title"> Useful Resources </h1>
+                    <p class="lesson-text">    So far, we've looked into the basics of manipulating our data with the pandas library. The following links and guidelines
+                        are extremely useful and I highly recommend looking into them to get a better idea of what we've learned:</p>
+                
+                <ul class = "bullets">
+                    <li>  The full pandas documentation that outlines the various functions and required parameters
+                        within the pandas library can be found <a href="https://pandas.pydata.org/pandas-docs/stable/"><u>here</u></a>.</li>
+
+                    <li>  Another important library to look into is the numpy library (we'll start using this soon), which makes working with arrays
+                        much faster and easier. See documentation  
+                        <a href="https://docs.scipy.org/doc/numpy/user/basics.html"><u>here</u></a>.</li>
+  
+                    <li>  Here's a useful "cheatsheet" I used to use that goes over commonly used pandas functionalities.  
+                        <a href="https://pandas.pydata.org/pandas-docs/stable/getting_started/10min.html"><u>Cheatsheet</u></a>.
+                    </li>
+                </ul>
                 </div>
                 
 
