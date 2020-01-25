@@ -768,6 +768,7 @@ span.contact-form-not-valid-tip
     width: 200px;
     height: 100%;
     background: #19134E;
+    overflow-x: hidden;
     overflow-y: scroll;
     top: 0px;
     left: 0px;

@@ -90,13 +90,17 @@
                     <li><a class="lesson-item" href="#Structuring-Data">Structuring Data</a></li>
                     <li><a class="lesson-item" href="#Missing-Values">Dealing with Missing Data</a></li>
                     <li><a class="lesson-item" href="#Pandas-Resources">Useful Resources</a></li>
-                    <li><h1 class="lesson-topic">Data Exploration</h1></li>
-                    <li>Setup and Introduction</li>
-                    <li>Temp</li>
-                    <li>Useful Resources</li>
-                    <li><h1 class="lesson-topic">Data Modeling</h1></li>
-                    <li>Setup and Introduction</li>
-                    <li>Temp</li>
+                    <li><h1 class="lesson-topic"><a class="lesson-item" href="#DE">Data Exploration</a></h1></li>
+                    <li><a class="lesson-item" href="#Explore-Setup">Setup and Introduction</a></li>
+                    <li><a class="lesson-item" href="#Univariate">Univariate Exploration</a></li>
+                    <li><a class="lesson-item" href="#Bivariate">Bivariate Exploration</a></li>
+                    <li><a class="lesson-item" href="#Explore-Resources">Useful Resources</a></li>
+                    <li><h1 class="lesson-topic"><a class="lesson-item" href="#DM">Data Modeling</a></h1></li>
+                    <li><a class="lesson-item" href="#Model-Setup">Setup and Introduction</a></li>
+                    <li>Train-Test Split</li>
+                    <li>Time-Series</li>
+                    <li>Regression</li>
+                    <li>Classification</li>
                     <li>Useful Resources</li>
                 </ul>
             </div>
@@ -159,6 +163,7 @@
                     by a common field 'Sport'. Often times databases will have tables that are related to each other and through SQL queries
                     we can retrieve information from these tables. 
                     </p>
+                </div>
                 <div id="Creating-Tables">
                      <!-- Basic SQL Commands -->
                     <h1 class="post_title"> Creating Tables </h1>
@@ -448,6 +453,7 @@ DELETE FROM Players WHERE Name = <span class="hljs-string" style="color: rgb(0, 
                     <li>  Some important libraries we'll be using for data preprocessing include pandas, numpy, matplotlib, and seaborn. All of which can be installed
                         following these <a href="https://docs.python.org/3/installing/index.html"><u>guidelines</u></a>.
                     </li>
+                    <li> You can download the CSV file we'll be referencing <a href="supplements/Sample_Stocks.csv" download><u>here</u></a>.</li>
                 </ul>
                 </div>
 
@@ -463,7 +469,7 @@ DELETE FROM Players WHERE Name = <span class="hljs-string" style="color: rgb(0, 
                     <pre class="hljs" style="display: block; overflow-x: auto; padding: 0.5em; background-color: rgb(244, 244, 244); color: rgb(0, 0, 0);"><span class="hljs-keyword" style="font-weight: 700; color: navy;">import</span> pandas <span class="hljs-keyword" style="font-weight: 700; color: navy;">as</span> pd</pre>
                 </p>
                 <p class="lesson-text"> Pandas is a powerful tool used for manipulating data providing functioanlities to make working with out data easier. The Excel file referenced in this part of the tutorial can be downloaded 
-                    <a href="https://jupyter-notebook.readthedocs.io/en/latest/notebook.html"><u>here (I need to actually put the download link in).</u></a>. The first powerful tool in pandas we'll make use of is a dataframe.
+                    <a href="supplements/Sample_Stocks.csv" download><u>here</u></a>. The first powerful tool in pandas we'll make use of is a dataframe.
                     You can think of a dataframe like a spreadsheet or data table. It's a data structure representing a two-dimensional table. Let's read in our data from Excel into a dataframe object and look at the first few rows of our data.
                     <br><br>
                     <pre class="hljs" style="display: block; overflow-x: auto; padding: 0.5em; background-color: rgb(244, 244, 244); color: rgb(0, 0, 0);"><span class="hljs-attribute" style="color: rgb(0, 85, 0);">stock_data</span> = pd.read_csv(<span class="hljs-string" style="color: rgb(0, 85, 0);">'Sample_Stocks.csv'</span>) <span class="hljs-comment" style="color: rgb(136, 0, 0);"></span>
@@ -582,7 +588,244 @@ stock_data</pre>
 
 
 
-                    </p>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+                <!-- DATA EXPLORATION TITLE -->
+                <h1 id = "DE" class="topic_title">Data Exploration </h1>
+                <!-- DATA EXPLORATION TITLE -->
+                <div id="Explore-Setup">
+                        <!-- SETUP AND INSTRUCTIONS -->
+                        <h1 class="post_title"> Setup and Introduction</h1>
+                        <p class="lesson-text">
+                            If you don't have your environment set up yet. Please reference <a href="#Configuring-Pandas"><u>this guide</u></a>. Throughout this lesson
+                            we'll make use of multiple Python libraries. If you see a library you haven't previously used, simply install the library 
+                            using <code>pip install</code>. For reference, here's the <code>pip install</code> <a href="https://pip.pypa.io/en/stable/reference/pip_install/"><u>documentation</u></a>.
+                            Download the CSV file we'll be working with <a href="#Configuring-Pandas"><u>here</u></a>.
+                            <br><br>
+                            Before we get started, let's recap what we've gone through so far. We've learned how to query a database, import data,
+                            manipulate data tables, and other techniques involved in cleaning and aggregating data. Now that we have our DataFrames
+                            setup, we can begin exploring our variables. This initial "exploration" will help us choose and create a model later on as well
+                            as give us insight into our data.
+                        </p>
+                </div>
+                <div id="Univariate">
+                        <!-- UNIVARIATE -->
+                        <h1 class="post_title"> Univariate Exploration </h1>
+                        <p class="lesson-text"> The first step to looking into our now "cleaned" data is
+                            to perform a univariate analysis. A univariate analysis is when we look at the characteristics
+                            and plots of each variable <i>individually</i> in order to gain insight into our variables. We'll
+                            be making use of a few new libraries like Matplotlib and Seaborn, which you should install now if you plan
+                            on following along. (See <a href="#Explore-Setup"><u>setup</u></a> for more information.) The best way
+                            to start looking into your data is to visualize your data. For this exercise we'll use the
+                            following <a href="#Explore-Setup"><u>CSV</u></a> file. The dataset we're using is
+                            the Iris dataset (read more <a href="https://archive.ics.uci.edu/ml/datasets/Iris"><u>here</u></a>). 
+                            Even though this dataset is preloaded in <code>sklearn</code> library, it's best we practice importing
+                            our own datasets. Here is the code requried
+                            to read in our data and get it ready for exploration. Feel free to copy and paste. <br><br>
+                            <pre class="hljs" style="display: block; overflow-x: auto; padding: 0.5em; background-color: rgb(244, 244, 244); color: rgb(0, 0, 0);"><span class="hljs-keyword" style="font-weight: 700; color: navy;">import</span> pandas <span class="hljs-keyword" style="font-weight: 700; color: navy;">as</span> pd
+<span class="hljs-keyword" style="font-weight: 700; color: navy;">import</span> numpy <span class="hljs-keyword" style="font-weight: 700; color: navy;">as</span> np
+<span class="hljs-keyword" style="font-weight: 700; color: navy;">import</span> matplotlib.pyplot <span class="hljs-keyword" style="font-weight: 700; color: navy;">as</span> plt
+<span class="hljs-keyword" style="font-weight: 700; color: navy;">import</span> seaborn <span class="hljs-keyword" style="font-weight: 700; color: navy;">as</span> sns
+                                
+iris = pd.read_csv(<span class="hljs-string" style="color: rgb(0, 85, 0);">"iris.csv"</span>)
+iris.columns=[<span class="hljs-string" style="color: rgb(0, 85, 0);">'sepal length'</span>, <span class="hljs-string" style="color: rgb(0, 85, 0);">'sepal width'</span>, <span class="hljs-string" style="color: rgb(0, 85, 0);">'petal length'</span>, <span class="hljs-string" style="color: rgb(0, 85, 0);">'petal width'</span>, <span class="hljs-string" style="color: rgb(0, 85, 0);">'class'</span>]</pre>
+
+                </p>
+                <p class="lesson-text">
+                    If you remember from the Data Preperation lessons, we learned that the <code>describe()</code> function
+                    of dataframes outputs summary statistics of our data. We can do that now and also develop a couple
+                    visualizations. <br><br>
+                    <pre class="hljs" style="display: block; overflow-x: auto; padding: 0.5em; background-color: rgb(244, 244, 244); color: rgb(0, 0, 0);"><span class="hljs-symbol" style="color: rgb(0, 85, 0);"># Defining subplots</span> 
+fig,axes=plt.subplots(<span class="hljs-number" style="color: rgb(136, 0, 0);">2</span>,<span class="hljs-number" style="color: rgb(136, 0, 0);">2</span>, figsize=(<span class="hljs-number" style="color: rgb(136, 0, 0);">12</span>, <span class="hljs-number" style="color: rgb(136, 0, 0);">9</span>))
+                        
+<span class="hljs-symbol" style="color: rgb(0, 85, 0);"># Visualizing each numeric attribute</span> 
+sns.distplot(iris[<span class="hljs-string" style="color: rgb(0, 85, 0);">'Sepal Length'</span>], ax=axes[<span class="hljs-number" style="color: rgb(136, 0, 0);">0</span>,<span class="hljs-number" style="color: rgb(136, 0, 0);">0</span>])
+sns.distplot(iris[<span class="hljs-string" style="color: rgb(0, 85, 0);">'Sepal Width'</span>], ax=axes[<span class="hljs-number" style="color: rgb(136, 0, 0);">0</span>,<span class="hljs-number" style="color: rgb(136, 0, 0);">1</span>])
+sns.distplot(iris[<span class="hljs-string" style="color: rgb(0, 85, 0);">'Petal Length'</span>], ax=axes[<span class="hljs-number" style="color: rgb(136, 0, 0);">1</span>,<span class="hljs-number" style="color: rgb(136, 0, 0);">0</span>])
+sns.distplot(iris[<span class="hljs-string" style="color: rgb(0, 85, 0);">'Petal Width'</span>], ax=axes[<span class="hljs-number" style="color: rgb(136, 0, 0);">1</span>,<span class="hljs-number" style="color: rgb(136, 0, 0);">1</span>])
+                        
+<span class="hljs-symbol" style="color: rgb(0, 85, 0);"># Displaying figures</span> 
+plt.show()</pre><br>
+                    <img  src="images/histo.png" alt="Histograms" /> <br><br></p>
+                    <p class="lesson-text">
+                    These histograms give us insight into our data by showing us each distribution. For instance,
+                    we can see that sepal length and sepal width display unimodality (one mode/peak), whereas petal length
+                    and petal width seem more bimodal. We can go one step furthur and look into the kurtosis and skew our each attribute.
+                    The kurtosis measures how close our values are to our mean, you can think of it as how "steep" our distribution slopes around
+                    the its mean. Skew on the otherhand shows us if we have more observations on the tails of our data, in other words
+                    it shows us if our distribution favors the left or right side. <br><br>
+                    <pre class="hljs" style="display: block; overflow-x: auto; padding: 0.5em; background-color: rgb(244, 244, 244); color: rgb(0, 0, 0);"><span class="hljs-function"><span class="hljs-title" style="font-weight: 700; color: navy;">print</span><span class="hljs-params">(<span class="hljs-string" style="color: rgb(0, 85, 0);">"Kurtosis"</span>)</span></span>
+<span class="hljs-function"><span class="hljs-title" style="font-weight: 700; color: navy;">print</span><span class="hljs-params">(iris.kurtosis()</span></span>)
+<span class="hljs-function"><span class="hljs-title" style="font-weight: 700; color: navy;">print</span><span class="hljs-params">(<span class="hljs-string" style="color: rgb(0, 85, 0);">"Skew"</span>)</span></span>
+<span class="hljs-function"><span class="hljs-title" style="font-weight: 700; color: navy;">print</span><span class="hljs-params">(iris.skew()</span></span>)</pre> <br>
+                    <img  src="images/kurtosis.png" alt="Kurtosis and Skew" /></p>
+                    <p class="lesson-text">
+                    Great! We have our kurtosis and skew values, but what to they mean? A negative skew value indicates that
+                    our data has more observations to the right of the mean, also known as left-skewed. If our value is positive,
+                    our data is considered right-skewed. However, the magnitude of the skewness values also matter. Our skewness
+                    values are between -0.5 and 0.5 which means our data is relatively symmetric. A larger skewness value tends to mean
+                    your data is more heavily skewed. In general a skewness value between -1 and 1 is considered acceptable (however
+                    these values aren't set in stone). In terms of kurtosis, a positive kurtosis shows that our data is steep
+                    near the mean, while a negative kurtosis means our "hump" is relatively flat. Like skewness, the magnitude of the
+                    kurtosis value is important. The higher the magnitude, the more observations are clustered near the mean. In general, 
+                    kurtosis values between -2 and 2 are considered acceptable. <br><br>
+                    One more thing we can do is look at a box-plot of our data. A box-plot will show us our interquartile range (IQR)
+                    which represents the range of values between the 25th and 75th percentile. In addition, a box-plot will show us if we have any outliers, 
+                    something we'll learn how to deal with next.<br><br> 
+                    <pre class="hljs" style="display: block; overflow-x: auto; padding: 0.5em; background-color: rgb(244, 244, 244); color: rgb(0, 0, 0);"><span class="hljs-title" style="font-weight: 700; color: navy;">sns</span>.boxplot(<span class="hljs-class"><span class="hljs-keyword" style="font-weight: 700; color: navy;">data</span>=iris)</span></pre><br>
+                    <img  src="images/boxplot.png" alt="Box-plot" /></p>
+                    <p class="lesson-text">
+                    As you can see, we potentially may have outliers in our sepal width attribute. The outliers are denoted by the points
+                    that fall outside the box-plot. There are many ways to deal with outliers, one of which is removing all entries where outliers
+                    exist. However, determining what should be done with outliers depends on our model. We can train and test our model with
+                    and without outliers to see performance. In general, it is a good idea to deal with outliers early to prevent
+                    our model from being trained on observations that aren't representative of our dataset as a whole. In order to deal with
+                    outliers, we'll first have to import stats from the scipy library and then remove outlier observations. <br><br>
+                    <pre class="hljs" style="display: block; overflow-x: auto; padding: 0.5em; background-color: rgb(244, 244, 244); color: rgb(0, 0, 0);"><span class="hljs-keyword" style="font-weight: 700; color: navy;">from</span> scipy <span class="hljs-keyword" style="font-weight: 700; color: navy;">import</span> stats
+<span class="hljs-function"><span class="hljs-title" style="font-weight: 700; color: navy;">print</span><span class="hljs-params">(iris.size)</span></span>
+<span class="hljs-keyword" style="font-weight: 700; color: navy;">for</span> column <span class="hljs-keyword" style="font-weight: 700; color: navy;">in</span> iris<span class="hljs-selector-class">.columns</span>:
+    <span class="hljs-keyword" style="font-weight: 700; color: navy;">if</span> column != <span class="hljs-string" style="color: rgb(0, 85, 0);">'Class'</span>:
+        iris = iris[(np.abs(stats.zscore(iris[column])))&lt;<span class="hljs-number" style="color: rgb(136, 0, 0);">3</span>]
+<span class="hljs-function"><span class="hljs-title" style="font-weight: 700; color: navy;">print</span><span class="hljs-params">(iris.size)</span></span>   </pre></p>
+                    <p class="lesson-text">    
+                    What we've done here is removed all the outliers from our data. The way we did this was by looking at something called a z-score, which 
+                    represents how many standard deviations an observation is from the mean. Generally, any observation with a z-score over 3 (3 standard deviations
+                    from the mean), is considered an outlier. In this code snippet, we iterated through each column and updated our dataframe
+                    with only observations which had a z-score of less than 3. What's interested is when looking at the size of our dataframe before and after,
+                    no observations were deleted, in other words, out data had no outliers.<br><br>
+                    Something you may have wondering is that why our box-plot displayed outliers while our z-score checker did not. The reason for the
+                    difference is how outliers are calculated. The z-score looks at the standard deviations an observation is from the mean (read more about z-scores <a href="https://www.statisticshowto.datasciencecentral.com/probability-and-statistics/z-score/"><u>here</u></a>.)
+                    With box-plots, outliers are usually determined by looking at how many <i>IQRs</i> our data is from our mean. Data outside <code>k x IQR</code> (where <code>k</code> is usually 1.5)
+                    from the quartiles denote outliers in a box-whisker plot. 
+                </p>
+                </div>
+
+
+
+
+
+                <div id="Bivariate">
+                        <!-- BIVARIATE -->
+                        <h1 class="post_title"> Bivariate Exploration </h1>
+                        <p class="lesson-text"> In our previous lesson, we learned how to look into the attributes of our dataset and
+                            utilize visualizations to explore our data. Often times, we're interested in how variables relate to each other, leading to
+                            bivariate and multivariate data exploration. <br><br>
+                            To start off, we'll look at how our variables are correlated with each other through a <i>pairs plot</i>, a pairs plot
+                            is a scatterplot of two specific attributes. We can use <code>seaborn</code> to create these.<br><br>
+                            <pre class="hljs" style="display: block; overflow-x: auto; padding: 0.5em; background-color: rgb(244, 244, 244); color: rgb(0, 0, 0);">sns.<span class="hljs-title" style="font-weight: 700; color: navy;">pairplot</span>(iris, hue = <span class="hljs-string" style="color: rgb(0, 85, 0);">'Class'</span>);</pre><br>
+                            <img  src="images/pairsplot.png" alt="Pairs Plot" /></p>
+                            <p class="lesson-text">
+                        I know the plot may look daunting, but it's very easy to understand. The points are colored based on the 'Class'
+                        of each observation. We did this by passing in the Class attribute for the hue paramater. On either axis of the overall figure
+                        are each of our attributes. Each individual figure corresponds to a scatter plot of those attributes. For instance, in the figure on the top row
+                        second column, attribute 'Sepal Width' is on the x-axis while attribute 'Sepal Length' is on the y-axis. On the diagonal you'll notice
+                        rather than scatterplots, distributions are shown. Each distribution of each figure along the diagonal, shows the distribution of that specific
+                        attribute for each Class. <br><br>
+                        The next step is to see what insight we can get from these figures. Looking at the figures, it seems that iris-virginica Class 
+                        tends to be the largest in terms of dimensions while the iris-setosa seems to be the smallest. Another thing you can notice is that on the
+                        distributions along the diagonal, the peaks and steepnesses aren't the same across classes. This is due to different kurtosis and skew values. If you
+                        look at our kurtosis and skew calculations from the previous lecture, you'll be able to visualize how these metrics translate to a distribution. Something else
+                        you'll notice is that our plot for petal length and petal width seem to follow a strong linear correlation. With pair plots, we can look into how correlated
+                        variables are with each other. 
+                        <br><br>
+                        However, there's an even better way to quantify and visualize the correlation between out attributes using Heatmaps and correlation matricies. 
+                        Let's start off by getting the correlation matrix of our attributes.<br><br>
+                        <pre class="hljs" style="display: block; overflow-x: auto; padding: 0.5em; background-color: rgb(244, 244, 244); color: rgb(0, 0, 0);"><span class="hljs-name" style="font-weight: 700; color: navy;">print(</span>iris.corr())</pre><br>
+                        <img  src="images/corrmat.png" alt="Correlation Matrix" /></p>    
+                        <p class="lesson-text">           
+                        Like in our pairs plot, the x and y axis show our attributes while the values show the correlation between those attributes. Obviously,
+                        variables will be 100% correlated with themselves, which is why our diagonal is 1. After looking at the values you'll notice we were correct
+                        in saying petal length and petal width are correlated, with a correlation of 0.96. We'll notice other variables are also strongly correlated with each other
+                        like sepal length and petal length. 
+                        As useful as the correlation matrix is, it'll be helpful to actually <i>visualize</i> the matrix. We can do this with a Heat Map. <br><br>
+                        <pre class="hljs" style="display: block; overflow-x: auto; padding: 0.5em; background-color: rgb(244, 244, 244); color: rgb(0, 0, 0);">f, <span class="hljs-attr">ax</span> = plt.subplots(<span class="hljs-attr">figsize=(12,</span> <span class="hljs-number" style="color: rgb(136, 0, 0);">9</span>))
+sns.heatmap(corr_mat, <span class="hljs-attr">vmax=1,</span> <span class="hljs-attr">square=True,</span> <span class="hljs-attr">annot=True);</span></pre><br>
+                        <img  src="images/heatmap.png" alt="Heat Map" />   
+                        </p>
+                        <p class="lesson-text"> 
+                        Our heat map shows us a visual version of our correlation matrix. our <code>vmax</code> parameter sets the maximum value scale for our correlation. The <code>square</code> parameter
+                        gives us both sides of our matrix rather than a "staircase" version. The <code>annot</code> parameter displays the numeric value for the correlation within each square.                     
+                        </p>
+
+                    </div>
+
+
+
+
+
+
+
+
+
+
+
+
+                    <div id="Explore-Resources">
+                                <!-- USEFUL RESOURCES -->
+                                <h1 class="post_title"> Useful Resources </h1>
+
+                                <p class="lesson-text"> In this lesson, we learned how to explore our data and understand how our variables relate
+                                    to each other. We went through a few functionalities of the seaborn and pandas libraries and a highly recommend learning how to
+                                    tweak paramaters for various visualizations. 
+                                </p>
+                                
+                                <ul class = "bullets">
+                                    <li>  The following are the documentations for the functionalities we learned about. <br> <a href="https://seaborn.pydata.org/api.html"><u>Seaborn API</u></a> | 
+                                    <a href="https://seaborn.pydata.org/generated/seaborn.distplot.html#seaborn.distplot"><u>distplot()</u></a> | <a href="https://pandas.pydata.org/pandas-docs/stable/reference/api/pandas.DataFrame.kurtosis.html"><u>kurtosis()</u></a> | 
+                                    <a href="https://pandas.pydata.org/pandas-docs/version/0.23.4/generated/pandas.DataFrame.skew.html"><u>skew()</u></a> | <a href="https://pythonbasics.org/seaborn_boxplot/"><u>boxplot()</u> | <a href="https://docs.scipy.org/doc/scipy/reference/generated/scipy.stats.zscore.html"><u>zscore()</u> | 
+                                    <a href="https://seaborn.pydata.org/generated/seaborn.pairplot.html"><u>pairplot()</u></a> | <a href="https://pandas.pydata.org/pandas-docs/stable/reference/api/pandas.DataFrame.corr.html"><u>corr()</u></a> | <a href="https://seaborn.pydata.org/generated/seaborn.heatmap.html"><u>heatmap()</u></a>.            
+                                    </li>
+                
+                                    <li>  Here's a helpful guide provided by the University of Minnesota on covariance and correlation. 
+                                        <a href="http://users.stat.umn.edu/~helwig/notes/datamat-Notes.pdf"><u>Link</u></a>.</li>
+                
+                                </ul>
+
+                                    </p>
+
+                                    </div>
+                                
+                <!-- DATA MODELING TITLE -->
+                <h1 id = "DM" class="topic_title">Data Modeling </h1>
+                <!-- DATA MODELING TITLE -->
+                <div id="Model-Setup">
+                        <!-- SETUP AND INSTRUCTIONS -->
+                        <h1 class="post_title"> Setup and Introduction</h1>
+                        <p class="lesson-text">
+                            If you don't have your environment set up yet. Please reference <a href="#Configuring-Pandas"><u>this guide</u></a>. Throughout this lesson
+                            we'll make use of multiple Python libraries. If you see a library you haven't previously used, simply install the library 
+                            using <code>pip install</code>. For reference, here's the <code>pip install</code> <a href="https://pip.pypa.io/en/stable/reference/pip_install/"><u>documentation</u></a>.
+                            Download the CSV file we'll be working with <a href="#Configuring-Pandas"><u>here</u></a>.
+                        </p>
+                </div>
+
+
+
+
+
+
+
+
+
+
+
+
+
                     <br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br>
             </div>
 
