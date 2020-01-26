@@ -74,7 +74,7 @@
                     </a>
                 </div>    
                 <ul>
-                    <li>. </li>
+                    <li>&nbsp;</li>
                     <li><h1 class="lesson-topic"><a class="lesson-item" href="#queries">SQL Queries</a></h1></li>
                     <li><a class="lesson-item" href="#SQL-Setup">Setup and Introduction</a></li>
                     <li><a class="lesson-item" href="#Creating-Tables">Creating Tables</a></li>
@@ -97,11 +97,30 @@
                     <li><a class="lesson-item" href="#Explore-Resources">Useful Resources</a></li>
                     <li><h1 class="lesson-topic"><a class="lesson-item" href="#DM">Data Modeling</a></h1></li>
                     <li><a class="lesson-item" href="#Model-Setup">Setup and Introduction</a></li>
-                    <li>Train-Test Split</li>
-                    <li>Time-Series</li>
-                    <li>Regression</li>
+                    <li><a class="lesson-item" href="#Train-Test">Recurring Concepts</a></li>
+                    <li><a class="lesson-item" href="#Train-Test">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Train-Test </a></li>
+                    <li><a class="lesson-item" href="#Cross-Validation">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Cross-Validation</a></li>
+                    <li>Regression Models</li>
+                    <li>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Linear Regression</li>
+                    <li>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Ridge-LASSO</li> 
+                    <li>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Support Vector (SVR)</li>
+                    <li>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Decision Tree (CART)</li>
+                    <li>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Nearest Neighbors (KNN)</li>
+                    <li>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Neural Networks (ANN)</li>
                     <li>Classification</li>
+                    <li>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Logistic Regression</li>
+                    <li>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Support Vector (SVM)</li>
+                    <li>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Decision Tree (CART)</li>
+                    <li>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Nearest Neighbors (KNN) </li>
+                    <li>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Neural Network (ANN)</li>
+                    <li>Clustering</li>
+                    <li>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;K-Means</li>
+                    <li>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;DBSCAN</li>
+                    <li>Time-Series</li>
+                    <li>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;AR, MA, ARMA</li>
+                    <li>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;ARIMA & SARIMA </li>
                     <li>Useful Resources</li>
+                    <li>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</li>
                 </ul>
             </div>
 
@@ -341,7 +360,7 @@ DELETE FROM Players WHERE Name = <span class="hljs-string" style="color: rgb(0, 
                             table (Coaches) based on their shared attribute (Sport), a <code>LEFT JOIN</code> is the same as as
                             <code>LEFT OUTER JOIN</code>. The best way to understand the various joins is through venn diagrams. Here's a helpful
                             and easy diagram I found on <a href="https://www.reddit.com/r/SQL/comments/108xpy/visual_guide_to_sql_joins/"><u>Reddit</u></a> that shows the different types of joins. <br><br>
-                            <img src="images/SQL-Joins.png" alt="SQL Joins" />
+                            
                         </p>
                         <p  class="lesson-text">
                             To know when to use each type of <code>join</code>, it's important you understand how they work conceptually. The Venn Diagram will help
@@ -468,9 +487,9 @@ DELETE FROM Players WHERE Name = <span class="hljs-string" style="color: rgb(0, 
                     <br><br>
                     <pre class="hljs" style="display: block; overflow-x: auto; padding: 0.5em; background-color: rgb(244, 244, 244); color: rgb(0, 0, 0);"><span class="hljs-keyword" style="font-weight: 700; color: navy;">import</span> pandas <span class="hljs-keyword" style="font-weight: 700; color: navy;">as</span> pd</pre>
                 </p>
-                <p class="lesson-text"> Pandas is a powerful tool used for manipulating data providing functioanlities to make working with out data easier. The Excel file referenced in this part of the tutorial can be downloaded 
+                <p class="lesson-text"> Pandas is a powerful tool used for manipulating data providing functioanlities to make working with out data easier. The CSV file referenced in this part of the tutorial can be downloaded 
                     <a href="supplements/Sample_Stocks.csv" download><u>here</u></a>. The first powerful tool in pandas we'll make use of is a dataframe.
-                    You can think of a dataframe like a spreadsheet or data table. It's a data structure representing a two-dimensional table. Let's read in our data from Excel into a dataframe object and look at the first few rows of our data.
+                    You can think of a dataframe like a spreadsheet or data table. It's a data structure representing a two-dimensional table. Let's read in our data from CSV into a dataframe object and look at the first few rows of our data.
                     <br><br>
                     <pre class="hljs" style="display: block; overflow-x: auto; padding: 0.5em; background-color: rgb(244, 244, 244); color: rgb(0, 0, 0);"><span class="hljs-attribute" style="color: rgb(0, 85, 0);">stock_data</span> = pd.read_csv(<span class="hljs-string" style="color: rgb(0, 85, 0);">'Sample_Stocks.csv'</span>) <span class="hljs-comment" style="color: rgb(136, 0, 0);"></span>
 stock_data.head()   </pre>
@@ -643,7 +662,7 @@ stock_data</pre>
 <span class="hljs-keyword" style="font-weight: 700; color: navy;">import</span> seaborn <span class="hljs-keyword" style="font-weight: 700; color: navy;">as</span> sns
                                 
 iris = pd.read_csv(<span class="hljs-string" style="color: rgb(0, 85, 0);">"iris.csv"</span>)
-iris.columns=[<span class="hljs-string" style="color: rgb(0, 85, 0);">'sepal length'</span>, <span class="hljs-string" style="color: rgb(0, 85, 0);">'sepal width'</span>, <span class="hljs-string" style="color: rgb(0, 85, 0);">'petal length'</span>, <span class="hljs-string" style="color: rgb(0, 85, 0);">'petal width'</span>, <span class="hljs-string" style="color: rgb(0, 85, 0);">'class'</span>]</pre>
+iris.columns=[<span class="hljs-string" style="color: rgb(0, 85, 0);">'Sepal Length'</span>, <span class="hljs-string" style="color: rgb(0, 85, 0);">'Sepal Width'</span>, <span class="hljs-string" style="color: rgb(0, 85, 0);">'Petal Length'</span>, <span class="hljs-string" style="color: rgb(0, 85, 0);">'Petal Width'</span>, <span class="hljs-string" style="color: rgb(0, 85, 0);">'Class'</span>]</pre>
 
                 </p>
                 <p class="lesson-text">
@@ -810,11 +829,54 @@ sns.heatmap(corr_mat, <span class="hljs-attr">vmax=1,</span> <span class="hljs-a
                             If you don't have your environment set up yet. Please reference <a href="#Configuring-Pandas"><u>this guide</u></a>. Throughout this lesson
                             we'll make use of multiple Python libraries. If you see a library you haven't previously used, simply install the library 
                             using <code>pip install</code>. For reference, here's the <code>pip install</code> <a href="https://pip.pypa.io/en/stable/reference/pip_install/"><u>documentation</u></a>.
-                            Download the CSV file we'll be working with <a href="#Configuring-Pandas"><u>here</u></a>.
+                            <br><br>
+                            The next concept we'll be going over is modeling our data. Even though modeling data is extremely important, it's important to understand
+                            that a majority of your time will be spent cleaning and exploring your data and thus, should be practiced heavily. In this series, we'll go over
+                            some commonly used models, how they work, how to implement them, and when to use them. Feel free to use your own datasets when following along.
                         </p>
                 </div>
 
-
+                        <div id="Train-Test">
+                                <!-- TRAIN AND TEST -->
+                                <h1 class="post_title"> Training and Testing Sets</h1>
+                                <p class="lesson-text">
+                                    Before we start learning how to use models, it's important to understand what it means to "train" and "test" your data.
+                                    When you "train" your data, you are fitting your model to a part of your dataset. "Testing" your data is when you feed the other part of your dataset
+                                    into your newly trained model in order to see how it performs. You can see how it performs by comparing your model's forecasts with the actual values in your dataset.
+                                    We'll be going much more in-depth on how to do all this in later lectures. Figuring out your train/test ratio is important to prevent under or overfitting.
+                                
+                                    Training your model too much on your training set may cause the model to be <i>overfitted</i> while not training your model enough may cause the model to be <i>underfitted</i>. A technique
+                                    used to avoid overfitting is using another part of your data called a <i>validation set</i>. The validation set is really part of your training set - we'll get more into this in the next lesson. <br><br>
+                                    You'll hear a lot of recommended train/test ratios like 70/30, 80/20, or 75/25 and train/test/validation ratios of 70/15/15 or 60/20/20. If your dataset is smaller, 
+                                    a validation set may not be helpful and a 70/30 train/test split could work. With larger datasets, using cross-validation can help with fitting the model. We'll split our iris dataset from the previous lessons below.
+                                    <br><br>
+                                    <pre class="hljs" style="display: block; overflow-x: auto; padding: 0.5em; background-color: rgb(244, 244, 244); color: rgb(0, 0, 0);"><span class="hljs-built_in" style="font-weight: 700; color: navy;">from</span> sklearn.model_selection <span class="hljs-built_in" style="font-weight: 700; color: navy;">import</span> train_test_split
+X_train, X_test, y_train, y_test = <span class="hljs-built_in" style="font-weight: 700; color: navy;">train_test_split</span>(iris, iris[<span class="hljs-string" style="color: rgb(0, 85, 0);">'Class'</span>], <span class="hljs-built_in" style="font-weight: 700; color: navy;">test_size</span>=0.3)</pre>
+                                    </p>
+                                    <p class="lesson-text">
+                                        <code>X_train</code> represents the inputs we'll be training our model on, while <code>X_test</code> 
+                                        represents the inputs we'll be using for testing our model. Similarly, <code>y_test</code> and <code>y_train</code>
+                                        are both the outputs we'll be using for training and testing respectively. The <code>train_test_split</code> function splits our <code>iris</code> dataset, with <code>iris['Class']</code>  being the target variable, into a training and testing set according to the ratio in the <code>test_size</code> paramater.
+                                        <br><br>
+                                        One of the reasons <code>train_test_split</code> is more useful than just manually splitting a Series is because it defaults to <i>shuffling</i> our data. This means instead of just taking the first 70% of your dataset as your training set, it'll shuffle your dataset first to prevent
+                                        potential bias based on how the data was prepared or inputted into your database. The <code>train_test_split</code> function can also <i>stratify</i> our data. <br><br>
+                                        <pre class="hljs" style="display: block; overflow-x: auto; padding: 0.5em; background-color: rgb(244, 244, 244); color: rgb(0, 0, 0);">X_train, X_test, y_train, y_test = <span class="hljs-built_in" style="font-weight: 700; color: navy;">train_test_split</span>(iris, iris[<span class="hljs-string" style="color: rgb(0, 85, 0);">'Class'</span>], <span class="hljs-built_in" style="font-weight: 700; color: navy;">stratify</span>=iris[<span class="hljs-string" style="color: rgb(0, 85, 0);">'Class'</span>], <span class="hljs-built_in" style="font-weight: 700; color: navy;">test_size</span>=0.3)</pre>
+                                        
+                                    </p>
+                                    <p class="lesson-text">
+                                        Stratifying our training sets allows the model to be trained on a subset more representative of the dataset as a whole. In our case, our target variable is 'Class'. There are four iris 'Class' categories
+                                        each with a certain share of the total dataset. When a stratified training set is created, it <i>maintains</i> that share of each 'Class' when making the training set. This is especially useful in smaller datasets.
+                                    </p>                         
+                                    
+                </div>
+                <div id="Cross-Validation">
+                        <!-- CROSS-VALIDATION -->
+                        <h1 class="post_title"> Cross Validation</h1>
+                        <p class="lesson-text">
+                            Cross-Validation is a method to reduce overall bias in our model's predictions. A <code>k-fold cross-validation</code> works by 
+                            </p>
+                            </div>
+                            
 
 
 
