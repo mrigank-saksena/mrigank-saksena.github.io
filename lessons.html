@@ -73,8 +73,8 @@
                     <span></span>
                     </a>
                 </div>    
-                <ul>
-                    <li>&nbsp;</li>
+                <ul class="toc">
+                        <li>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</li>
                     <li><h1 class="lesson-topic"><a class="lesson-item" href="#queries">SQL Queries</a></h1></li>
                     <li><a class="lesson-item" href="#SQL-Setup">Setup and Introduction</a></li>
                     <li><a class="lesson-item" href="#Creating-Tables">Creating Tables</a></li>
@@ -85,42 +85,48 @@
                     <li><a class="lesson-item" href="#Joins">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Unions and Joins</a></li>
                     <li><a class="lesson-item" href="#Nested">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Nested Queries</a></li>
                     <li><a class="lesson-item" href="#SQL-Resources">Useful Resources</a></li>
+                    <li>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</li>
+                    
                     <li><h1 class="lesson-topic"><a class="lesson-item" href="#DP">Data Preparation</a></h1></li>
                     <li><a class="lesson-item" href="#Configuring-Pandas">Setup and Introduction</a></li>
                     <li><a class="lesson-item" href="#Structuring-Data">Structuring Data</a></li>
-                    <li><a class="lesson-item" href="#Missing-Values">Dealing with Missing Data</a></li>
+                    <li><a class="lesson-item" href="#Missing-Values">Interpolating Missing Data</a></li>
                     <li><a class="lesson-item" href="#Pandas-Resources">Useful Resources</a></li>
+                    <li>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</li>
                     <li><h1 class="lesson-topic"><a class="lesson-item" href="#DE">Data Exploration</a></h1></li>
                     <li><a class="lesson-item" href="#Explore-Setup">Setup and Introduction</a></li>
                     <li><a class="lesson-item" href="#Univariate">Univariate Exploration</a></li>
                     <li><a class="lesson-item" href="#Bivariate">Bivariate Exploration</a></li>
                     <li><a class="lesson-item" href="#Explore-Resources">Useful Resources</a></li>
+                    <li>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</li>
+
                     <li><h1 class="lesson-topic"><a class="lesson-item" href="#DM">Data Modeling</a></h1></li>
                     <li><a class="lesson-item" href="#Model-Setup">Setup and Introduction</a></li>
                     <li><a class="lesson-item" href="#Train-Test">Recurring Concepts</a></li>
                     <li><a class="lesson-item" href="#Train-Test">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Train-Test </a></li>
                     <li><a class="lesson-item" href="#Cross-Validation">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Cross-Validation</a></li>
+                    <li><a class="lesson-item" href="#Bias-Variance">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Bias-Variance Tradeoff</a></li>
                     <li>Regression Models</li>
                     <li>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Linear Regression</li>
                     <li>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Ridge-LASSO</li> 
-                    <li>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Support Vector (SVR)</li>
-                    <li>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Decision Tree (CART)</li>
-                    <li>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Nearest Neighbors (KNN)</li>
-                    <li>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Neural Networks (ANN)</li>
+                    <li>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Support Vector - SVR</li>
+                    <li>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;K-Nearest Neighbors</li>
                     <li>Classification</li>
                     <li>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Logistic Regression</li>
-                    <li>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Support Vector (SVM)</li>
-                    <li>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Decision Tree (CART)</li>
-                    <li>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Nearest Neighbors (KNN) </li>
-                    <li>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Neural Network (ANN)</li>
+                    <li>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Random Forest</li>
+                    <li>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Support Vector Machines</li>
+                    <li>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;K-Nearest Neighbors</li>
                     <li>Clustering</li>
                     <li>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;K-Means</li>
                     <li>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;DBSCAN</li>
                     <li>Time-Series</li>
-                    <li>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;AR, MA, ARMA</li>
+                    <li>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;AR & MA</li>
+                    <li>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;ARMA</li>
                     <li>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;ARIMA & SARIMA </li>
-                    <li>Useful Resources</li>
+                    <li>Neural Networks Intro</li>
+                    <li><a class="lesson-item" href="#Model-Resources">Useful Resources</a></li>
                     <li>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</li>
+
                 </ul>
             </div>
 
@@ -735,9 +741,6 @@ plt.show()</pre><br>
                 </div>
 
 
-
-
-
                 <div id="Bivariate">
                         <!-- BIVARIATE -->
                         <h1 class="post_title"> Bivariate Exploration </h1>
@@ -784,16 +787,6 @@ sns.heatmap(corr_mat, <span class="hljs-attr">vmax=1,</span> <span class="hljs-a
                     </div>
 
 
-
-
-
-
-
-
-
-
-
-
                     <div id="Explore-Resources">
                                 <!-- USEFUL RESOURCES -->
                                 <h1 class="post_title"> Useful Resources </h1>
@@ -819,6 +812,19 @@ sns.heatmap(corr_mat, <span class="hljs-attr">vmax=1,</span> <span class="hljs-a
 
                                     </div>
                                 
+
+
+
+
+
+
+
+
+
+
+
+                                    
+
                 <!-- DATA MODELING TITLE -->
                 <h1 id = "DM" class="topic_title">Data Modeling </h1>
                 <!-- DATA MODELING TITLE -->
@@ -873,78 +879,89 @@ X_train, X_test, y_train, y_test = <span class="hljs-built_in" style="font-weigh
                         <!-- CROSS-VALIDATION -->
                         <h1 class="post_title"> Cross Validation</h1>
                         <p class="lesson-text">
-                            Cross-Validation is a method to reduce overall bias in our model's predictions. A <code>k-fold cross-validation</code> works by 
+                            Cross-Validation is a method to reduce overall bias in our model's predictions. We'll be focusong on <code>k-fold cross-validation</code>. Let's say we took 70% of our data for training and 30% for testing.
+                            We would only be training our model on one specific training and testing set, this may not be the best option because our model might perform better on specific subsets of our data than other subsets. How can we 
+                            get around this? One solution is to use <i>multiple</i> training and testing sets and then looking at the <i>overall</i> result across <i>all</i> sets. This makes it much easier to compare different machine learning models
+                            because we'll have a better idea of how each model would perform across multiple testing sets. Luckily, this is one of the main benefits of <code>k-fold cross-validation</code>. <br><br>
+                            K-fold cross validation works by dividing out dataset into k subsets, and running our learning algorithm k times, with each bin being the testing set for a different iteration. I'll give you an example.
+                            Let's say our dataset had 1000 observations. We could use a k-fold cross-validation method with k=10 that would divide our dataset into k=10 bins, each of size 100. Good so far? Instead of then training our model in one iteration,
+                            we'll use 9 of those bins to train our data and the last bin left over to test our data. Going back to basic combinatorics, there are only 10 ways to choose 9 training subsets and 1 testing subset from a set of
+                            10 bins, this is why it runs 10 times.
+                            <br><br>
+                            When k=10, like in the example above, it is known as <i>10-fold cross-validation</i>. Usually we use k=10 for cross-validation, however, like when we divided our data into training and testing sets, it all depends on how much data you have. Here's a useful visualization
+                            from <a href="https://en.wikipedia.org/wiki/Cross-validation_(statistics)#/media/File:K-fold_cross_validation_EN.svg"><u>Wikipedia</u></a> that shows how a k-fold validation would split our dataset.<br><br>
+                            <img  src="images/kfoldval.png" alt="K-Fold Cross-Validation" /><br><br>
+                            Now let's look into how we can implement a <code>k-fold cross-validation</code>.<br><br>
+                            <pre class="hljs" style="display: block; overflow-x: auto; padding: 0.5em; background-color: rgb(244, 244, 244); color: rgb(0, 0, 0);"><span class="hljs-keyword" style="font-weight: 700; color: navy;">from</span> sklearn<span class="hljs-selector-class">.model_selection</span><span class="hljs-keyword" style="font-weight: 700; color: navy;"> import </span>KFold
+folds = <span class="hljs-keyword" style="font-weight: 700; color: navy;">KFold</span>(n_splits=<span class="hljs-number" style="color: rgb(136, 0, 0);">10</span>)
+<span class="hljs-keyword" style="font-weight: 700; color: navy;">for</span> train_index, test_index <span class="hljs-keyword" style="font-weight: 700; color: navy;">in</span> folds.split(iris):
+    X_train, X_test, y_train, y_test = iris<span class="hljs-selector-class">.iloc</span>[train_index], iris<span class="hljs-selector-class">.iloc</span>[test_index], iris[<span class="hljs-string" style="color: rgb(0, 85, 0);">'Class'</span>]<span class="hljs-selector-class">.iloc</span>[train_index], iris[<span class="hljs-string" style="color: rgb(0, 85, 0);">'Class'</span>]<span class="hljs-selector-class">.iloc</span>[test_index]</pre><br><br>
+                                Now we'll have our training and testing sets ready. Another common type of cross-validation is Leave-One-Out Cross Validation (LOOCV). LOOCV is a type of k-fold cross-validation where k = n, or the total number of data points in our dataset. This is when <i>each</i> of our observations will
+                                individually be a testing set when training our model.
+                                Obviously, as k increases, the computation time increases as well, since more training and testing will have to occur. This is why LOOCV is only recommended for small datasets. When choosing your k, it's important to keep in mind the size of your dataset
+                                as well as the complexity of your model. One other reason a high k may not be advisable is due to the variance-bias tradeoff. Something we'll get into in our next lesson.
                             </p>
                             </div>
-                            
+                <div id="Bias-Variance">
+                        <!-- Bias-Variance -->
+                        <h1 class="post_title"> Bias-Variance Tradeoff</h1>
+                        <p class="lesson-text">
+                            When choosing your model, it's important to keep the bias-variance tradeoff in mind. Let's look into what bias and variance are.
+                            <br><br>
+                            <strong>Bias</strong><br>
+                            Bias is how well the average or our model's predictions compares to the actual value. One way to think of it is like throwing darts at a dartboard where the center is your expected output. 
+                            If your model had low bias, the darts would be around the center - meaning we did a pretty good job <i>on average</i> in predicting our output. However, we're also interested in decreasing the <i>variability</i>
+                            in those predictions. In the dart analogy, that's like making the darts we threw closer together. This brings us to <i>variance</i>.<br><br>
+                            <strong>Variance</strong><br>
+                            Whent training a model, if the model becomes overfitted on our training set, it may perform very well when fitting that specific set, however when testing it on
+                            a different set of data, the model may not perform as well. You can think of the variation in how our model performs on these sets of data as the <i>variance</i> of our model.
+                            Ideally, we want to reduce the variance in order to have more precise outputs. When throwing darts, if the darts are close together, you have low variance whereas if the darts we threw
+                            are far apart, we have high variance. Here's a <a href="https://www.pinterest.com/pin/514043744937666589/?lp=true"><u>visualization</u></a> of the dart analogy.<br>
+                            <img  src="images/biasvariability.png" alt="Dart Analogy" /><br><br>
+                            When making out model, if we train our model to much on our training set it becomes <i>overfitted</i>. This means it will perform very well on the training set but not perform well when tested. The variation in how it performs
+                            between these two sets is why we say it has <i>high variance</i>. If our model is <i>underfitted</i> that means we haven't fit our model well and we have <i>high bias</i>. Here's a figure to help out. <br><br>
+                            <img  src="images/underoverfit.png" alt="Under and Overfitting" /><br><br>
+                            Now that we know what bias and variance are and how they relate to our model's fit, we can look into the trade-off. When using an overly-simplistic model, we'll have high bias since our model doesn't fit our data well. To lower this bias, we can
+                            try using a more complex model. However, the more complex our model is and the more it fits our training data, the more likely it is to have high variance when tested on a testing set. A popular curve you'll see that depicts this relationship is shown below. <br><br>
+                            <img  src="images/biascurve.png" alt="Bias-Variance Tradeoff" /><br><br>
+                            Like the figure shows, the goal is to find the optimal balance between bias and variance. This may be a bit confusing since we haven't learned any models yet, but keep this in mind 
+                            as you go through the series.
+
+                            </p>
+                        </div>
+                <div id="Model-Resources">
+                        <!-- Useful-Resources -->
+                        <h1 class="post_title"> Useful Resources</h1>
+                        <p class="lesson-text">
+                            In this series, we covered various models used for analyzing our data. We looked into how the models worked, as well as how to implement each model. If you're looking for datasets to practice with,
+                            the <code>sklearn</code> library has <a href="https://scikit-learn.org/stable/datasets/index.html"><u>datasets</u></a> built-in to get started. In addition, <a href="https://www.kaggle.com/datasets"><u>Kaggle</u></a> and
+                            the <a href="https://archive.ics.uci.edu/ml/datasets.php"><u>UC Irving Machine Learning Repository</u></a> have datasets as well. On Reddit, <a href="https://www.reddit.com/r/datasets/"><u>r/datasets</u></a> have interesting datasets as well. 
+                            Here are some guides and documentation relevant to what we covered in this series. <br>
+                            <ul class = "bullets">
+                                    <li>  Documentations: <a href="https://scikit-learn.org/stable/"><u>sklearn</u></a> | <a href="https://pypi.org/project/stats/"><u>stats</u></a> | <a href="https://www.statsmodels.org/dev/tsa.html"><u>statsmodels.tsa</u></a> </li>
+
+                                    <li>  Here's an  
+                                        <a href="https://s3.amazonaws.com/assets.datacamp.com/blog_assets/Scikit_Learn_Cheat_Sheet_Python.pdf"><u>sklearn Cheatsheet</u></a>.</li>
+                
+                                </ul>
+                                <br>
+                            <a href="lessons.html"><u>Back to Top</u></a>
+                            </p>
+
+                        </div>
+
+
+<!------------------------------------------------------------------------------------------------------------ END -------------------------------------------------------------------------------------------------------------------------------->
 
 
 
 
 
 
-
-
-
-
-
-                    <br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br>
+                    <br><br>
             </div>
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
             <footer>
                 <div class="footer content-1170 center-relative">
-                    <ul>
-                        <li class="copyright-footer">
-                            © 2018 All rights reserved. | Boxus Template by <a href="httpss://colorlib.com" target="_blank">Colorlib</a>
-                        </li>
-                    </ul>
                 </div>
             </footer>
    
