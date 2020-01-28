@@ -80,7 +80,7 @@
                     <li><a class="lesson-item" href="#Creating-Tables">Creating Tables</a></li>
                     <li><a class="lesson-item" href="#SQL-Queries">Writing SQL Queries</a></li>
                     <li><a class="lesson-item" href="#SQL-Queries">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Select Statements</a></li>
-                    <li><a class="lesson-item" href="#Functions & Wildcards">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Functions & Wildcards</a></li>
+                    <li><a class="lesson-item" href="#Functions & Wildcards">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Functions and Wildcards</a></li>
                     <li><a class="lesson-item" href="#GroupBy">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Group By</a></li>
                     <li><a class="lesson-item" href="#Joins">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Unions and Joins</a></li>
                     <li><a class="lesson-item" href="#Nested">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Nested Queries</a></li>
@@ -106,9 +106,10 @@
                     <li><a class="lesson-item" href="#Train-Test">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Train-Test </a></li>
                     <li><a class="lesson-item" href="#Cross-Validation">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Cross-Validation</a></li>
                     <li><a class="lesson-item" href="#Bias-Variance">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Bias-Variance Tradeoff</a></li>
-                    <li>Regression Models</li>
-                    <li>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Linear Regression</li>
-                    <li>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Ridge-LASSO</li> 
+                    <li><a class="lesson-item" href="#Linear-Regression">Regression Models</a></li>
+                    <li><a class="lesson-item" href="#Linear-Regression">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Linear Regression</a></li>
+                    <li><a class="lesson-item" href="#Linear-Regression">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;OLS & Gradient Descent</a></li>
+                    <li>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Ridge, LASSO, Elastic Net</li> 
                     <li>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Support Vector - SVR</li>
                     <li>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;K-Nearest Neighbors</li>
                     <li>Classification</li>
@@ -120,9 +121,9 @@
                     <li>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;K-Means</li>
                     <li>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;DBSCAN</li>
                     <li>Time-Series</li>
-                    <li>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;AR & MA</li>
-                    <li>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;ARMA</li>
-                    <li>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;ARIMA & SARIMA </li>
+                    <li>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;AR, MA, ARMA</li>
+                    <li>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Seasonality & Stationarity</li>
+                    <li>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;ARIMA and SARIMA</li>
                     <li>Neural Networks Intro</li>
                     <li><a class="lesson-item" href="#Model-Resources">Useful Resources</a></li>
                     <li>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</li>
@@ -922,13 +923,35 @@ folds = <span class="hljs-keyword" style="font-weight: 700; color: navy;">KFold<
                             between these two sets is why we say it has <i>high variance</i>. If our model is <i>underfitted</i> that means we haven't fit our model well and we have <i>high bias</i>. Here's a figure to help out. <br><br>
                             <img  src="images/underoverfit.png" alt="Under and Overfitting" /><br><br>
                             Now that we know what bias and variance are and how they relate to our model's fit, we can look into the trade-off. When using an overly-simplistic model, we'll have high bias since our model doesn't fit our data well. To lower this bias, we can
-                            try using a more complex model. However, the more complex our model is and the more it fits our training data, the more likely it is to have high variance when tested on a testing set. A popular curve you'll see that depicts this relationship is shown below. <br><br>
+                            try using a more complex model. However, the more complex our model is and the more it fits our training data, the more likely it is to have high variance when tested on a testing set. A popular <a href="https://www.dataquest.io/blog/learning-curves-machine-learning/"><u>curve</u></a> you'll see that depicts this relationship is shown below. <br><br>
                             <img  src="images/biascurve.png" alt="Bias-Variance Tradeoff" /><br><br>
                             Like the figure shows, the goal is to find the optimal balance between bias and variance. This may be a bit confusing since we haven't learned any models yet, but keep this in mind 
                             as you go through the series.
 
                             </p>
                         </div>
+
+                <div id="Linear-Regression">
+                        <!-- Linear-Regression -->
+                        <h1 class="post_title"> Linear Regression</h1>
+                        <p class="lesson-text">
+                            The first model we'll look into is linear regression. Linear regression works by trying to find the <i>line of best fit</i>. Or, the line that minimizes the error between
+                            our predictions and what the values actually are. Here's an animation to help out.<br><br>
+                            <img  src="images/linreg.gif" alt="Linear Regression Animation" /><br><br>
+                            The best way to understand linear regression is to understand what a linear regression algorithm is trying to do. A linear equation takes the form: <br><br>
+                            <a href="https://www.codecogs.com/eqnedit.php?latex=y=a_{0}&space;&plus;&space;a_{1}x_{1}&space;&plus;&space;a_{2}x_{2}&space;...&space;&plus;&space;a_{n}x_{n}" target="_blank"><img src="https://latex.codecogs.com/gif.latex?y=a_{0}&space;&plus;&space;a_{1}x_{1}&space;&plus;&space;a_{2}x_{2}&space;...&space;&plus;&space;a_{n}x_{n}" title="y=a_{0} + a_{1}x_{1} + a_{2}x_{2} ... + a_{n}x_{n}" /></a><br><br>
+                            Where a<sub>0</sub> represents the y-intercept, or when our linear equation crosses the y-axis. This is usually refered to as the <i>constant</i> or <i>shift</i>. The coefficients
+                            a<sub>1,2...,n</sub> represent the weights given to each of our features (independent variables) x<sub>1,2,...,n</sub>. The larger the weight, the more important
+                            that feature is in predicting our output. Our overall goal is to minimize the <i>loss function</i>, how we go about optimizing our model, whether through OLS or gradient descent, will be covered
+                            in the next lesson. Our loss function looks something like this:
+                            
+
+                            </p>
+
+
+                        </div>
+
+
                 <div id="Model-Resources">
                         <!-- Useful-Resources -->
                         <h1 class="post_title"> Useful Resources</h1>
