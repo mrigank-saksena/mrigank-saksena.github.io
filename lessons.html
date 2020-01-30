@@ -97,34 +97,33 @@
                     <li><a class="lesson-item" href="#Explore-Setup">Setup and Introduction</a></li>
                     <li><a class="lesson-item" href="#Univariate">Univariate Exploration</a></li>
                     <li><a class="lesson-item" href="#Bivariate">Bivariate Exploration</a></li>
+                    <li>Feature Engineering</li>
                     <li><a class="lesson-item" href="#Explore-Resources">Useful Resources</a></li>
                     <li>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</li>
 
                     <li><h1 class="lesson-topic"><a class="lesson-item" href="#DM">Data Modeling</a></h1></li>
                     <li><a class="lesson-item" href="#Model-Setup">Setup and Introduction</a></li>
-                    <li>Feature Engineering</li>
-                    <li><a class="lesson-item" href="#Train-Test">Recurring Concepts</a></li>
-                    <li><a class="lesson-item" href="#Train-Test">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Train-Test </a></li>
-                    <li><a class="lesson-item" href="#Cross-Validation">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Cross-Validation</a></li>
-                    <li><a class="lesson-item" href="#Bias-Variance">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Bias-Variance Tradeoff</a></li>   
-                    <li><a class="lesson-item" href="#Bias-Variance">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Gradient Descent</a></li>         
+                    <li><a class="lesson-item" href="#Train-Test">Train-Test </a></li>
+                    <li><a class="lesson-item" href="#Cross-Validation">Cross-Validation</a></li>
+                    <li><a class="lesson-item" href="#Bias-Variance">Bias-Variance Tradeoff</a></li>   
+                    <li>Loss Functions & Optimizers</li>         
                     <li><a class="lesson-item" href="#Linear-Regression">Regression</a></li>
                     <li><a class="lesson-item" href="#Linear-Regression">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Linear Regression</a></li>
                     <li><a class="lesson-item" href="#Ridge">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Ridge, LASSO, Elastic Net</a></li> 
-                    <li>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Support Vector - SVR</li>
+                    <li>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;SVR Model</li>
                     <li>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;K-Nearest Neighbors</li>
                     <li>Classification</li>
                     <li>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Confusion Matrix</li>
                     <li>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Logistic Regression</li>
                     <li>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Random Forest</li>
-                    <li>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Support Vector Machines</li>
+                    <li>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;SVM Model</li>
                     <li>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;K-Nearest Neighbors</li>
                     <li>Clustering</li>
+                    <li>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Unsupervised Learning</li>
                     <li>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;K-Means</li>
                     <li>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;DBSCAN</li>
                     <li>Time-Series</li>
                     <li>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;AR, MA, ARMA</li>
-                    <li>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Seasonality & Stationarity</li>
                     <li>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;ARIMA and SARIMA</li>
                     <li>Neural Networks Intro</li>
                     <li><a class="lesson-item" href="#Model-Resources">Useful Resources</a></li>
@@ -303,7 +302,7 @@ DELETE FROM Players WHERE Name = <span class="hljs-string" style="color: rgb(0, 
                     </p>
                     <p  class="lesson-text"> <a href="https://dev.mysql.com/doc/refman/8.0/en/select.html"><u><strong><code>GROUP BY</code></strong></u></a><br>
                         <br>
-                        Sometimes we're interested in querying data by categories or <i>group</i>. To do this, we can make use
+                        Sometimes we're interested in querying data by categories or <i>groups</i>. To do this, we can make use
                         of the <code>GROUP BY</code> command. Let's say we were interested in the number of players for each sport.
                         We would have to count the number of players <i>grouped</i> by Sport. In this example, we ordered
                         the derived table in reverse-alphabetical order.<br><br>
@@ -945,7 +944,7 @@ folds = <span class="hljs-keyword" style="font-weight: 700; color: navy;">KFold<
                             Where a<sub>0</sub> represents the y-intercept, or when our linear equation crosses the y-axis. This is usually refered to as the <i>constant</i> or <i>shift</i>. The coefficients
                             a<sub>1,2...,n</sub> represent the weights given to each of our features (independent variables) x<sub>1,2,...,n</sub>. The larger the weight, the more important
                             that feature is in predicting our output. Our overall goal is to minimize the <i>cost function</i>, how we go about optimizing our model, whether through OLS or gradient descent, will be covered
-                            in the next lesson. Our loss function looks something like this: <br><br>
+                            in the next lesson. Our cost function looks something like this: <br><br>
                             <a href="https://www.codecogs.com/eqnedit.php?latex=J&space;=&space;\frac{1}{n}\sum_{i=1}^{n}(p_{i}&space;-&space;y_{i})^{2}" target="_blank"><img src="https://latex.codecogs.com/gif.latex?J&space;=&space;\frac{1}{n}\sum_{i=1}^{n}(p_{i}&space;-&space;y_{i})^{2}" title="J = \frac{1}{n}\sum_{i=1}^{n}(p_{i} - y_{i})^{2}" /></a><br><br>
                             This equation is what we call the <strong>Mean Squared Error (MSE)</strong>. <code>J</code> represents the cost, what we're trying to minimize. While <code>p<sub>i</sub></code> is our prediction and <code>y<sub>i</sub></code> is the actual value. What we're doing is looking at the
                             difference in what our model predicted and what the actual output was, squaring it, and averaging it across our <code>n</code> observations. No wonder it's called Mean Squared Error! Minimzing our cost function (<code>J</code>), is how we determine the coefficients
@@ -961,7 +960,8 @@ bikedata = pd.read_csv(<span class="hljs-string" style="color: rgb(0, 85, 0);">'
 X_train, X_test, y_train, y_test = train_test_split(bikedata.iloc[:,:-<span class="hljs-number" style="color: rgb(136, 0, 0);">1</span>], bikedata[<span class="hljs-string" style="color: rgb(0, 85, 0);">'cnt'</span>], test_size=<span class="hljs-number" style="color: rgb(136, 0, 0);">0.3</span>)</pre>
                         </p>
                         <p class="lesson-text">
-                            Instead of choosing all attributes, we've decided to only look at a few (this is an arbitrary decision). We split out data
+                            Instead of choosing all attributes, we've decided to only look at a few (this is an arbitrary decision, to know how to deal with features, I recommend looking at the
+                            Feature Engineering lesson). We split out data
                             into a training and testing set. If you'd like to use cross-validation, you can look into <a href="#Cross-Validation"><u>this lesson</u></a>.
                             Next, we'll fit our linear regression model, look at how it performs, and develop our linear equation. <br><br>
                             <pre class="hljs" style="display: block; overflow-x: auto; padding: 0.5em; background-color: rgb(244, 244, 244); color: rgb(0, 0, 0);">lr = LinearRegression()
@@ -994,31 +994,104 @@ y_pred = lr.predict(X_test)
                         <!-- Ridge, LASSO, Elastic Net -->
                         <h1 class="post_title"> Ridge, LASSO, and Elastic Net</h1>
                         <p class="lesson-text">
-                            If you remember from our last lesson, the weights in our final model had a wide range, with some having magnitudes around 4000 while
-                            other features having weights with magnitudes closer to 200. As our model gets more complex with more features, the difference in magnitudes can become more extreme. When we have a few features in our model with high weights and others with very low weights,
-                            we can assume we have some <strong>multicollinearity</strong>, which pretty much means some of our features can be modeled by other features. By addressing multicollinearity, 
-                            the weights in your model will be more stable. That's where Ridge Regression comes in. <br><br>
-                            Ridge Regression uses something called <strong>L2 Regularization</strong>. L2 Regularization reduces model complexity and helps bring the weights in our model closer to zero, in essence, decreasing variance and shifting us more left on the bias-variance curve.
+                            <strong>Ridge Regression</strong><br><br>
+                            When using linear regression, especially with small datasets, the chance of overfitting your model is high. This is because although there is low bias, with a smaller training set,
+                            the variability in how your model performs on testing sets will increase. In order to counter overfitting, we can use various regularization techniques used by Ridge and LASSO regression.
+                            They pretty much work by introducing some bias in the model in order to lower the variability of how the model performs on test sets. This is especially useful when the coefficients
+                            in your linear regression model are far apart. This is where Ridge Regression comes in. <br><br>
+                            Ridge Regression uses something called <strong>L2 Regularization</strong>. Regularization is used to reduce overfitting. 
+                            L2 Regularization reduces model complexity and helps bring the weights in our model closer to zero, in essence, decreasing variance and shifting us more left on the bias-variance curve.
                             If you're confused, take a look <a href="#biass"><u>here</u></a>. Linear Regression is prone to overfitting and high variance, what we can do to counter that is to introduce bias.
                             In return for adding bias, our model has decreased variance. <br><br>
                             A traditional linear regression model minimizes the sum of squared residuals, whereas in ridge regression, the sum of squared residuals <i>plus</i> a &lambda; times the sum of the coefficients squared is minimized. You can think of this as a penalty term. <br>
-                            <br> Let's implement a ridge regression model. <br><br>
-                            <pre class="hljs" style="display: block; overflow-x: auto; padding: 0.5em; background-color: rgb(244, 244, 244); color: rgb(0, 0, 0);">rr = Ridge(alpha=<span class="hljs-number" style="color: rgb(136, 0, 0);">2</span>) 
+                            <img  src="images/ridgecost.png" alt="Ridge Cost Function" />
+                            <br>
+                            <br> If &lambda;=0, our ridge cost function equals our linear regression cost function. Let's implement a ridge regression model. First make sure you add <code>from sklearn.linear_model import Ridge</code> to get our library ready.<br><br>
+                            <pre class="hljs" style="display: block; overflow-x: auto; padding: 0.5em; background-color: rgb(244, 244, 244); color: rgb(0, 0, 0);">rr = Ridge(alpha=<span class="hljs-number" style="color: rgb(136, 0, 0);">100</span>) 
 rr.fit(X_train,y_train)
 y_pred = rr.predict(X_test)
                                 
 <span class="hljs-function"><span class="hljs-title" style="font-weight: 700; color: navy;">print</span><span class="hljs-params">(<span class="hljs-string" style="color: rgb(0, 85, 0);">"R-Squared: "</span>, r2_score(y_test, y_pred)</span></span>)
 <span class="hljs-function"><span class="hljs-title" style="font-weight: 700; color: navy;">print</span><span class="hljs-params">(<span class="hljs-string" style="color: rgb(0, 85, 0);">"Weights: "</span>,lr.coef_)</span></span>
-<span class="hljs-function"><span class="hljs-title" style="font-weight: 700; color: navy;">print</span><span class="hljs-params">(<span class="hljs-string" style="color: rgb(0, 85, 0);">"Constant: "</span>,lr.intercept_)</span></span></pre>
-                            
+<span class="hljs-function"><span class="hljs-title" style="font-weight: 700; color: navy;">print</span><span class="hljs-params">(<span class="hljs-string" style="color: rgb(0, 85, 0);">"Constant: "</span>,lr.intercept_)</span></span></pre><br><br>
+                               
+                                <img  src="images/alpha5.png" alt="alpha=100" /><br>
+                                With an alpha of 5 we get:<br>
+                                <img  src="images/alpha100.png" alt="alpha=5" />
+                                </p>
+                                <p class="lesson-text">
+                                Let's first look at our alpha=100 model. The larger our alpha parameter is, the more bias we introduce and the higher our "penalty term" gets. You can think of alpha as a parameter that represents how much we want to <i>scale</i> our model's coefficients down.
+                                A larger alpha helps reduce overfitting. 
+                                In this case, an alpha of 100 is too large as it <i>underfits</i> our model. In trying to lower variance, we increased bias too much and are now on the opposite end of the bias-variance curve.
+                                Using an alpha of 5, as you can see, yields a much higher correlation. We can see this because as we start with an alpha of 1 (linear regression) and increase it, we'll notice that after a certain point
+                                our model performance starts diminishing.  <br>
+                                The main benefit of this added bias is a decrease in variance. Our coefficients are much more evenly distributed which helps give our model
+                                more stable results. This concept is L2 regularization. With an alpha of 5 our weights were somewhat more evenly distributed and this phenomenon is exaggerated
+                                even more with an alpha of 100. Here's a visualiation provided by <a href="https://scikit-learn.org/stable/auto_examples/linear_model/plot_ridge_path.html"><u>scikit-learn.org</u></a>, showing how
+                                as alpha values increase, weights for features tend towards zero.<br>
+                                <img src="images/ridgealphas.png"><br><br>
+                                Here are the coefficients from our model between the linear regression and two ridge regression models we fitted. This is another depiction of how L2 regularization moves weights closer to 0.
+                                <br>
+                                <img src="images/coefplot.png">
+                                </p>
 
+                                <p class="lesson-text">
+                                <strong>LASSO Regression</strong><br><br>
+                                    In this lecture we'll delve into LASSO (Least Absolute Shrinkage and Selection Operator) regression. In ridge regression, we improved on linear regression by adding a penalty term to help make our coefficients more stable.
+                                    Ridge regression utilized L2 regularization while LASSO regression uses L1 regularization. LASSO regression adds <i>feature selection</i> in the mix,
+                                    which means it can make certain coefficients or weights zero, thereby removing them and <i>selecting</i> the others. To see how this works, let's look at the LASSO cost function.
+                                    <br>
+                                    <img src="images/lassocost.png"><br><br>
+                                    The difference in the penalty terms in ridge and LASSO regression shows how L1 and L2 regularization differ. Like ridge regression, a &lambda; value of 0 yields
+                                    the linear regression cost function. By only looking at the magnitude of coefficients rather than the square, LASSO regression permits certain weights to reach 0 whereas in ridge regression,
+                                    weights can only <i>approach</i> 0. This type of regularization is extremely useful when we have a lot of features in our data. L1 regularization uses feature selection to help reduce
+                                    model complexity. <br><br>
+                                    Let's quickly implement LASSO regression model. First, <code>from sklearn.linear_model import Lasso</code>.<br><br>
+                                    <pre class="hljs" style="display: block; overflow-x: auto; padding: 0.5em; background-color: rgb(244, 244, 244); color: rgb(0, 0, 0);">lasso = Lasso() 
+lasso.fit(X_train, y_train)
+y_pred = lasso.predict(X_test)
+                                            
+<span class="hljs-function"><span class="hljs-title" style="font-weight: 700; color: navy;">print</span><span class="hljs-params">(<span class="hljs-string" style="color: rgb(0, 85, 0);">"R-Squared: "</span>, r2_score(y_test, y_pred)</span></span>)
+<span class="hljs-function"><span class="hljs-title" style="font-weight: 700; color: navy;">print</span><span class="hljs-params">(<span class="hljs-string" style="color: rgb(0, 85, 0);">"Weights: "</span>,lasso.coef_)</span></span>
+<span class="hljs-function"><span class="hljs-title" style="font-weight: 700; color: navy;">print</span><span class="hljs-params">(<span class="hljs-string" style="color: rgb(0, 85, 0);">"Constant: "</span>,lasso.intercept_)</span></span></pre>
+                                <br> <img src="images/lassoresults.png">                                
+</p>
 
+                                <p class="lesson-text">
+                                As you can see, LASSO regression gave a weight of 0 to our third feature, an example of feature selection.
+                                    
+                                
                             <br>
+                            Using linear models on this dataset have clearly not been very effective. When using a linear model, ensure your data is <i>linearly seperable</i>, you can test this
+                            by simply fitting a linear model and looking into performance. If your model has high error, don't worry! There are more regression models, some of which we'll be going into in future lessons.
                             Here's a helpful chart that shows
-                            how linear, ridge, and LASSO regression compare.<br><br>
+                            how linear, ridge, and LASSO regression compare. Before we move on to SVR, let's look into Elastic Net regularization, a combination of L1 and L2 regularization<br><br>
                             <img  src="images/ridgelassocompare.png" alt="Compared"/>
                             
+                        </p>
+                        <p class="lesson-text">
+                        <strong>Elastic Net</strong><br><br>
+                        In this lesson we've looked into linear, ridge, and LASSO regression and have learned how ridge and LASSO add bias into the linear regression model.
+                        They do this by including a penalty term. The sum of the weights squared penalty term for ridge regression is L2 regularization while the sum of the magnitudes
+                        of weights penalty term for LASSO regression is L1 regularization. Elastic Net combines these. If you remember our cost functions from the Ridge and LASSO, you'll
+                        remember each one had a different penalty term boxed. The Elastic Net cost function is the linear regression cost function plus &alpha; x Ridge Penalty + (1-&alpha;) x LASSO Penalty.
+                        In other words, it's a combination of L1 and L2. You can think of the &alpha; value as a ratio between L1 and L2 regularization.<br><br>
+                        Let's implement Elastic Net regularization. First, <code>from sklearn.linear_model import ElasticNet</code>.<br><br>
+                        <pre class="hljs" style="display: block; overflow-x: auto; padding: 0.5em; background-color: rgb(244, 244, 244); color: rgb(0, 0, 0);">elastic = ElasticNet(alpha=<span class="hljs-number" style="color: rgb(136, 0, 0);">0.1</span>) 
+elastic.fit(X_train, y_train)
+y_pred = elastic.predict(X_test)
+                            
+<span class="hljs-function"><span class="hljs-title" style="font-weight: 700; color: navy;">print</span><span class="hljs-params">(<span class="hljs-string" style="color: rgb(0, 85, 0);">"R-Squared: "</span>, r2_score(y_test, y_pred)</span></span>)
+<span class="hljs-function"><span class="hljs-title" style="font-weight: 700; color: navy;">print</span><span class="hljs-params">(<span class="hljs-string" style="color: rgb(0, 85, 0);">"Weights: "</span>,elastic.coef_)</span></span>
+<span class="hljs-function"><span class="hljs-title" style="font-weight: 700; color: navy;">print</span><span class="hljs-params">(<span class="hljs-string" style="color: rgb(0, 85, 0);">"Constant: "</span>,elastic.intercept_)</span></span></pre><br>
+                            <img src="images/elasticresults.png">
 
+                        
+                    </p>
+                    <p class="lesson-text">
+                        The closer your &alpha; value is to 1, the more L1 regularization will be used and the closer your &alpha; value is to 0, the more L2 regularization will be used.
+
+                    </p>
                 <div id="Model-Resources">
 
                         <!-- Useful-Resources -->
