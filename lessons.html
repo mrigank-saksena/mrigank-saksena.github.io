@@ -87,7 +87,7 @@
                     <li><a class="lesson-item" href="#SQL-Resources">Useful Resources</a></li>
                     <li>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</li>
                     
-                    <li><h1 class="lesson-topic"><a class="lesson-item" href="#DP">Data Preparation</a></h1></li>
+                    <li><h1 class="lesson-topic"><a class="lesson-item" href="#DP">Data Pre-Processing</a></h1></li>
                     <li><a class="lesson-item" href="#Configuring-Pandas">Setup and Introduction</a></li>
                     <li><a class="lesson-item" href="#Structuring-Data">Structuring Data</a></li>
                     <li><a class="lesson-item" href="#Missing-Values">Interpolating Missing Data</a></li>
@@ -95,9 +95,12 @@
                     <li>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</li>
                     <li><h1 class="lesson-topic"><a class="lesson-item" href="#DE">Data Exploration</a></h1></li>
                     <li><a class="lesson-item" href="#Explore-Setup">Setup and Introduction</a></li>
-                    <li><a class="lesson-item" href="#Univariate">Univariate Exploration</a></li>
+                    <li><a class="lesson-item" href="#Univariate">Univariate Analysis</a></li>
+                    <li><a class="lesson-item" href="#Out">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Removing Outliers</a></li>
                     <li><a class="lesson-item" href="#Bivariate">Bivariate Exploration</a></li>
-                    <li>Feature Engineering</li>
+                    <li><a class="lesson-item" href="#Feature-Engineering">Feature Engineering</a></li>
+                    <li><a class="lesson-item" href="#Feature-Engineering">Standardizing/Normalizing</a></li>
+                    <li><a class="lesson-item" href="#PCA">PCA</a></li>
                     <li><a class="lesson-item" href="#Explore-Resources">Useful Resources</a></li>
                     <li>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</li>
 
@@ -106,26 +109,23 @@
                     <li><a class="lesson-item" href="#Train-Test">Train-Test </a></li>
                     <li><a class="lesson-item" href="#Cross-Validation">Cross-Validation</a></li>
                     <li><a class="lesson-item" href="#Bias-Variance">Bias-Variance Tradeoff</a></li>   
-                    <li>Loss Functions & Optimizers</li>         
-                    <li><a class="lesson-item" href="#Linear-Regression">Regression</a></li>
+                    <li>Loss Functions & Optimizers</li>  
+                    <li><a class="lesson-item" href="#Linear-Regression">Machine Learning Models</a></li>  
                     <li><a class="lesson-item" href="#Linear-Regression">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Linear Regression</a></li>
                     <li><a class="lesson-item" href="#Ridge">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Ridge, LASSO, Elastic Net</a></li> 
-                    <li>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;SVR Model</li>
-                    <li>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;K-Nearest Neighbors</li>
-                    <li>Classification</li>
-                    <li>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Confusion Matrix</li>
                     <li>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Logistic Regression</li>
+                    <li>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Confusion Matrix</li>
+                    <li>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Decision Trees</li>
                     <li>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Random Forest</li>
-                    <li>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;SVM Model</li>
-                    <li>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;K-Nearest Neighbors</li>
-                    <li>Clustering</li>
-                    <li>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Unsupervised Learning</li>
-                    <li>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;K-Means</li>
+                    <li>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;K-Nearest Neighbors</li>             
+                    <li>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Support Vector Machines</li>
+                    <li>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Naive Bayes</li>
+                    <li>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;K-Means Clustering</li>
                     <li>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;DBSCAN</li>
-                    <li>Time-Series</li>
+                    <li>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Multilayer Perceptron</li>
+                    <li>Time-Series Models</li>
                     <li>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;AR, MA, ARMA</li>
                     <li>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;ARIMA and SARIMA</li>
-                    <li>Neural Networks Intro</li>
                     <li><a class="lesson-item" href="#Model-Resources">Useful Resources</a></li>
                     <li>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</li>
 
@@ -462,7 +462,7 @@ DELETE FROM Players WHERE Name = <span class="hljs-string" style="color: rgb(0, 
 
 
                 <!-- DATA PREPERATION TITLE -->
-                <h1 id = "DP" class="topic_title">Data Preperation </h1>
+                <h1 id = "DP" class="topic_title">Data Pre-Processing </h1>
                 <!-- DATA PREPERATION TITLE -->
 
 
@@ -715,7 +715,7 @@ plt.show()</pre><br>
                     which represents the range of values between the 25th and 75th percentile. In addition, a box-plot will show us if we have any outliers, 
                     something we'll learn how to deal with next.<br><br> 
                     <pre class="hljs" style="display: block; overflow-x: auto; padding: 0.5em; background-color: rgb(244, 244, 244); color: rgb(0, 0, 0);"><span class="hljs-title" style="font-weight: 700; color: navy;">sns</span>.boxplot(<span class="hljs-class"><span class="hljs-keyword" style="font-weight: 700; color: navy;">data</span>=iris)</span></pre><br>
-                    <img  src="images/boxplot.png" alt="Box-plot" /></p>
+                    <img  id="Out" src="images/boxplot.png" alt="Box-plot" /></p>
                     <p class="lesson-text">
                     As you can see, we potentially may have outliers in our sepal width attribute. The outliers are denoted by the points
                     that fall outside the box-plot. There are many ways to deal with outliers, one of which is removing all entries where outliers
@@ -787,8 +787,86 @@ sns.heatmap(corr_mat, <span class="hljs-attr">vmax=1,</span> <span class="hljs-a
                         </p>
 
                     </div>
+                    <div id="Feature-Engineering">
+                            <!-- feature-engineering -->
+                            <h1 class="post_title"> Feature Engineering </h1>
+
+                            <p class="lesson-text"> Now that we've explored our data, it's time for us to develop the features for our model. We need to alter the features we'll use in our model as well as potentially transform
+                                these features in order to help develop stronger predictive models. What concepts are considered part of feature engineering and what aren't is subjective. Think of feature engineering as the final step
+                            in figuring out the best way to change our features to better be able to predict our target. When working with our dataset in this lesson, we'll be using a lot of the concepts from the Data Pre-Processing series. 
+                            Instead of continuing our use of the Iris dataset, let's look into a dataset that has more features. This will help make understanding certain
+                            feature engineering concepts easier (we'll go back to the Iris dataset for the next lesson). For this lesson, we'll use the Capital Bikeshare Service dataset, a dataset about a bikesharing service in the Metro DC area (download <a href="supplements/bikeshare.csv" download><u>here</u></a> data from Kaggle). Our goal is to create a model
+                            to predict bike traffic (out 'cnt' column).</p>
+                            Let's first take a look at our data.<br><br>
+                            <pre class="hljs" style="display: block; overflow-x: auto; padding: 0.5em; background-color: rgb(244, 244, 244); color: rgb(0, 0, 0);"><span class="hljs-keyword" style="font-weight: 700; color: navy;">import</span> pandas <span class="hljs-keyword" style="font-weight: 700; color: navy;">as</span> pd
+
+bikedata = pd.read_csv(<span class="hljs-string" style="color: rgb(0, 85, 0);">'bikeshare.csv'</span>)
+bikedata.head()</pre>
+                                <br>
+                                <img src="images/bikehead.png">
+                            </p>
+                            <p class="lesson-text"> 
+                                You'll notice a couple things right off the bat. First, our column "instant" is just an indexing column and won't be a feature in our regression model. Since we already have dataframe indicies, we can get rid of this column.
+                                Next, you'll notice that our 'dteday', 'season', 'yr', 'mnth', 'weekday', and 'workingday' attributes all give us information about the date. In our model, we should try to use as few features as possible while keeping our model accurate.
+                                Given that the information from these attributes is similar, let's see which ones are the most useful. Since we're not doing a time-series analysis, the "dteday" feature can be removed. Likewise, 'yr' can also be removed.
+                                The 'season' and 'mnth' attribute are related to each other since the season is determined by the month. Bike usage would probably change the most season to season rather than month to month, since seasons have much more distinguishable
+                                weather factors. Thus, we can remove the 'mnth' feature as well. The 'weekday' column is related to the 'workingday' column by distinguishing between weekdays and weekends. Since traffic is more likely affected by weekday vs. weekend rather than
+                                two arbitrary days of the week, we'l keep the 'workingday' feature and remove the 'weekday' feature. One feature we glossed over is the 'holiday' feature. The holiday feature has two values, 0 for not a holiday or 1 for a holiday. Let's quickly look into
+                                how many holidays we have. We can do this by running.<br><br>
+                                <code>bikedata[bikedata['holiday']==1].count()[0]</code>
+                                <br><br>
+                                You'll notice out of our 731 total entries, only 21 are holidays - thats roughly 2.5% of our dataset. One thing we haven't learned yet is the concept of training and testing sets. That's when we divide our dataset into two sets to fit our model and test its performance.
+                                Having a binary feature with very few "true" instances could throw our model off during training/testing. This is because we're not sure that the holiday feature we'll show up evenly. Although we can get around this using stratified k-fold cross-validation (we'll also get into that later),
+                                it's better for us to remove the feature altogether as it may introduce unnecessary variance.
+                                <br><br>
+                                Often times, you won't be lucky enough to have a dataset that already has the dates split into weekdays, seasons, etc. This dataset has clearly already been pre-processed. If you're only given dates and want to create new features. Simply create a new column
+                                using conditional statements based on the date. 
+                                Now let's look at our non-date data. To see a reference as to what each column signifies, go <a href="https://www.kaggle.com/marklvl/bike-sharing-dataset"><u>here</u></a>. Our 'atemp' and 'temp' features are obviously very correlated and will have 
+                                <i>multicollinearity</i>. We can deal with this multicollinearity through dimensionality reduction (we'll get more into that in the next lecture), or pure feature selection. In this case, we'll just choose one of them. 'atemp' represents the temperature
+                                <i>felt</i> rather than the actual temperature. Since people are more likely to base their judgements on their <i>perception</i> of the weather, we'll choose to only look at 'atemp'. We also have two features that split up the total count of bike traffic into
+                                'casual', and 'registered'. Since at this point it's difficult to logically determine whether or not our features would be more correlated to one over the other, we'll choose to keep both. So now after pure logical feature selection our dataframe looks like this:<br><br>
+                                <img src="images/updatedbikehead.png">
+                                <br><br>
+                                One more thing we can do is categorize our numerical data. Another term used for this is <i>encoding</i>. In school, 90-100 is an A, 80-89 is a B, 70-79 is a C, etc. This is an example of a <i>numerical mapping</i>,
+                                where certain ranges correspond to certain categorical variables or bins. When looking at our data, one feature I think could benefit from this sort of encoding is windspeed. Most people split days into either windy or not windy when making decisions so why shouldn't we?
+                                We can now bin our 'windspeed' feature. It's important to make sure each of your bins has enough representation in your total dataset, this will help reduce variance (we'll get more into that later) within your model's results.
+                                <br>
+                                Let's first get a summary of our 'windspeed' feature using the <code>describe()</code> function.<br><br>
+                                <img src="images/windhead.png"><br><br>
+                                We can <i>bin</i> our 'windspeed' data assigning it to a category mapped to its quartile. Let's create a list of [min, 25th percentile, 50th percentile, 75th percentile, max]. Then we'll encode our 'windspeed'
+                                into a categorical bin. <strong>NOTE: 'windspeed' will now become a categorical variable.</strong> <br><br>
+                                <pre class="hljs" style="display: block; overflow-x: auto; padding: 0.5em; background-color: rgb(244, 244, 244); color: rgb(0, 0, 0);">bins = [bikedata[<span class="hljs-string" style="color: rgb(0, 85, 0);">'windspeed'</span>].describe()[<span class="hljs-number" style="color: rgb(136, 0, 0);">3</span>],bikedata[<span class="hljs-string" style="color: rgb(0, 85, 0);">'windspeed'</span>].describe()[<span class="hljs-number" style="color: rgb(136, 0, 0);">4</span>],
+        bikedata[<span class="hljs-string" style="color: rgb(0, 85, 0);">'windspeed'</span>].describe()[<span class="hljs-number" style="color: rgb(136, 0, 0);">5</span>],bikedata[<span class="hljs-string" style="color: rgb(0, 85, 0);">'windspeed'</span>].describe()[<span class="hljs-number" style="color: rgb(136, 0, 0);">6</span>],bikedata[<span class="hljs-string" style="color: rgb(0, 85, 0);">'windspeed'</span>].describe()[<span class="hljs-number" style="color: rgb(136, 0, 0);">7</span>]]
+bikedata[<span class="hljs-string" style="color: rgb(0, 85, 0);">'windspeed'</span>] = pd.cut(bikedata[<span class="hljs-string" style="color: rgb(0, 85, 0);">'windspeed'</span>], bins)
+bikedata[<span class="hljs-string" style="color: rgb(0, 85, 0);">'windspeed'</span>].head(<span class="hljs-number" style="color: rgb(136, 0, 0);">10</span>)</pre><br>
+                                <img src="images/windbin.png">
+                            </p>
+                            <p class="lesson-text"> 
+                                As you can see in our 'windspeed' column, our speeds have been put into categories. This can help with categorical analysis in looking at regressions across various 'windspeed' bins. Something else we can do is engineer our own features
+                                through something called <i>feature interaction</i>. This means we can combine columns. For instance, let's say 'weathersit' was not given to us as a feature. We could calculate it by creating a new column called 'weathersit', and
+                                assigning values based on conditional statements around windspeed, humidity, temperature, etc. We could say if the temperature is within some range, the wind is below some value, and the humidity is between a certain range, that the 'weathersit' is "2" or "okay".
+                                Like I mentioned earlier, the dataset we imported has already been preprocessed by the uploader and no features like this need to be created.
+                                <br><br>
+                                One important concept we skimmed over is <i>multicollinearity</i>. Multicollinearity is a fancy way of saying our features are correlated with each other. For instance, the season and temperature features may be correlated since temperatures vary according to season.
+                                Likewise, the weather situation ('weathersit') would be correlated with one of our weather features. One method we'll go into in our LASSO lesson is using L1 regularization for feature selection to address this multicollinearity. In the next lesson,
+                                we'll go through a common model used for dimensionality reduction (we'll learn this in the next lesson), called a Principal Component Analysis or PCA.
 
 
+                            </p>
+                        
+                        
+                        </div>
+
+                    <div id="PCA">
+                                <!-- pca -->
+                                <h1 class="post_title"> Principal Component Analysis</h1>
+
+                                <p class="lesson-text"> In the previous lesson, we engineered our features in our bikeshare dataset and made it more ready for modeling. In this lesson we'll use a concept called
+                                    Principal Component Analysis (PCA). A PCA can help us visualize our dataset when we have many features and can also help us reduce the number of features we have. For the visualization aspect,
+                                    let's use the Iris dataset and for our feature selection component we'll use a more complex dataset with more features to help show a PCA's effect.
+
+                                </p> </div>
+                                
                     <div id="Explore-Resources">
                                 <!-- USEFUL RESOURCES -->
                                 <h1 class="post_title"> Useful Resources </h1>
@@ -826,6 +904,14 @@ sns.heatmap(corr_mat, <span class="hljs-attr">vmax=1,</span> <span class="hljs-a
 
 
                                     
+
+
+
+
+
+
+
+
 
                 <!-- DATA MODELING TITLE -->
                 <h1 id = "DM" class="topic_title">Data Modeling </h1>
@@ -949,7 +1035,7 @@ folds = <span class="hljs-keyword" style="font-weight: 700; color: navy;">KFold<
                             This equation is what we call the <strong>Mean Squared Error (MSE)</strong>. <code>J</code> represents the cost, what we're trying to minimize. While <code>p<sub>i</sub></code> is our prediction and <code>y<sub>i</sub></code> is the actual value. What we're doing is looking at the
                             difference in what our model predicted and what the actual output was, squaring it, and averaging it across our <code>n</code> observations. No wonder it's called Mean Squared Error! Minimzing our cost function (<code>J</code>), is how we determine the coefficients
                             a<sub>0</sub>, a<sub>1</sub>, ..., a<sub>n</sub>, in our final model. Like I said earlier, we'll be going over how to minimize the cost-function in our next lesson.<br><br>
-                            Now let's look into how we can implement a linear regression model. The dataset we'll be using is based on data collected from the Capital Bikeshare Service, a bikesharing service in the Metro DC area (download <a href="supplements/bikeshare.csv" download><u>here</u></a> data from UCI ML Repository). Our goal will be to build a regression
+                            Now let's look into how we can implement a linear regression model. The dataset we'll be using is based on data collected from the Capital Bikeshare Service, a bikesharing service in the Metro DC area (download <a href="supplements/bikeshare.csv" download><u>here</u></a> data from Kaggle). Our goal will be to build a regression
                             model that relates the features we choose to the total bikes being used on a given day. We'll start by importing our libraries and loading/preparing our training and testing sets. <br><br>
                             <pre class="hljs" style="display: block; overflow-x: auto; padding: 0.5em; background-color: rgb(244, 244, 244); color: rgb(0, 0, 0);"><span class="hljs-keyword" style="font-weight: 700; color: navy;">import</span> pandas <span class="hljs-keyword" style="font-weight: 700; color: navy;">as</span> pd
 from sklearn.model_selection <span class="hljs-keyword" style="font-weight: 700; color: navy;">import</span> train_test_split
@@ -1092,6 +1178,7 @@ y_pred = elastic.predict(X_test)
                         The closer your &alpha; value is to 1, the more L1 regularization will be used and the closer your &alpha; value is to 0, the more L2 regularization will be used.
 
                     </p>
+
                 <div id="Model-Resources">
 
                         <!-- Useful-Resources -->
