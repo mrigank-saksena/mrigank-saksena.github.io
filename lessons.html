@@ -99,8 +99,7 @@
                     <li><a class="lesson-item" href="#Out">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Removing Outliers</a></li>
                     <li><a class="lesson-item" href="#Bivariate">Bivariate Exploration</a></li>
                     <li><a class="lesson-item" href="#Feature-Engineering">Feature Engineering</a></li>
-                    <li><a class="lesson-item" href="#Feature-Engineering">Standardizing/Normalizing</a></li>
-                    <li><a class="lesson-item" href="#PCA">PCA</a></li>
+                    <li><a class="lesson-item" href="#PCA">Principal Components</a></li>
                     <li><a class="lesson-item" href="#Explore-Resources">Useful Resources</a></li>
                     <li>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</li>
 
@@ -109,7 +108,15 @@
                     <li><a class="lesson-item" href="#Train-Test">Train-Test </a></li>
                     <li><a class="lesson-item" href="#Cross-Validation">Cross-Validation</a></li>
                     <li><a class="lesson-item" href="#Bias-Variance">Bias-Variance Tradeoff</a></li>   
-                    <li>Loss Functions & Optimizers</li>  
+                    <li><a class="lesson-item" href="#Loss-Functions">Loss Functions</a></li>
+                    <li><a class="lesson-item" href="#MAE">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;MAE (L1) and MSE (L2)</a></li>  
+                    <li><a class="lesson-item" href="#Huber">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Huber</a></li> 
+                    <li><a class="lesson-item" href="#Log">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Binary Cross-Entropy</a></li>  
+                    <li><a class="lesson-item" href="#Optimizers">Optimizers</a></li> 
+                    <li><a class="lesson-item" href="#GD">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Gradient Descent (GD)</a></li>
+                    <li><a class="lesson-item" href="#Log">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Stochastic GD (SGD)</a></li>
+                    <li><a class="lesson-item" href="#Log">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Adam</a></li>   
+                    <li><a class="lesson-item" href="#Loss-Functions">MLE for Parameterization</a></li>  
                     <li><a class="lesson-item" href="#Linear-Regression">Machine Learning Models</a></li>  
                     <li><a class="lesson-item" href="#Linear-Regression">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Linear Regression</a></li>
                     <li><a class="lesson-item" href="#Ridge">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Ridge, LASSO, Elastic Net</a></li> 
@@ -859,13 +866,82 @@ bikedata[<span class="hljs-string" style="color: rgb(0, 85, 0);">'windspeed'</sp
 
                     <div id="PCA">
                                 <!-- pca -->
-                                <h1 class="post_title"> Principal Component Analysis</h1>
+                                <h1 class="post_title"> Principal Component Analysis with Singular Value Decomposition</h1>
 
                                 <p class="lesson-text"> In the previous lesson, we engineered our features in our bikeshare dataset and made it more ready for modeling. In this lesson we'll use a concept called
-                                    Principal Component Analysis (PCA). A PCA can help us visualize our dataset when we have many features and can also help us reduce the number of features we have. For the visualization aspect,
-                                    let's use the Iris dataset and for our feature selection component we'll use a more complex dataset with more features to help show a PCA's effect.
+                                    Principal Component Analysis (PCA). A PCA can help us visualize our dataset when we have many features and can also help us with dimensionality reduction. Before we get into how to implement a PCA.
+                                    Let's understand how it works. Before I get started I highly recommend checking out StatQuest's video on PCA. 
+                                    It's only 20 minutes and is extremely useful. Much of what I'll go over is expanded on in in-depth his video (view video <a href="https://www.youtube.com/watch?v=FgakZw6K1QQ"><u>here</u></a>).<br>
+                                    <br>
+                                    Shown below is a scatterplot of height and weight of various men (blue) and women (pink). <br>
+                                    <img src="images/pca1.png" ><br>
+                                    What we'll do next is find the overall average weight and height and shift our axis so that
+                                    (Average Weight, Average Height) is our <i>new origin</i>. Our plot now looks something like this: <br><br>
+                                    <img src="images/pca2.png" ><img src="images/pca3.png" ><br>
+                                    Our next step will be to find a line of best fit for our shifted plot. This will be called the first <strong>principal component</strong> (PC1).
+                                    The unit vector of this principal component is known as the <strong>eigenvector</strong> or <strong>singular vector</strong> for PC<sub>1</sub>.<br>
+                                    How do we find that line? We'll use this diagram to help:<br><br>
+                                    <img src="images/pca4.png" ><br>
+                                    In this diagram, the blue circle represents the data point while the green line represents PC<sub>1</sub>. The
+                                    red line represents the distance from the point to the origin, we'll call this distance 'c'. It's important to note that 
+                                    this distance never changes, regardless of where the line is. The purple line represents the distance the point is from the 
+                                    principal component. One way to find the line of best fit is to try to minimize 'a'. This is usually done by minimizing the sum of the distances
+                                    squared. That value is known as the <strong>eigenvalue</strong> for that principal component and the square root of the eigenvalue is called the <strong>singular value</strong> for that 
+                                    principal component.<br>
+                                    One thing you'll see is that side lengths a,b, and c form a right triangle. 'c', as we mentioned earlier, is constant. According to the Pythagorean Theorem
+                                    a<sup>2</sup> + b<sup>2</sup> = c <sup>2</sup>. This means that minimizing 'a' is the same thing as maximizing 'b'. A PCA maximizes 'b' by maximizing
+                                    the sum squared of 'b' across all datapoints.<br><br>
+                                    Once the PC<sub>1</sub> is found, PC<sub>2</sub> is simply the best-fit line perpendicular to PC<sub>1</sub>. If we had more features,
+                                    we could add even more principal components, all of which would be the best-fit line orthogonal to all the others. We'll stick with two dimensions for the sake of
+                                    simplicity. Our PC<sub>1</sub> and PC<sub>2</sub> look something like this.<br><br>
+                                    <img src="images/pca5.png" ><br>
+                                    Now we'll rotate our plot so that PC<sub>1</sub> becomes our horizontal axis. Our plot now looks something like this:<br><br>
+                                    <img src="images/pca6.png" ><br>
+                                    If we had more than two features, to create the 2-D plot, we simply project the points from the other principal components on to PC<sub>1</sub>
+                                    and PC<sub>2</sub>. <br><br>
+                                    If you take the eigenvalue and divide it by (n-1), you get the variation from that principal component. You can compare the varations between different
+                                    components to see which ones account for more variability within the dataset. A graph of these variations is called a <strong>scree plot</strong>
+                                    and can be useful to determine how many features to keep in our final model.
+                                    <br><br>
+                                    Now that we understand the process of principal component analysis using singular value decomposition (PCA using SVD), let's look into how we can implement it.
+                                    First, make sure you have your iris dataset properly loaded into a dataframe using the <code>read_csv</code> function. (To see the full
+                                    instructions on setting up go <a href="#Univariate"><u>here</u></a>. The CSV file
+                                    can be downloaded <a href="supplements/iris.csv" download><u>here</u></a>.<br><br>
+                                    We'll start by standardizing our features. This means setting the mean and variance to 0 and 1 respectively. We can do this by subtracting the mean from each point (something we did above), and then dividing by the
+                                    standard deviation. Luckily, sklearn makes this easy for us. <br><br>
+                                    <pre class="hljs" style="display: block; overflow-x: auto; padding: 0.5em; background-color: rgb(244, 244, 244); color: rgb(0, 0, 0);">x = iris<span class="hljs-selector-class">.loc</span>[:, [<span class="hljs-string" style="color: rgb(0, 85, 0);">'Sepal Length'</span>, <span class="hljs-string" style="color: rgb(0, 85, 0);">'Sepal Width'</span>, <span class="hljs-string" style="color: rgb(0, 85, 0);">'Petal Length'</span>, <span class="hljs-string" style="color: rgb(0, 85, 0);">'Petal Width'</span>]]<span class="hljs-selector-class">.values</span>
+y = iris<span class="hljs-selector-class">.loc</span>[:,[<span class="hljs-string" style="color: rgb(0, 85, 0);">'Class'</span>]]<span class="hljs-selector-class">.values</span>
+x = StandardScaler().fit_transform(x)</pre> </p>
+                                        <p class="lesson-text">
+                                        All we're doing here is seperating our features from our target variable ('Class'), and standardizing our features (subtracting means and dividing by standard deviations).
+                                        After we do this we can start our PCA. <br><br>
+                                        <pre class="hljs" style="display: block; overflow-x: auto; padding: 0.5em; background-color: rgb(244, 244, 244); color: rgb(0, 0, 0);"><span class="hljs-attr">pca</span> = PCA(<span class="hljs-number" style="color: rgb(136, 0, 0);">2</span>)
+<span class="hljs-attr">projected</span> = pca.fit_transform(x)
+<span class="hljs-attr">pca_x</span> = projected[:, <span class="hljs-number" style="color: rgb(136, 0, 0);">0</span>]
+<span class="hljs-attr">pca_y</span> = projected[:, <span class="hljs-number" style="color: rgb(136, 0, 0);">1</span>]</pre>
 
-                                </p> </div>
+
+                                </p> 
+                                <p class="lesson-text">
+                                        pca_x holds our PC<sub>1</sub> values while pca_y holds our PC<sub>2</sub> values. Remember, we originally had four features and now
+                                        we only have two. Now let's visualize these components. <br><br>
+                                        <pre class="hljs" style="display: block; overflow-x: auto; padding: 0.5em; background-color: rgb(244, 244, 244); color: rgb(0, 0, 0);">color_dict = {<span class="hljs-string" style="color: rgb(0, 85, 0);">'Iris-setosa'</span>:<span class="hljs-string" style="color: rgb(0, 85, 0);">'red'</span>,<span class="hljs-string" style="color: rgb(0, 85, 0);">'Iris-virginica'</span>:<span class="hljs-string" style="color: rgb(0, 85, 0);">'green'</span>,<span class="hljs-string" style="color: rgb(0, 85, 0);">'Iris-versicolor'</span>:<span class="hljs-string" style="color: rgb(0, 85, 0);">'blue'</span>}
+color_list = [color_dict[label] <span class="hljs-keyword" style="font-weight: 700; color: navy;">for</span> <span class="hljs-selector-tag" style="font-weight: 700; color: navy;">label</span> <span class="hljs-keyword" style="font-weight: 700; color: navy;">in</span> iris[<span class="hljs-string" style="color: rgb(0, 85, 0);">'Class'</span>]]
+plt.scatter(pca_x, pca_y,c=color_list, edgecolor=<span class="hljs-string" style="color: rgb(0, 85, 0);">''</span>, alpha=<span class="hljs-number" style="color: rgb(136, 0, 0);">0.5</span>)
+plt.xlabel(<span class="hljs-string" style="color: rgb(0, 85, 0);">'Principal Component 1'</span>)
+plt.ylabel(<span class="hljs-string" style="color: rgb(0, 85, 0);">'Principal Component 2'</span>)
+plt.show()</pre><br>
+                                            <img src="images/pca7.png">
+                            
+                                </p>
+                                <p class="lesson-text">
+                                    PCA is very useful for visualizing data as well as reducing the number of features we have to explore. One more thing we can do is use the line
+                                    <code>pca.explained_variance_ratio_</code>. This returns a list showing the variance ratio (as we discussed earlier), for each principal component.
+                                    This can help show the importance of different components and help determine how many features to include. 
+
+                                </p>
+
+                            </div>
                                 
                     <div id="Explore-Resources">
                                 <!-- USEFUL RESOURCES -->
@@ -1018,6 +1094,82 @@ folds = <span class="hljs-keyword" style="font-weight: 700; color: navy;">KFold<
                             </p>
                         </div>
 
+                <div id="Loss-Functions">
+                        <!-- Loss Functions and Optimizers -->
+                        <h1 class="post_title"> Loss Functions and Optimizers</h1>
+                        <p class="lesson-text">
+                            You might be wondering why we're learning all these concepts <i>before</i> we've even started using any models.
+                            The reason is because learning how to fit various models is just one part of data analysis. The important part
+                            is understanding how the models work and how to optimize and gain insight from them. So bear with me, we'll get to ML models soon. <br>
+                            Let's first learn what a loss function and optimizer are, and then look into some that are commonly used. Let's start with the loss function.<br>
+                            <strong id="MAE"> NOTE: We will not be going through the code required for these loss functions as it would be much easier to understand the code when implementing them into a model (we'll do this in our modeling series).</strong>
+                            <br><br>
+                            <strong><u>Regression Loss Functions - MAE (L1), MSE (L2) and Huber</u></strong><br><br>
+                            As you remember from our train-test lesson. When we use a supervised machine learning model, we split our data into a training set and a testing set.
+                            We then talked about how a model "trains" on the training set and then tests itself on the testing set. How does the model know if it guessed correctly?
+                            The model determines its error using a <i>loss function</i>. Let's see some examples. <br><br>
+
+                            <strong><u>Regression Loss Functions: MAE (L1) and MSE (L2) Loss Functions</u></strong><br><br>
+                            For regression, two commonly used loss functions are Mean Squared Error (MSE) or L2 and Mean Absolute Error (MAE) or L1. MSE works by taking the average squared difference
+                            between the predicted values and expected values (we kinda went over this in our PCA with SVD lesson). MAE works similarly except only looks at the average absolute value, or magnitude, of the difference between predicted
+                            and expected values. One major difference between these two loss functions is that MSE tends to punish values that are far very harshly, since the
+                            error is proportional to the difference squared. MAE on the otherhand does not punish outliers more since the error is proportional to the distance. We'll be revisiting these topics
+                            when we get into <a id = "Huber" href="#Ridge"><u>Ridge and LASSO</u></a> regression, as they use MSE and MAE for regularization (we'll learn about that later).<br><br>
+                            <strong><u>Regression Loss Functions: Huber Loss Function</u></strong><br><br>
+                            <br>Another loss function is the <strong>Huber Loss Function</strong>. You can think of a Huber loss function as a sort of combination of L1 (MAE) and L2 (MSE). 
+                            When using a Huber loss function, you define a &delta;. This &delta; represents a <i>tolerance</i> in terms of error in our predictions. If our error is less than this &delta;
+                            we use a <i>quadratic</i> loss function. This just means our loss function has a degree of 2 - like MSE. However, like we learned earlier, MSE punishes outliers heavily since
+                            loss is dependent on the error squared. Huber counters this by using a different loss function of degree 1 - or <i>linear</i>, when our error is greater than &delta;. This is called a <i>piecewise function</i>.
+                            Here's the equation from <a href="https://en.wikipedia.org/wiki/Huber_loss"><u>Wikipedia</u></a>, where <code>f(x)</code> represents our expected value.<br><br>
+                            <img src="images/huber.png"><br><br>
+                            This concept is similar to how Elastic Net regularization builds on L1 and L2 regularization, something we'll get into in our Regression lesson series.<br>
+                            Here are some popular regression loss functions:<br><br>
+                            <img  id="Log" src="images/lossfunctions.png"><br><br><br>
+                            <strong><u>Classification Loss Functions: Binary Cross-Entropy (Logarithmic)</u></strong><br><br>
+                            When working with classification data, we have to use different loss functions that work with our "classes".
+                            We'll be working with other classification loss functions like <strong>Hinge Loss</strong> later on. We'll skip it for now because we'll cover it once we learn SVMs.<br><br>
+                            When we have a binary classification problem, our goal is to create a model that 
+                            takes in our features and outputs either 0 or 1, representing our two classes. We'll learn more about these in our classification section, but it's a good idea to understand the basic premise.
+                            When we feed our features into our model, let's say we use a logistic regression model, we can get an output between 0 and 1 for each observation that corresponds to the class. For example, when feeding in our features for a specific 
+                            observation, our model may output 0.94. If our expected value was 1, we weren't too far off, but if our expected value was 0, we have some work to do. Binary Cross-Entropy is useful because it treats these two cases differently ("binary" because there are two classes).
+                            When the error is large, like if our expected out was 0 in our previous example, binary cross-entropy would penalize these predictions <i>heavily</i>. To better illustrate this, take a look at the log loss function
+                            <a href="https://ml-cheatsheet.readthedocs.io/en/latest/loss_functions.html"><u>graph</u></a>. when the true value is 1. The x-axis represents our model's predictions, and the y-axis represents the corresponding log error associated with that prediction. <br><br>
+                            <img src="images/crossentropy.png"><br><br>
+                            
+                            As you can see, the log loss function penalizes predictions that are way off <i>much more</i> than predictions that are slightly off. Intuitively, this should make sense. Let's take a look at the <strong>cost function</strong>. <br><br>
+                            <img src="images/binaryeqn.png"><br><br>
+                            An important distinction to make is the difference between a <i>loss</i> function and a <i>cost</i> function. A <strong>loss function</strong> is the the error we calculate for a <i>single observation</i>, whereas
+                            a <strong>cost function</strong> is the <i>average</i> of our loss function across our entire dataset. Knowing that the average is just the sum divided by the total number of observations, we can see that the loss function for cross-entropy
+                            is everything inside the summation. Let's make sense of what each variable represents. y<sub>i</sub> represents the observation's target class, either 0 or 1. The p(y<sub>i</sub>) represents our model's probability <i>prediction</i> of
+                            that observation. Remember that all our probabilities are between 0 and 1 and the logarithm of a value between 0 and 1 goes from 0 to negative infinity. In practice, it's common to maximize the negative log rather minimize the log loss function.
+                            Minimizing the log of a function is the same as maximizing the negative log of that function. <br><br>
+                            One thing you'll notice aboutis our coefficients are y<sub>i</sub> and (1-y<sub>i</sub>), and as we mentioned earlier, y<sub>i</sub> can only have values 0 or 1. This means that only one of these terms is used when calculating the cross-entropy loss for an
+                            observation. Why is that so? Imagine we have an observation whose target is 0. Our error would simply be our model's output (y<sub>i</sub>) minus zero, or, y<sub>i</sub>. If our target was 1, our error would be 1 minus our model's output (y<sub>i</sub>), or
+                            , (1-y<sub>i</sub>). The cross-entropy loss function will prove extremely useful when we start using neural networks and other classification models. <br><br>
+                            
+                            Now that we know what a loss function is, we can look into how to <i>minimize</i> it. We can minimize our loss function by using
+                            certain optimizers.
+                            </p>
+
+                            </div>
+                <div id="Optimizers">
+                        <!-- Optimizers -->
+                        <h1 class="post_title">Optimizers</h1>
+                        <p class="lesson-text">
+                            Optimization functions are commonly used in conjunction with loss functions. If you remember from our loss functions lesson, a loss function represents the error
+                            of a model's prediction. Obviously, when we fit our model to our training set, we're interested in trying to minimize our error. This is where optimizers come in.
+                            Optimizers are functions whose primary purpose is to minimize or maximize another function - in our case, a <i id="GD">loss function.</i> <br>
+                            <br><br>
+                            <strong><u>Gradient Descent (GD)</u></strong><br><br>
+                            
+                            <br><br>
+                            <strong><u>Stochastic Gradient Descent (SGD)</u></strong><br><br>
+                            Stochastic Gradient Descent (SGD), is a variation of the <a href="GD"><u>Gradient Descent</u></a> algorithm. 
+                            <br><br>
+                            <strong><u>Adaptive Moment Estimation (Adam)</u></strong><br><br>
+                            </p>
+                        </div>
+                            
                 <div id="Linear-Regression">
                         <!-- Linear-Regression -->
                         <h1 class="post_title"> Linear Regression</h1>
