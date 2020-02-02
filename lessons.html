@@ -112,11 +112,11 @@
                     <li><a class="lesson-item" href="#MAE">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;MAE (L1) and MSE (L2)</a></li>  
                     <li><a class="lesson-item" href="#Huber">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Huber</a></li> 
                     <li><a class="lesson-item" href="#Log">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Binary Cross-Entropy</a></li>  
-                    <li><a class="lesson-item" href="#Optimizers">Optimizers</a></li> 
+                    <li><a class="lesson-item" href="#Optimizers">Optimization Algorithms</a></li> 
                     <li><a class="lesson-item" href="#GD">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Gradient Descent (GD)</a></li>
-                    <li><a class="lesson-item" href="#Log">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Stochastic GD (SGD)</a></li>
-                    <li><a class="lesson-item" href="#Log">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Adam</a></li>   
-                    <li><a class="lesson-item" href="#Loss-Functions">MLE for Parameterization</a></li>  
+                    <li><a class="lesson-item" href="#SGD">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Stochastic GD (SGD)</a></li>
+                    <li><a class="lesson-item" href="#Adam">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Adam</a></li>   
+                    <li><a class="lesson-item" href="#MLE">MLE for Parameterization</a></li>  
                     <li><a class="lesson-item" href="#Linear-Regression">Machine Learning Models</a></li>  
                     <li><a class="lesson-item" href="#Linear-Regression">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Linear Regression</a></li>
                     <li><a class="lesson-item" href="#Ridge">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Ridge, LASSO, Elastic Net</a></li> 
@@ -1156,17 +1156,89 @@ folds = <span class="hljs-keyword" style="font-weight: 700; color: navy;">KFold<
                         <!-- Optimizers -->
                         <h1 class="post_title">Optimizers</h1>
                         <p class="lesson-text">
+                            Like our last lesson, this lesson will focus on the conceptual and mathematical understanding of certain optimizers rather than
+                            their programatic implementation. We'll be implementing these optimizers throughout our machine learning models series.<br><br>
                             Optimization functions are commonly used in conjunction with loss functions. If you remember from our loss functions lesson, a loss function represents the error
                             of a model's prediction. Obviously, when we fit our model to our training set, we're interested in trying to minimize our error. This is where optimizers come in.
                             Optimizers are functions whose primary purpose is to minimize or maximize another function - in our case, a <i id="GD">loss function.</i> <br>
                             <br><br>
-                            <strong><u>Gradient Descent (GD)</u></strong><br><br>
+                            <strong><u>(Vanilla) Gradient Descent (GD)</u></strong><br><br>
+                            An optimization algorithm you'll definitely hear about and use is gradient descent. To understand gradient descent, we'll go through
+                            how it works. Let's say we're trying to use gradient descent for the linear model: <br><br>
+                            <a href="https://www.codecogs.com/eqnedit.php?latex=y&space;=&space;\Theta&space;_{0}&space;&plus;&space;\Theta&space;_1x" target="_blank"><img src="https://latex.codecogs.com/png.latex?y_{i}&space;=&space;\Theta&space;_{0}&space;&plus;&space;\Theta&space;_1x_{i}" title="y = \Theta _{0} + \Theta _1x" /></a><br><br>
+                            Our loss function (RSS) is:<br><br>
+                            <a href="https://www.codecogs.com/eqnedit.php?latex=RSS&space;=&space;\sum_{i=1}^{n}&space;(\widehat{y}_{i}-y_{i})^2" target="_blank"><img src="https://latex.codecogs.com/png.latex?RSS&space;=&space;\sum_{i=1}^{n}&space;(\widehat{y}_{i}-y_{i})^2" title="RSS = \sum_{i=1}^{n} (\widehat{y}_{i}-y_{i})^2" /></a><br><br>
+                            Let's imagine that we substituted two random values for &theta;<sub>0</sub> and &theta;<sub>1</sub> into our linear model 
+                            and then calculated our RSS.
+                            We could graph the point (&theta;<sub>0</sub>, &theta;<sub>1</sub>, RSS) on a 3-D plot. Here's an example of what that plot might look like:<br><br>
+                            <img src="images/gd.png"><br><br>
+                            You can imagine the plane the "bowl" sits on as our (&theta;<sub>0</sub>, &theta;<sub>1</sub>) plane, making out third axis (the one coming up) 
+                            our RSS axis. Remember that our goal is to minimize our loss function, graphically, that means we want to find the "bottom" of our bowl. This is called a minima.
+                            The two types of minima are local and absolute. A local minimum is a minimum relative to surrounding points whereas
+                            an absolute minimum is the minimum for the entire plot. You can think of it like your local star basketball player, a <i>local</i> legend, and Kobe Bryant,
+                            an <i>absolute</i> legend (RIP Kobe). In the diagram above, our local minimum is our absolute minimum.<br><br>
+                            Finding a minimum means 
+                            we have to find where our plot bottoms out, or in other words, where the slope and deriviative <i>are zero</i>. We can take our RSS loss function
+                            and take the partial derivative with respect to each of our &theta;'s to see how the deviations
+                            in any specific parameter affect the RSS keeping while <i>all else constant</i>. These expressions are the rates of change of our RSS function with respect to our paramaters,
+                            in this case &theta;<sub>0</sub> and &theta;<sub>1</sub>. Remember that a derivative of a summation
+                            is simply the derivative of each term added together, and when taking the partial with respect to &theta;<sub>0 or 1</sub>, the other &theta; can be treated as a constant. <br>
+                            Okay, so now what?
+                            <br><br>
+                            We'll start off by giving arbitrary values for &theta;<sub>0</sub> and &theta;<sub>1</sub>. You can imagine our gradient descent algorithm plotting that point
+                            on a graph (&theta;<sub>0</sub>, &theta;<sub>1</sub>, RSS) and then jumping to another &theta;<sub>0</sub>, &theta;<sub>1</sub>, calculating the model's RSS with 
+                            the new paramaters, and plotting that point before repeating the process. Our gradient descent algorithm tries to take steps or jumps towards the minimum
+                            by iteratively adjusting &theta;<sub>0</sub> and &theta;<sub>1</sub> until the step sizes are as close to 0 as possible, or a certain step limit 
+                            has been reached. 
+                            It might be hard to visualize the three-dimensional plot so here's a helpful labeled diagram of gradient descent in two-dimensions:<br><br>
+                            
+                            <img src="images/gdjumps.png">
+                            <br><br>
+                            Here is how we will mathematically update our weights.<br><br>
+                            <a href="https://www.codecogs.com/eqnedit.php?latex=\Theta&space;_{1}'&space;=\Theta&space;_{1}-\alpha&space;\frac{\partial&space;}{\partial&space;\Theta&space;_{1}}RSS(\Theta&space;_{1},&space;\Theta&space;_{2})" target="_blank"><img src="https://latex.codecogs.com/png.latex?\Theta&space;_{0}'&space;=\Theta&space;_{0}-\alpha&space;\frac{\partial&space;}{\partial&space;\Theta&space;_{0}}RSS(\Theta&space;_{0},&space;\Theta&space;_{1})" title="\Theta _{1}' =\Theta _{1}-\alpha \frac{\partial }{\partial \Theta _{1}}RSS(\Theta _{1}, \Theta _{2})" /></a><br>
+                            <a href="https://www.codecogs.com/eqnedit.php?latex=\Theta&space;_{1}'&space;=\Theta&space;_{1}-\alpha&space;\frac{\partial&space;}{\partial&space;\Theta&space;_{1}}RSS(\Theta&space;_{1},&space;\Theta&space;_{2})" target="_blank"><img src="https://latex.codecogs.com/png.latex?\Theta&space;_{1}'&space;=\Theta&space;_{1}-\alpha&space;\frac{\partial&space;}{\partial&space;\Theta&space;_{1}}RSS(\Theta&space;_{0},&space;\Theta&space;_{1})" title="\Theta _{1}' =\Theta _{1}-\alpha \frac{\partial }{\partial \Theta _{1}}RSS(\Theta _{1}, \Theta _{2})" /></a>
+                            <br><br>The equation pretty much says that our paramater's updated value should be its previous value <i>minus</i> how much a change in our parameter would affect our RSS, scaled by our learning rate &alpha;.
+                            &theta;' represents our updated value and &alpha; represents our <i>learning rate</i>. Our learning rate decides how meticulous our gradient descent algorithm should be in terms of step size.
+                            If our learning rate is too small, it will take a long time for our algorithm to converge, if our rate is too large, we may overshoot and end with infinite error. This is why determining the learning rate is vital. 
+                            Trying out different rates and using a fixed value is a good way to start. Another common practice is to start with a larger learning rate and then decrease it as your model approaches its optimal solution. 
+                            This is helpful because it allows our model to work quickly in the beginning with larger steps while being more precise around the minima.<br><br>
+                            Gradient descent is very useful but has some drawbacks. One major drawback is working with Big Data. When we have a lot of features and a lot of observations, our gradient descent algorithm will have to calculate the partial deriviatves
+                            for <i>each parameter</i> in <i id = "SGD">each observation</i>, this can be very time-costly. Luckily, SGD helps with this problem.
+                            
+                            
                             
                             <br><br>
-                            <strong><u>Stochastic Gradient Descent (SGD)</u></strong><br><br>
-                            Stochastic Gradient Descent (SGD), is a variation of the <a href="GD"><u>Gradient Descent</u></a> algorithm. 
+                            <strong><u>Stochastic Gradient Descent (SGD) and Mini Batch Gradient Descent</u></strong><br><br>
+                            Stochastic Gradient Descent (SGD), is a variation of the <a href="#GD"><u>Gradient Descent</u></a> algorithm. In our gradient descent algorithm, we
+                            used <i>all</i> our observations when finding our errors before changing our weights. With a lot of data, this becomes too time-costly. 
+                            SGD randomly chooses a <strong>single</strong> sample in each iteration to calculate our error and partial derivatives. This makes our computation n times faster, n being our
+                            dataset size.<br><br>
+                            SGD minimizes our loss much faster but has a lot more noise and can oscillate around the minimum. If we wanted to get the best of both worlds, we could use
+                            <strong>Mini Batch Gradient Descent</strong>. Our vanilla gradient descent algorithm took our entire dataset as a "batch," while SGD took one sample as a "batch". 
+                            Mini Batch Gradient Descent takes a <i>subset</i> of our dataset as a batch in each iteration to adjust our model's weights. This improves the computational complexity of vanilla gradient descent
+                            while <i id="Adam">decreasing</i> the variance from stochastic gradient descent.
                             <br><br>
                             <strong><u>Adaptive Moment Estimation (Adam)</u></strong><br><br>
+                            Now we'll learn about the <strong>Adam</strong> optimization algorithm. The Adam algorithm is a combination of two other algorithms
+                            called AdaGrad and RMSProp, both of which we'll be going over. 
+                            We'll start with the <strong>Adaptive Gradient Algorithm (AdaGrad)</strong>. To understand AdaGrad, let's revisit our gradient descent update function. This time, instead of writing "RSS" we'll use "L" (Loss).<br><br>
+                            <a href="https://www.codecogs.com/eqnedit.php?latex=\Theta&space;_{j}'&space;=\Theta&space;_{j}-\alpha&space;\frac{\partial&space;L&space;}{\partial&space;\Theta&space;_{j}}" target="_blank"><img src="https://latex.codecogs.com/gif.latex?\Theta&space;_{j}'&space;=\Theta&space;_{j}-\alpha&space;\frac{\partial&space;L&space;}{\partial&space;\Theta&space;_{j}}" title="\Theta _{j}' =\Theta _{j}-\alpha \frac{\partial L }{\partial \Theta _{j}}" /></a><br>
+                            <br>This can be rewritten as: <br><br>
+                            <a href="https://www.codecogs.com/eqnedit.php?latex=\Delta&space;\Theta&space;_{j}&space;=-\alpha&space;\frac{\partial&space;L&space;}{\partial&space;\Theta&space;_{j}}" target="_blank"><img src="https://latex.codecogs.com/gif.latex?\Delta&space;\Theta&space;_{j}&space;=-\alpha&space;\frac{\partial&space;L&space;}{\partial&space;\Theta&space;_{j}}" title="\Delta \Theta _{j} =-\alpha \frac{\partial L }{\partial \Theta _{j}}" /></a><br><br>
+                            You'll notice that our &alpha; is constant and doesn't depend on our parameter estimates. AdaGrad improves on gradient descent by <i>decreasing</i> the learning rate as
+                            the model gets closer to the solution. It does this by taking the &alpha; from the equation above and dividing it by an expression every epoch to yield: <br><br>
+                            <a href="https://www.codecogs.com/eqnedit.php?latex=\Delta&space;\Theta&space;_{j}&space;=-\frac{\alpha}{\sqrt{G_{j}}&plus;\epsilon&space;}&space;\cdot&space;\frac{\partial&space;L&space;}{\partial&space;\Theta&space;_{j}}" target="_blank"><img src="https://latex.codecogs.com/png.latex?\Delta&space;\Theta&space;_{j}&space;=-\frac{\alpha}{\sqrt{G_{j}}&plus;\epsilon&space;}&space;\cdot&space;\frac{\partial&space;L&space;}{\partial&space;\Theta&space;_{j}}" title="\Delta \Theta _{j} =-\frac{\alpha}{\sqrt{G_{j}}+\epsilon } \cdot \frac{\partial L }{\partial \Theta _{j}}" /></a><br><br>
+                            The only difference between this and our previous equation is the denominator of the square root of G<sub>j</sub> plus some epsilon. The epsilon isn't very important as its
+                            main function is to prevent division by 0. One thing you should take note of is that each parameter will have its own adaptive learning rate, which is very useful
+                            in minimizing our overall time-cost. So anyway, what is G<sub>j</sub>? You can think of G<sub>j</sub> as our scaling factor for our learning rates. The larger our value for G<sub>j</sub>,
+                            the smaller our learning rate and vice versa. G<sub>j</sub> is calculated as follows: <br><br>
+                            <a href="https://www.codecogs.com/eqnedit.php?latex=G_{j}'&space;=G_{j}&space;&plus;&space;(\frac{\partial&space;L&space;}{\partial&space;\Theta&space;_{j}})^2" target="_blank"><img src="https://latex.codecogs.com/png.latex?G_{j}'&space;=G_{j}&space;&plus;&space;(\frac{\partial&space;L&space;}{\partial&space;\Theta&space;_{j}})^2" title="G_{j}' =G_{j} + (\frac{\partial L }{\partial \Theta _{j}})^2" /></a><br><br>
+                            When we start, our G<sub>j</sub> is 0 so our &alpha;'s denominator is simply &epsilon;. There are some important things to notice. The first thing is that since G<sub>j</sub> starts at 0 and a squared value (positive) is being
+                            added, our G<sub>j</sub> value will increase every epoch as more and more positive terms are added. This means our denominator for our &alpha; will continually decrease and after a certain point, our learning rate will be so small our model
+                            will barely change our parameters. <br><br>
+                            Now you can see why these are called <i>adaptive</i> algorithms. Our learning rates <i>adapt</i> according to our dataset.
+                             
+
                             </p>
                         </div>
                             
