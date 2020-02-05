@@ -133,8 +133,8 @@
                     <li>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;K-Means Clustering</li>
                     <li>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;DBSCAN</li>
                     <li>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Multilayer Perceptron</li>
-                    <li>Time-Series Models</li>
-                    <li>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;AR, MA, ARMA</li>
+                    <li><a class="lesson-item" href="#ARMA">Time-Series Models</a></li>
+                    <li><a class="lesson-item" href="#ARMA">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;AR, MA, ARMA</a></li>
                     <li>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;ARIMA and SARIMA</li>
                     <li>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Smoothing Models</li>
                     <li><a class="lesson-item" href="#Model-Resources">Useful Resources</a></li>
@@ -1284,8 +1284,8 @@ folds = <span class="hljs-keyword" style="font-weight: 700; color: navy;">KFold<
                             <a href="https://www.codecogs.com/eqnedit.php?latex=\Delta&space;\Theta&space;_{j}&space;=-\frac{\alpha}{\sqrt{G_{j}}&plus;\epsilon&space;}&space;\cdot&space;\frac{\partial&space;L&space;}{\partial&space;\Theta&space;_{j}}" target="_blank"><img src="https://latex.codecogs.com/gif.latex?\Delta&space;\Theta&space;_{j}&space;=-\frac{\alpha}{\sqrt{G_{j}}&plus;\epsilon&space;}&space;\cdot&space;\frac{\partial&space;L&space;}{\partial&space;\Theta&space;_{j}}" title="\Delta \Theta _{j} =-\frac{\alpha}{\sqrt{G_{j}}+\epsilon } \cdot \frac{\partial L }{\partial \Theta _{j}}" /></a>
                             <br><br>
                              Our AdaGrad update function says the amount a paramater &theta;<sub>j</sub> should be changed is related to a modified learning rate multiplied by
-                             our previous epoch's change in the loss function with respect to &theta;<sub>j</sub>. However, what if we wanted to at more than just the previous change? Well, this is where we can add
-                             momentum into our algorithm. We'll start by making our parameter update proportional to the modified learning rate multiplied by some expression for <i>momentum</i>, like so: <br><br>
+                             our previous epoch's change in the loss function with respect to &theta;<sub>j</sub>. However, what if we wanted to look at more than just the previous change? Well, this is where we can add
+                             momentum into our algorithm. We'll start by making our parameter update proportional to the modified learning rate multiplied by some expression for <i>momentum M<sub>j</sub></i>, like so: <br><br>
                              <a href="https://www.codecogs.com/eqnedit.php?latex=\Delta&space;\Theta&space;_{j}(t)&space;=-\frac{\alpha}{\sqrt{G_{j}(t)}&plus;\epsilon&space;}&space;M_{i}(t)" target="_blank"><img src="https://latex.codecogs.com/gif.latex?\Delta&space;\Theta&space;_{j}(t)&space;=-\frac{\alpha}{\sqrt{G_{j}(t)}&plus;\epsilon&space;}&space;M_{j}(t)" title="\Delta \Theta _{j}(t) =-\frac{\alpha}{\sqrt{G_{j}(t)}+\epsilon } M_{i}(t)" /></a>
                             <br><br>
                             Just a quick reminder, the t represents our epoch. This makes it easier to understand which gradient lags we'll be using in our updates. Now that we have our updated update function, let's see how we can calculate our momentum term M<sub>j</sub>.
@@ -1534,7 +1534,33 @@ y_pred = elastic.predict(X_test)
                         The closer your &alpha; value is to 1, the more L1 regularization will be used and the closer your &alpha; value is to 0, the more L2 regularization will be used.
 
                     </p>
+                        </div>
+                    <div id="ARMA">
 
+                            <!-- ARMA -->
+                            <h1 class="post_title"> Autoregressive–Moving-Average Model (ARMA)</h1>
+                            <p class="lesson-text">
+                                Now we'll start working with time-series data. When we refer to time-series data, we mean data that's indexed by a
+                                time or date. We've worked with regression models before where we've regressed target variables on seperate features, but what if we wanted to regress
+                                an observation with previous lagged observations? We can make use of an AR, or <strong>autoregressive</strong> model.
+                                <br><br>
+                                <strong><u>Autoregressive Models (AR)</u></strong><br><br>
+                                We'll start off by going over autoregressive models. Autoregressive models are models that relates an observations value on its previous vaules.   
+                                Here's a basic example of what I mean. <br><br>
+                                <a href="https://www.codecogs.com/eqnedit.php?latex=y_{t}&space;=&space;\lambda&space;y_{t-1}&space;&plus;c" target="_blank"><img src="https://latex.codecogs.com/gif.latex?y_{t}&space;=&space;\lambda&space;y_{t-1}&space;&plus;c" title="y_{t} = \lambda y_{t-1} +c" /></a>                                
+                                <br><br>
+                                The model above is an example of an AR(1) model. This means its an autoregressive model that utilizes one autoregressive lag. We'll learn more about this soon. 
+                                You should notice that the formula above looks very similar to our equation for linear regression. In the model above, we're saying that the value of y, our target variable, <i>at time t</i> is related to its value
+                                y at <i>time t-1</i>. Lags are how many previous "time steps" or "intervals" our model will use as features in our predictive model.
+                                y<sub>t-1</sub> is known as the first <strong>autoregressive lag</strong>.
+                                Determining how many autoregressive lags our model should use is very important. We'll be going through
+                                how to do this using ACF and PACF plots. Let's start off by mathematically understanding the concepts behind autoregressive models. We can begin with 
+
+
+                                <br>Let's start working with AR models. We'll start by reading in this <a href="" download><u>CSV</u></a> file.
+                                </p>
+                                </div>
+                                
                 <div id="Model-Resources">
 
                         <!-- Useful-Resources -->
