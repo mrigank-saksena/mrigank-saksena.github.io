@@ -115,7 +115,10 @@
                     <li><a class="lesson-item" href="#Optimizers">Optimization Algorithms</a></li> 
                     <li><a class="lesson-item" href="#GD">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Gradient Descent (GD)</a></li>
                     <li><a class="lesson-item" href="#SGD">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Stochastic GD (SGD)</a></li>
-                    <li><a class="lesson-item" href="#Adam">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Adam</a></li>   
+                    <li><a class="lesson-item" href="#Momentum">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Momentum</a></li>
+                    <li><a class="lesson-item" href="#AdaGrad">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;AdaGrad</a></li> 
+                    <li><a class="lesson-item" href="#RMS">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;RMSProp</a></li> 
+                    <li><a class="lesson-item" href="#Adam">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Adam</a></li> 
                     <li><a class="lesson-item" href="#MLE">MLE for Parameterization</a></li>  
                     <li><a class="lesson-item" href="#Linear-Regression">Machine Learning Models</a></li>  
                     <li><a class="lesson-item" href="#Linear-Regression">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Linear Regression</a></li>
@@ -133,6 +136,7 @@
                     <li>Time-Series Models</li>
                     <li>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;AR, MA, ARMA</li>
                     <li>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;ARIMA and SARIMA</li>
+                    <li>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Smoothing Models</li>
                     <li><a class="lesson-item" href="#Model-Resources">Useful Resources</a></li>
                     <li>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</li>
 
@@ -1190,9 +1194,9 @@ folds = <span class="hljs-keyword" style="font-weight: 700; color: navy;">KFold<
                             the new paramaters, and plotting that point before repeating the process. Our gradient descent algorithm tries to take steps or jumps towards the minimum
                             by iteratively adjusting &theta;<sub>0</sub> and &theta;<sub>1</sub> until the step sizes are as close to 0 as possible, or a certain step limit 
                             has been reached. 
-                            It might be hard to visualize the three-dimensional plot so here's a helpful labeled diagram of gradient descent in two-dimensions:<br><br>
+                            It might be hard to visualize so here's a gif from <a href="https://media.giphy.com/media/O9rcZVmRcEGqI/giphy.gif"><u>GIPHY</u></a> that might help out:<br><br>
+                            <img src="https://media.giphy.com/media/O9rcZVmRcEGqI/giphy.gif" height="300px" width="750px">
                             
-                            <img src="images/gdjumps.png">
                             <br><br>
                             Here is how we will mathematically update our weights.<br><br>
                             <a href="https://www.codecogs.com/eqnedit.php?latex=\Theta&space;_{1}'&space;=\Theta&space;_{1}-\alpha&space;\frac{\partial&space;}{\partial&space;\Theta&space;_{1}}RSS(\Theta&space;_{1},&space;\Theta&space;_{2})" target="_blank"><img src="https://latex.codecogs.com/png.latex?\Theta&space;_{0}'&space;=\Theta&space;_{0}-\alpha&space;\frac{\partial&space;}{\partial&space;\Theta&space;_{0}}RSS(\Theta&space;_{0},&space;\Theta&space;_{1})" title="\Theta _{1}' =\Theta _{1}-\alpha \frac{\partial }{\partial \Theta _{1}}RSS(\Theta _{1}, \Theta _{2})" /></a><br>
@@ -1216,11 +1220,29 @@ folds = <span class="hljs-keyword" style="font-weight: 700; color: navy;">KFold<
                             SGD minimizes our loss much faster but has a lot more noise and can oscillate around the minimum. If we wanted to get the best of both worlds, we could use
                             <strong>Mini Batch Gradient Descent</strong>. Our vanilla gradient descent algorithm took our entire dataset as a "batch," while SGD took one sample as a "batch". 
                             Mini Batch Gradient Descent takes a <i>subset</i> of our dataset as a batch in each iteration to adjust our model's weights. This improves the computational complexity of vanilla gradient descent
-                            while <i id="Adam">decreasing</i> the variance from stochastic gradient descent.
+                            while <i id="Momentum">decreasing</i> the variance from stochastic gradient descent.
                             <br><br>
-                            <strong><u>Adaptive Moment Estimation (Adam)</u></strong><br><br>
-                            Now we'll learn about the <strong>Adam</strong> optimization algorithm. The Adam algorithm is a combination of two other algorithms
-                            called AdaGrad and RMSProp, both of which we'll be going over. 
+                            <strong><u>Momentum</u></strong><br><br>
+                            The first extension of gradient descent we'll look into is <strong>momentum</strong>. One issue with gradient descent is its ability to distinguish
+                            local minima from absolute minima. SGD helps with this by introducing a random process during training to "jump" around more.
+                            However, SGD does not do well in cases where one dimension is changing at a much different rate than another. To see how momentum
+                            can help lessen the chance of stopping at a local minimum, let's look at the following diagram. <br><br>
+                            <img src="images/momentum.png"><br><br>
+                            As you can see from this diagram, there's a small hiccup at the local minimum which our SGD algorithm may confuse as the absolute minimum. One thing you'll notice is even though there's a small bump,
+                            the overall trend seems to be downward, or, the overall <i>momentum</i> seems to be downward. If you don't get what I mean by this, imagine a tennis ball at the top of that chart.
+                            If we were to let the ball roll, when it gets to the bottom of the first hump (local minimum), it'll already have <i>momentum</i> to carry it over to the next hump.
+                            This is in essence what our momentum algorithm is doing with steps. Now the question is, how can we incorporate this into our algorithm? 
+                            Well, let's first revisit at our update function from gradient descent: <br><br>
+                            <img src="https://latex.codecogs.com/gif.latex?\Theta&space;_{j}'&space;=\Theta&space;_{j}-\alpha&space;\frac{\partial&space;L&space;}{\partial&space;\Theta&space;_{j}}" title="\Theta _{j}' =\Theta _{j}-\alpha \frac{\partial L }{\partial \Theta _{j}}" /><br><br>
+                            As we discussed earlier, this update function works by taking our previous gradient and looking at how much it changed since our last epoch. If we wanted to see our momentum, we want to also take into account
+                            how our gradient changed the epoch earlier as well, and before that, and so on. Our momentum algorithm takes our gradient descent update function one step furthur
+                            by also including how much the gradient changed the epoch <i>before the last</i>. This introduces an additional term into our update function and will make it look something like this: <br><br>
+                            <a href="https://www.codecogs.com/eqnedit.php?latex=\Theta&space;_{j}'&space;=\Theta&space;_{j}(t)-\alpha&space;\frac{\partial&space;L&space;}{\partial&space;\Theta&space;_{j}}(t)-\beta\cdot&space;\alpha\frac{\partial&space;L&space;}{\partial&space;\Theta&space;_{j}}(t-1)" target="_blank"><img src="https://latex.codecogs.com/gif.latex?\Theta&space;_{j}'&space;=\Theta&space;_{j}(t)-\alpha&space;\frac{\partial&space;L&space;}{\partial&space;\Theta&space;_{j}}(t)-\beta\cdot&space;\alpha\frac{\partial&space;L&space;}{\partial&space;\Theta&space;_{j}}(t-1)" title="\Theta _{j}' =\Theta _{j}(t)-\alpha \frac{\partial L }{\partial \Theta _{j}}(t)-\beta\cdot \alpha\frac{\partial L }{\partial \Theta _{j}}(t-1)" /></a><br><br>
+                            Each time the parameter is updated, the previous change in gradient is multipled by a factor &beta; between 0 and 1 to reduce its weight. This allows our algorithm to take recent updates into account <i id="AdaGrad">more</i> than
+                            changes from older updates. 
+                            <br><br>
+                            <strong><u>AdaGrad</u></strong><br><br>
+                            Before we jump into the Adam algorithm, we have to look into two other algorithms called AdaGrad and RMSProp.
                             We'll start with the <strong>Adaptive Gradient Algorithm (AdaGrad)</strong>. To understand AdaGrad, let's revisit our gradient descent update function. This time, instead of writing "RSS" we'll use "L" (Loss).<br><br>
                             <a href="https://www.codecogs.com/eqnedit.php?latex=\Theta&space;_{j}'&space;=\Theta&space;_{j}-\alpha&space;\frac{\partial&space;L&space;}{\partial&space;\Theta&space;_{j}}" target="_blank"><img src="https://latex.codecogs.com/gif.latex?\Theta&space;_{j}'&space;=\Theta&space;_{j}-\alpha&space;\frac{\partial&space;L&space;}{\partial&space;\Theta&space;_{j}}" title="\Theta _{j}' =\Theta _{j}-\alpha \frac{\partial L }{\partial \Theta _{j}}" /></a><br>
                             <br>This can be rewritten as: <br><br>
@@ -1234,14 +1256,124 @@ folds = <span class="hljs-keyword" style="font-weight: 700; color: navy;">KFold<
                             the smaller our learning rate and vice versa. G<sub>j</sub> is calculated as follows: <br><br>
                             <a href="https://www.codecogs.com/eqnedit.php?latex=G_{j}'&space;=G_{j}&space;&plus;&space;(\frac{\partial&space;L&space;}{\partial&space;\Theta&space;_{j}})^2" target="_blank"><img src="https://latex.codecogs.com/png.latex?G_{j}'&space;=G_{j}&space;&plus;&space;(\frac{\partial&space;L&space;}{\partial&space;\Theta&space;_{j}})^2" title="G_{j}' =G_{j} + (\frac{\partial L }{\partial \Theta _{j}})^2" /></a><br><br>
                             When we start, our G<sub>j</sub> is 0 so our &alpha;'s denominator is simply &epsilon;. There are some important things to notice. The first thing is that since G<sub>j</sub> starts at 0 and a squared value (positive) is being
-                            added, our G<sub>j</sub> value will increase every epoch as more and more positive terms are added. This means our denominator for our &alpha; will continually decrease and after a certain point, our learning rate will be so small our model
-                            will barely change our parameters. <br><br>
-                            Now you can see why these are called <i>adaptive</i> algorithms. Our learning rates <i>adapt</i> according to our dataset.
-                             
+                            added, our G<sub >j</sub> value will increase every epoch as more and more positive terms are added. This means our denominator for our &alpha; will continually decrease and after a certain point, our learning rate will be <i id="RMS">too small</i> for our algorithm
+                            to effectively change our parameters. <br><br>
+                            <strong><u>RMSProp</u></strong><br><br>
+                            RMSProp tries to build on AdaGrad by solving the issue of the learning rate continuously decreasing. To understand RMSProp, we'll compare it to AdaGrad and see how it differs. If you remember our update function for 
+                            AutoGrad, it looked something like this:<br><br>
+                            <img src="https://latex.codecogs.com/png.latex?\Delta&space;\Theta&space;_{j}&space;=-\frac{\alpha}{\sqrt{G_{j}}&plus;\epsilon&space;}&space;\cdot&space;\frac{\partial&space;L&space;}{\partial&space;\Theta&space;_{j}}" title="\Delta \Theta _{j} =-\frac{\alpha}{\sqrt{G_{j}}+\epsilon } \cdot \frac{\partial L }{\partial \Theta _{j}}" /><br><br>
+                            For our RMSProp, we'll be using the same parameter update function. The only difference will be how we calculate our G<sub>j</sub> term. In our AutoGrad algorithm, we used
+                            the following function:<br><br>
+                            <img src="https://latex.codecogs.com/png.latex?G_{j}'&space;=G_{j}&space;&plus;&space;(\frac{\partial&space;L&space;}{\partial&space;\Theta&space;_{j}})^2" title="G_{j}' =G_{j} + (\frac{\partial L }{\partial \Theta _{j}})^2" /><br><br>
+                            This function says that our updated G<sub>j</sub> will be its previous value plus a proportion of how much it changed. Our RMSProp update function for G<sub>j</sub>, uses
+                            the <i>exponentially weighted moving average</i> (EWMA) of these two terms. It does this by multiplying each term by factors of &beta; and (1-&beta;) respectively like thus:<br><br>
+                            <a href="https://www.codecogs.com/eqnedit.php?latex=G_{j}'&space;=\beta\cdot&space;G_{j}&space;&plus;&space;(1-\beta)\cdot(\frac{\partial&space;L&space;}{\partial&space;\Theta&space;_{j}})^2" target="_blank"><img src="https://latex.codecogs.com/gif.latex?G_{j}'&space;=\beta\cdot&space;G_{j}&space;&plus;&space;(1-\beta)\cdot(\frac{\partial&space;L&space;}{\partial&space;\Theta&space;_{j}})^2" title="G_{j}' =\beta\cdot G_{j} + (1-\beta)\cdot(\frac{\partial L }{\partial \Theta _{j}})^2" /></a><br><br>
+                            The beauty of adding the hyperparameter &beta; is that now the G<sub>j</sub>' function is not costantly increasing. This means that our effective learning rate, <a href="https://www.codecogs.com/eqnedit.php?latex=\frac{\alpha}{\sqrt{G_{j}}&plus;\epsilon&space;}" target="_blank"><img src="https://latex.codecogs.com/gif.latex?\frac{\alpha}{\sqrt{G_{j}}&plus;\epsilon&space;}" title="\frac{\alpha}{\sqrt{G_{j}}+\epsilon }" /></a> will
+                            not continuously decrease, offering a solution to AdaGrad's issue. Luckily, there's a way to combine these optimizers into a new optimization algorithm called
+                            <strong id="Adam">Adam</strong>.
 
+                            <br><br>
+                            <strong><u>Adam</u></strong><br><br>
+                            Adam, or Adaptive Moment Estimation, is an algorithm that builds on all of these optimizers. Adam is a relatively new algoritm published in 2015 and is
+                            known as an extremely effective optimizer. The Adam optimizer works by combining the advantages of Momentum, AdaGrad, and RMSProp. Just a quick review, let's take a look
+                            at our parameter update functions for our momentum algorithm and our AdaGrad/RMSProp algorithm. <br><br>
+                            <strong>Momentum</strong><br>
+                            <a href="https://www.codecogs.com/eqnedit.php?latex=\Theta&space;_{j}'&space;=\Theta&space;_{j}(t)-\alpha&space;\frac{\partial&space;L&space;}{\partial&space;\Theta&space;_{j}}(t)-\beta\cdot&space;\alpha\frac{\partial&space;L&space;}{\partial&space;\Theta&space;_{j}}(t-1)" target="_blank"><img src="https://latex.codecogs.com/gif.latex?\Theta&space;_{j}'&space;=\Theta&space;_{j}(t)-\alpha&space;\frac{\partial&space;L&space;}{\partial&space;\Theta&space;_{j}}(t)-\beta\cdot&space;\alpha\frac{\partial&space;L&space;}{\partial&space;\Theta&space;_{j}}(t-1)" title="\Theta _{j}' =\Theta _{j}(t)-\alpha \frac{\partial L }{\partial \Theta _{j}}(t)-\beta\cdot \alpha\frac{\partial L }{\partial \Theta _{j}}(t-1)" /></a>
+                            <br><br>
+                            <strong>AdaGrad/RMSProp</strong><br>
+                            <a href="https://www.codecogs.com/eqnedit.php?latex=\Delta&space;\Theta&space;_{j}&space;=-\frac{\alpha}{\sqrt{G_{j}}&plus;\epsilon&space;}&space;\cdot&space;\frac{\partial&space;L&space;}{\partial&space;\Theta&space;_{j}}" target="_blank"><img src="https://latex.codecogs.com/gif.latex?\Delta&space;\Theta&space;_{j}&space;=-\frac{\alpha}{\sqrt{G_{j}}&plus;\epsilon&space;}&space;\cdot&space;\frac{\partial&space;L&space;}{\partial&space;\Theta&space;_{j}}" title="\Delta \Theta _{j} =-\frac{\alpha}{\sqrt{G_{j}}+\epsilon } \cdot \frac{\partial L }{\partial \Theta _{j}}" /></a>
+                            <br><br>
+                             Our AdaGrad update function says the amount a paramater &theta;<sub>j</sub> should be changed is related to a modified learning rate multiplied by
+                             our previous epoch's change in the loss function with respect to &theta;<sub>j</sub>. However, what if we wanted to at more than just the previous change? Well, this is where we can add
+                             momentum into our algorithm. We'll start by making our parameter update proportional to the modified learning rate multiplied by some expression for <i>momentum</i>, like so: <br><br>
+                             <a href="https://www.codecogs.com/eqnedit.php?latex=\Delta&space;\Theta&space;_{j}(t)&space;=-\frac{\alpha}{\sqrt{G_{j}(t)}&plus;\epsilon&space;}&space;M_{i}(t)" target="_blank"><img src="https://latex.codecogs.com/gif.latex?\Delta&space;\Theta&space;_{j}(t)&space;=-\frac{\alpha}{\sqrt{G_{j}(t)}&plus;\epsilon&space;}&space;M_{j}(t)" title="\Delta \Theta _{j}(t) =-\frac{\alpha}{\sqrt{G_{j}(t)}+\epsilon } M_{i}(t)" /></a>
+                            <br><br>
+                            Just a quick reminder, the t represents our epoch. This makes it easier to understand which gradient lags we'll be using in our updates. Now that we have our updated update function, let's see how we can calculate our momentum term M<sub>j</sub>.
+                            With momentum, our goal is to look at how our gradient has been changing while placing more weight on recent changes than earlier changes. Our G'<sub>j</sub> update function in RMSProp used an EWMA
+                            for its gradients. It looked like this: <br><br>
+                            <a href="https://www.codecogs.com/eqnedit.php?latex=G_{j}'&space;=\beta\cdot&space;G_{j}&space;&plus;&space;(1-\beta)\cdot(\frac{\partial&space;L&space;}{\partial&space;\Theta&space;_{j}})^2" target="_blank"><img src="https://latex.codecogs.com/gif.latex?G_{j}'&space;=\beta\cdot&space;G_{j}&space;&plus;&space;(1-\beta)\cdot(\frac{\partial&space;L&space;}{\partial&space;\Theta&space;_{j}})^2" title="G_{j}' =\beta\cdot G_{j} + (1-\beta)\cdot(\frac{\partial L }{\partial \Theta _{j}})^2" /></a><br><br>
+                            We can modify this to include momentum by using the update function to update M<sub>j</sub> rather than G<sub>j</sub>. Our new momentum term update function will look like this: <br><br>
+                            <a href="https://www.codecogs.com/eqnedit.php?latex=M_{j}'&space;=\beta\cdot&space;M_{j}&space;&plus;&space;(1-\beta)\cdot(\frac{\partial&space;L&space;}{\partial&space;\Theta&space;_{j}})" target="_blank"><img src="https://latex.codecogs.com/gif.latex?M_{j}'&space;=\beta\cdot&space;M_{j}&space;&plus;&space;(1-\beta)\cdot(\frac{\partial&space;L&space;}{\partial&space;\Theta&space;_{j}})" title="M_{j}' =\beta\cdot M_{j} + (1-\beta)\cdot(\frac{\partial L }{\partial \Theta _{j}})" /></a>
+                            <br>
+                            Note: Our M<sub>j</sub> starts at 0 for our first epoch.<br>
+                            Let's look at a helpful <a href="https://ruder.io/content/images/2016/09/saddle_point_evaluation_optimizers.gif"><u>gif</u></a> that shows how these optimizers compare in a specific instance (in this case on what's called a <i>saddle point</i>):
+                            <br>
+                            <img src="https://ruder.io/content/images/2016/09/saddle_point_evaluation_optimizers.gif">
+                            <br><br>
+                            We started with gradient descent, saw how we could add <strong>Momentum</strong>, then saw how we could alter learning rates with <strong>AdaGrad</strong>, then built on AdaGrad to include moving
+                            averages for updates using <strong>RMSProp</strong>, and then built on top of <i> all of those </i> to get to our <strong>Adam</strong> optimizer.
+                            <strong>Data science is a field where methodologies improve on each other through advancements in research.</strong> Data science and machine learning are still in its infancy and optimization models
+                            are constantly being developed and researched. Understanding basic concepts and methodologies will help us eventually be able to begin <i>improving</i> these algorithms. One step at a time.
                             </p>
                         </div>
                             
+                <div id="MLE">
+                        <!-- MLE -->
+                        <h1 class="post_title"> Maximum Likelihood Estimation for Parameterization</h1>
+                        <p class="lesson-text">
+                         We've gone over quite a few algorithms and will be going through quite a few models as well. One thing all statistical models have are <i>paramaters</i>.
+                         Parameters are the inputs we give our model to best fit our data. For instance, in a linear regression model in the form: <br><br>
+                         <a href="https://www.codecogs.com/eqnedit.php?latex=y=a_{0}&space;&plus;&space;a_{1}x_{1}&space;&plus;&space;a_{2}x_{2}&space;...&space;&plus;&space;a_{n}x_{n}" target="_blank"><img src="https://latex.codecogs.com/gif.latex?y=a_{0}&space;&plus;&space;a_{1}x_{1}&space;&plus;&space;a_{2}x_{2}&space;...&space;&plus;&space;a_{n}x_{n}" title="y=a_{0} + a_{1}x_{1} + a_{2}x_{2} ... + a_{n}x_{n}" /></a><br><br>
+                         Our parameters are our a<sub>n</sub>'s. In order to find our parameters, we looked into various loss and optimization functions. 
+                         For linear regression model, ordinary least squares (OLS) was used to estimate our parameters. 
+                         It basically tries to find what values for our parameters will minimize our total squared error. We'll learn soon that OLS is just a special case of MLE where the error is assumed to be normal.
+                         <br><br>
+                         MLE tries to find what values for a probabilitity distribution's parameters <i>maximize</i> the <i>likelihood</i> of us observing our data. This might sound a bit confusing so 
+                         let's breakdown what likelihood is. You might think it's the same thing as probability. You're half-right. A likelihood is really just another way of phrasing a probability. When working with
+                         MLE, 
+                         we can think of probability as the chance of observing certain data in our model given certain paramaters.<br><br>
+                         <a href="https://www.codecogs.com/eqnedit.php?latex=P(x&space;|&space;\Theta&space;_{1},\Theta&space;_{2}...\Theta&space;_{n})" target="_blank"><img src="https://latex.codecogs.com/png.latex?P(x&space;|&space;\Theta&space;_{1},\Theta&space;_{2}...\Theta&space;_{n})" title="P(x | \Theta _{1},\Theta _{2}...\Theta _{n})" /></a>
+                         <br><br>Whereas with likelihoods, we look at the chance
+                         of our model having certain parameters <i>given</i> our data. We can write this like so:<br><br>
+                         <a href="https://www.codecogs.com/eqnedit.php?latex=L(\Theta&space;_{1},\Theta&space;_{2}...\Theta&space;_{n}&space;|&space;x)" target="_blank"><img src="https://latex.codecogs.com/png.latex?L(\Theta&space;_{1},\Theta&space;_{2}...\Theta&space;_{n}&space;|&space;x)" title="L(\Theta _{1},\Theta _{2}...\Theta _{n} | x)" /></a>
+                         <br><br>
+                         Now let's figure out how we can logically find a distribution's parameters. One way is by trying different values for parameters and try to maximize the 
+                         likelihood of that parameter producing our data. That sounds pretty logical right? Well luckily, that's how an MLE works. The equation for likelihood should now
+                         make more sense. <br><br>
+                         <img src="images/mleeqn.png" height="80px" width="200px">
+                         <br><br>
+                         The &Pi; symbol represents the product of a set of numbers. You can think of it like a &Sigma; for multiplication.
+                         Let's make sense of this equation. The equation is saying that the likelihood of observing some parameter &theta; is 
+                         a product of the probabilities of observing each of our observations given that parameter. You might be wondering why we're
+                         taking the product. Well, if you remember from probability, the probability of two <i>independent</i> events, A and B, occuring is 
+                         P(A) x P(B). In this case, the probability of a certain observation being produced by a certain parameter is independent of the probability
+                         of a <i>different</i> observation being produced by that same parameter. Since we're assuming independence, we can say that the overall likelihood of observing a parameter
+                         is just the product of the probabilities of observing each sample with that parameter. Obviously, our goal should be to maximize this value, but how do we do that? <br><br>
+                         Maximizing the likelihood function is difficult to do because taking the derivative with a bunch of products would require extensive
+                         chain rules. One way data scientists go about this is by looking at the log of the likelihood, otherwise known as, wait for it, the
+                         <strong>log-likelihood</strong>. This will work because a logarithm is an increasing function.
+                         That means maximizing our log is equivalent to maximizing our original function, which was also an increasing function. Our log-likelihood function looks something like this:
+                         <br><br>
+                         <img src="images/mleeqn2.png" height="80px" width="250px">
+                         <br><br>
+                         Let's say we have our data and want to fit a <i>normal distribution</i> to it. Our first step would be to figure out what the parameters are.
+                         A normal distribution is a distribution that is symmetric around the mean and whose mean, median and mode are the same. The parameter's we'd need then
+                         would only be &mu; (our mean) and &sigma; (our standard deviation). This is what the probability density function (PDF) of
+                         a normal distribution looks like given a single observation: <br><br>
+                         <a href="https://www.codecogs.com/eqnedit.php?latex=F(x|\mu&space;,\sigma)=\frac{1}{\sqrt{2\pi\sigma^2}}e^{-(x-\mu)^2/2\sigma^2}" target="_blank"><img src="https://latex.codecogs.com/gif.latex?P(x|\mu&space;,\sigma)=\frac{1}{\sqrt{2\pi\sigma^2}}e^{-(x-\mu)^2/2\sigma^2}" title="P(x|\mu ,\sigma)=\frac{1}{\sqrt{2\pi\sigma^2}}e^{-(x-\mu)^2/2\sigma^2}" /></a><br><br>
+                         We can rewrite this as a likelihood. <br><br>
+                         <a href="https://www.codecogs.com/eqnedit.php?latex=L(\mu&space;,\sigma|x)=\frac{1}{\sqrt{2\pi\sigma^2}}e^{-(x-\mu)^2/2\sigma^2}" target="_blank"><img src="https://latex.codecogs.com/gif.latex?L(\mu&space;,\sigma|x)=\frac{1}{\sqrt{2\pi\sigma^2}}e^{-(x-\mu)^2/2\sigma^2}" title="L(\mu ,\sigma|x)=\frac{1}{\sqrt{2\pi\sigma^2}}e^{-(x-\mu)^2/2\sigma^2}" /></a><br><br>
+                         Like we mentioned earlier, taking the derivative of a &Pi; operator is very difficult. Taking the logarithm of our likelihood (called <strong>log-likelihood</strong>) changes the products
+                         to additions, making computation much easier. This is what our log-likelihood would look like (we'll use a natural log). <br><br>
+                         <a href="https://www.codecogs.com/eqnedit.php?latex=ln(L(\mu&space;,\sigma|x_{1},x_{2},...x_{n}))=&space;\sum_{i=1}^{n}&space;ln(\frac{1}{\sqrt{2\pi\sigma^2}}e^{-(x_{i}-\mu)^2/2\sigma^2})" target="_blank"><img src="https://latex.codecogs.com/png.latex?ln(L(\mu&space;,\sigma|x_{1},x_{2},...x_{n}))=&space;\sum_{i=1}^{n}&space;ln(\frac{1}{\sqrt{2\pi\sigma^2}}e^{-(x_{i}-\mu)^2/2\sigma^2})" title="ln(L(\mu ,\sigma|x_{1},x_{2},...x_{n}))= \sum_{i=1}^{n} ln(\frac{1}{\sqrt{2\pi\sigma^2}}e^{-(x_{i}-\mu)^2/2\sigma^2})" /></a>
+                         <a href="https://www.codecogs.com/eqnedit.php?latex==\sum_{i=1}^{n}&space;[ln(\frac{1}{\sqrt{2\pi\sigma^2}})&plus;-\frac{(x_{i}-\mu)^2}{2\sigma^2}]" target="_blank"><img src="https://latex.codecogs.com/gif.latex?=\sum_{i=1}^{n}&space;[ln(\frac{1}{\sqrt{2\pi\sigma^2}})&plus;-\frac{(x_{i}-\mu)^2}{2\sigma^2}]" title="=\sum_{i=1}^{n} [ln(\frac{1}{\sqrt{2\pi\sigma^2}})+-\frac{(x_{i}-\mu)^2}{2\sigma^2}]" /></a><br><br>                     
+                         We can continue to simplify the expression inside the summation to yield: <br><br>
+                         <a href="https://www.codecogs.com/eqnedit.php?latex=\sum_{i=1}^{n}&space;[-\frac{1}{2}ln(2\pi&space;)-ln(\sigma&space;)-\frac{(x_{i}-\mu)^2}{2\sigma^2}]&space;=[-\frac{n}{2}ln(2\pi&space;)-nln(\sigma&space;)-\sum_{i=1}^{n}\frac{(x_{i}-\mu)^2}{2\sigma^2}]" target="_blank"><img src="https://latex.codecogs.com/png.latex?\sum_{i=1}^{n}&space;[-\frac{1}{2}ln(2\pi&space;)-ln(\sigma&space;)-\frac{(x_{i}-\mu)^2}{2\sigma^2}]&space;=[-\frac{n}{2}ln(2\pi&space;)-nln(\sigma&space;)-\sum_{i=1}^{n}\frac{(x_{i}-\mu)^2}{2\sigma^2}]" title="\sum_{i=1}^{n} [-\frac{1}{2}ln(2\pi )-ln(\sigma )-\frac{(x_{i}-\mu)^2}{2\sigma^2}] =[-\frac{n}{2}ln(2\pi )-nln(\sigma )-\sum_{i=1}^{n}\frac{(x_{i}-\mu)^2}{2\sigma^2}]" /></a><br><br>
+                         Our next step is to <i>maximize</i> this expression. We can do this by setting the partial derivative of of log-likelihood function with respect to each of our parameters to zero. <br><br>
+                         <a href="https://www.codecogs.com/eqnedit.php?latex={\frac{\partial&space;}{\partial&space;\mu}}{}[-\frac{n}{2}ln(2\pi&space;)-nln(\sigma&space;)-\sum_{i=1}^{n}\frac{(x_{i}-\mu)^2}{2\sigma^2}]=0" target="_blank"><img src="https://latex.codecogs.com/png.latex?{\frac{\partial&space;}{\partial&space;\mu}}{}[-\frac{n}{2}ln(2\pi&space;)-nln(\sigma&space;)-\sum_{i=1}^{n}\frac{(x_{i}-\mu)^2}{2\sigma^2}]=0" title="{\frac{\partial }{\partial \mu}}{}[-\frac{n}{2}ln(2\pi )-nln(\sigma )-\sum_{i=1}^{n}\frac{(x_{i}-\mu)^2}{2\sigma^2}]=0" /></a><br>
+                         <a href="https://www.codecogs.com/eqnedit.php?latex={\frac{\partial&space;}{\partial&space;\sigma}}{}[-\frac{n}{2}ln(2\pi&space;)-nln(\sigma&space;)-\sum_{i=1}^{n}\frac{(x_{i}-\mu)^2}{2\sigma^2}]=0" target="_blank"><img src="https://latex.codecogs.com/png.latex?{\frac{\partial&space;}{\partial&space;\sigma}}{}[-\frac{n}{2}ln(2\pi&space;)-nln(\sigma&space;)-\sum_{i=1}^{n}\frac{(x_{i}-\mu)^2}{2\sigma^2}]=0" title="{\frac{\partial }{\partial \sigma}}{}[-\frac{n}{2}ln(2\pi )-nln(\sigma )-\sum_{i=1}^{n}\frac{(x_{i}-\mu)^2}{2\sigma^2}]=0" /></a><br>
+                         
+
+                         <br>
+                         Simplifying our partials yield the following expressions for our parameters &mu; and &sigma;.<br><br>
+                         <a href="https://www.codecogs.com/eqnedit.php?latex=\mu&space;=&space;\frac{1}{n}\sum_{i=1}^{n}x_{i}" target="_blank"><img src="https://latex.codecogs.com/png.latex?\mu&space;=&space;\frac{1}{n}\sum_{i=1}^{n}x_{i}" title="\mu = \frac{1}{n}\sum_{i=1}^{n}x_{i}" /></a><br>
+                         <a href="https://www.codecogs.com/eqnedit.php?latex=\sigma&space;=&space;\sqrt{\frac{\sum_{i=1}^{n}(x_{i}-\mu)^2}{n}}" target="_blank"><img src="https://latex.codecogs.com/png.latex?\sigma&space;=&space;\sqrt{\frac{\sum_{i=1}^{n}(x_{i}-\mu)^2}{n}}" title="\sigma = \sqrt{\frac{\sum_{i=1}^{n}(x_{i}-\mu)^2}{n}}" /></a>
+                         <br><br>
+                         You should recognize these expressions. This shows us that the value for &mu;, our distributions mean, is the mean of our data and our
+                         &sigma;, or distribution's standard deviation, should be our sample's standard deviation. We were able to derive these expressions for our mean
+                         and standard deviation through MLE.
+                        </p>
+                </div>
                 <div id="Linear-Regression">
                         <!-- Linear-Regression -->
                         <h1 class="post_title"> Linear Regression</h1>
