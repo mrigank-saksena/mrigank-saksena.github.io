@@ -1538,7 +1538,7 @@ y_pred = elastic.predict(X_test)
                     <div id="ARMA">
 
                             <!-- ARMA -->
-                            <h1 class="post_title"> Autoregressive–Moving-Average Model (ARMA)</h1>
+                            <h1 class="post_title"> Autoregressive Moving-Average Model (ARMA)</h1>
                             <p class="lesson-text">
                                 Now we'll start working with time-series data. When we refer to time-series data, we mean data that's indexed by a
                                 time or date. We've worked with regression models before where we've regressed target variables on seperate features, but what if we wanted to regress
@@ -1554,10 +1554,49 @@ y_pred = elastic.predict(X_test)
                                 y at <i>time t-1</i>. Lags are how many previous "time steps" or "intervals" our model will use as features in our predictive model.
                                 y<sub>t-1</sub> is known as the first <strong>autoregressive lag</strong>.
                                 Determining how many autoregressive lags our model should use is very important. We'll be going through
-                                how to do this using ACF and PACF plots. Let's start off by mathematically understanding the concepts behind autoregressive models. We can begin with 
+                                how to do this using ACF and PACF plots. Let's first take our equation above 
+                                and rewrite it to take into account 'n' autoregressive lags. Since our input into our model is a lag of our ouput, we can
+                                denote the output as X. The general form of an AR model would then look like this: <br><br>
+                                <a href="https://www.codecogs.com/eqnedit.php?latex=X_{t}&space;=\sum_{i=1}^{n}&space;\lambda_{i}&space;X_{t-i}&space;&plus;\varepsilon_{i}" target="_blank"><img src="https://latex.codecogs.com/gif.latex?X_{t}&space;=\sum_{i=1}^{n}&space;\lambda_{i}&space;X_{t-i}&space;&plus;\varepsilon_{i}" title="X_{t} =\sum_{i=1}^{n} \lambda_{i} X_{t-i} +\varepsilon_{i}" /></a><br><br>
+                                In summary, an autoregressive model is a model where the output <i>depends on its previous values.</i> An AR(2) model means the 
+                                output variable's value is going to be dependent on two <i>autoregressive lags</i>, or in other words, its two previous values.
+                                We'll be implementing these models near the end of the lesson. The reason for this is because once we learn
+                                ARMA, ARIMA, and SARIMA models, the parameters can be adjusted to give us simple AR or MA models. It's important to understand the underlying intuition behind these models first.
+                                <br><br>
+                                <strong><u>Moving Average Models (MA)</u></strong><br><br>
+                                The next piece of the puzzle is moving averages. Let's first understand what a moving average is. A moving average simply calculates
+                                the average of our time-series over a certain fixed n lags. So a 30-day simple moving average would be the average of our time-series over the past 30 days.
+                                So what's the advantage of even using a moving average? Why can't we just look at the latest value and make predictions off that? Well with time-series data,
+                                there tends to be a lot of noise, or random fluctuations. It's important that our model does not overreact to these random movements and more importantly, 
+                                looks into the overall trend of the series before reacting to a fluctuation. This is a reason why a moving average is known as a lagging indicator. Now let's look into what an MA
+                                model looks like. <br><br>
+                                <a href="https://www.codecogs.com/eqnedit.php?latex=X_{t}&space;=&space;\mu&space;&plus;&space;\sum_{i=0}^{q}\theta_i\epsilon_{t-i}" target="_blank"><img src="https://latex.codecogs.com/gif.latex?X_{t}&space;=&space;\mu&space;&plus;&space;\sum_{i=0}^{q}\theta_i\epsilon_{t-i}" title="X_{t} = \mu + \sum_{i=0}^{q}\theta_i\epsilon_{t-i}" /></a><br><br>
+                                Where &theta;<sub>0</sub> is 1, &mu; represents our mean, and &epsilon; represents our error. This might look a little complicated so let's start off by looking at an MA(2) model. A model that uses
+                                two moving average lags. This can be written like so: <br><br>
+                                <a href="https://www.codecogs.com/eqnedit.php?latex=X_{t}&space;=&space;\mu&space;&plus;&space;\theta_0&space;&plus;&space;\theta_1\epsilon_{t-1}&space;&plus;&space;\theta_2\epsilon_{t-2}" target="_blank"><img src="https://latex.codecogs.com/gif.latex?X_{t}&space;=&space;\mu&space;&plus;&space;\theta_0&space;&plus;&space;\theta_1\epsilon_{t-1}&space;&plus;&space;\theta_2\epsilon_{t-2}" title="X_{t} = \mu + \theta_0 + \theta_1\epsilon_{t-1} + \theta_2\epsilon_{t-2}" /></a><br><br>
+                                Let's make sense of what's going on here. The &epsilon; term represents how far off our <i>previous</i> prediction was. 
+                                That means our model is saying the predicted value is going to equal our average value plus some coefficient times our last lag's error, plus another coefficient times
+                                the error from the lag <i>before</i>. You might've noticed by now that our MA model uses how far off our previous values were in order to more accurately predict our next value.
+                                So what is &epsilon;'s value? 
+                                &epsilon; is white noise. A white noise sequence has a mean of 0, a finite variance, and no correlation amongst the terms.
+                                We usually write this as such: <br><br>
+                                <a href="https://www.codecogs.com/eqnedit.php?latex=\epsilon_{t}&space;\sim&space;WN(0,\sigma&space;^{2})" target="_blank"><img src="https://latex.codecogs.com/gif.latex?\epsilon_{t}&space;\sim&space;WN(0,\sigma&space;^{2})" title="\epsilon_{t} \sim WN(0,\sigma ^{2})" /></a>
+                                <br><br>
+                                If you remember our linear regression equation from the <a href="#Linear-Regression"><u>Linear Regression</u></a> module, you might
+                                be thinking that this looks similar. You're right. A moving average value is really a sort of linear regression between our series' current value and lagging noise terms.
+                                One thing that's interesting is that since our noise terms are independent and distributed with a mean of 0, our predicted value
+                                will be averaged around &mu;. 
+                                <br><br>
+                                <strong><u>ARMA Models</u></strong><br><br>
+                                Now that we understand conceptually how AR and MA models work, let's learn how we can combine these into an ARMA model.
 
 
-                                <br>Let's start working with AR models. We'll start by reading in this <a href="" download><u>CSV</u></a> file.
+                                
+
+                                
+
+
+                                
                                 </p>
                                 </div>
                                 
