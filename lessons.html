@@ -48,7 +48,6 @@
                     <div class="mob-menu">MENU</div>
                     <ul class="main-menu sm sm-clean">
                         <li><a href="index.html#home">Home</a></li>
-                        <li><a href="index.html#services">Outline</a></li>
                         <li><a href="#lessonbanner">Lessons</a></li>                    
                     </ul>
                 </nav>
@@ -125,18 +124,22 @@
                     <li><a class="lesson-item" href="#Ridge">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Ridge, LASSO, Elastic Net</a></li> 
                     <li>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Logistic Regression</li>
                     <li>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Confusion Matrix</li>
+                    <li>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;AUC and ROC</li>
                     <li>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Decision Trees</li>
                     <li>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Random Forest</li>
                     <li>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;K-Nearest Neighbors</li>             
                     <li>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Support Vector Machines</li>
                     <li>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Naive Bayes</li>
                     <li>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;K-Means Clustering</li>
-                    <li>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;DBSCAN</li>
-                    <li>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Multilayer Perceptron</li>
+                    <li>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Neural Networks</li>
                     <li><a class="lesson-item" href="#ARMA">Time-Series Models</a></li>
+                    <li>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Seasonality</li>
+                    <li>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Stationarity</li>
+                    <li>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Smoothing</li>
                     <li><a class="lesson-item" href="#ARMA">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;AR, MA, ARMA</a></li>
-                    <li>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;ARIMA and SARIMA</li>
-                    <li>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Smoothing Models</li>
+                    <li>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;ARIMA and SARIMA</li>
+                    <li>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Cointegration and Causality</li>
+                    <li>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;VAR and VECM</li>
                     <li><a class="lesson-item" href="#Model-Resources">Useful Resources</a></li>
                     <li>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</li>
 
@@ -183,22 +186,22 @@
                         <a href="https://popsql.com/"><u>here</u></a>.</li>
                 </ul>
                 <p class="lesson-text">     Before we dive into writing SQL queries, it's important to understand what SQL and MySQL are.
-                        SQL represents the syntax used in manipulating relational databases, whereas MYSQL is a RDBMS (Relational Database Management System).
-                        In other words MySQL uses Structured Query Language to manipulate databases.
+                        SQL (Structured Query Language) represents the syntax used in manipulating relational databases, whereas MySQL is a RDBMS (Relational Database Management System).
+                        In other words, MySQL uses Structured Query Language to manipulate databases.
                 </p>
                 </div>
                     
                 <div id="RD">
                
                 <p class="lesson-text">  
-                    Shown below are two tables within a database. The table on the left shows the Players trying out for sports teams
+                    Shown below are two tables within a database. The table on the left shows the players trying out for sports teams
                     while the table on the right shows the coaches for each sport.<br><br>
                     <img  style="display: inline-block" src="images/rd1.png" alt="Tables" />
                     
                 </p>
                 <p class="lesson-text"> 
                     The database shown above is a <i> relational database</i> because the two tables 'Players', and 'Coaches' are related
-                    by a common field 'Sport'. Often times databases will have tables that are related to each other and through SQL queries
+                    by a common field 'Sport'. Often times databases will have tables that are related to each other and through SQL queries,
                     we can retrieve information from these tables. 
                     </p>
                 </div>
@@ -242,7 +245,7 @@ Sport <span class="hljs-built_in" style="font-weight: 700; color: navy;">VARCHAR
                     ID of each entry, similar to an index. Relational databases may also have a <code>FOREIGN KEY</code>  
                     that signifies a column or attribute that is the <code>PRIMARY KEY</code> of <i>another</i> table. After creating
                     the tables we then <code>INSERT INTO</code> each table specific <code>VALUES</code>, this is how you populate
-                    a SQL table.<br>
+                    a table using SQL.<br>
                     There are many other commands we can use to manipulate our tables before querying them. I've outlined some of them below.<br><br>
                     <pre class="hljs" style="display: block; overflow-x: auto; padding: 0.5em; background-color: rgb(244, 244, 244); color: rgb(0, 0, 0);"><span class="hljs-keyword" style="font-weight: 700; color: navy;">DESCRIBE</span> Players; <span class="hljs-keyword" style="color: rgb(119, 119, 119);"># Summarizes the Players</span>
 <span class="hljs-keyword" style="font-weight: 700; color: navy;">DROP TABLE</span> Players; <span class="hljs-comment" style="color: rgb(119, 119, 119);"># Deletes the Players table</span>
@@ -258,23 +261,23 @@ Sport <span class="hljs-built_in" style="font-weight: 700; color: navy;">VARCHAR
                         <h1 class="post_title"> Writing SQL Queries </h1>
                         
                         <p class="lesson-text"> <a href="https://dev.mysql.com/doc/refman/8.0/en/select.html"><u><strong><code>SELECT</code></strong></u></a><br>"Querying" a database is another way of saying you want to "retrieve information
-                            from" a database. SQL Queries make use of a powerful command called <code>SELECT</code>, it allows
+                            from" a database. SQL queries make use of a powerful command called <code>SELECT</code>, it allows
                         us to retrieve specific information from our database. Let's first start off by selecting all the data from
-                        our Players tables. We can do this using <code>SELECT * FROM Players;</code>. After running this, you should 
-                        see the Players table. The <code>SELECT</code> command is where we put the attributes you're hoping to retrieve,
-                        the <code>FROM</code> command is used to signify which table you plan on selecting your attributes from, the * means "all", and a <code>WHERE</code> command
-                        is used to provide a condition to determine which specific entries from those columns you hope to retrieve. Here's an example of one of these
+                        our 'Players' table. We can do this using <code>SELECT * FROM Players;</code>. After running this, we should 
+                        see the 'Players' table. The <code>SELECT</code> command is where we put the attributes we're hoping to retrieve,
+                        the <code>FROM</code> command is used to signify which table we plan on selecting our attributes from, the * means "all", and a <code>WHERE</code> command
+                        is used to provide a condition to determine which specific entries from those columns we hope to retrieve. Here's an example of one of these
                         queries. <br><br>
                         <pre class="hljs" style="display: block; overflow-x: auto; padding: 0.5em; background-color: rgb(244, 244, 244); color: rgb(0, 0, 0);"><span class="hljs-keyword" style="font-weight: 700; color: navy;">SELECT</span> Name, Sport <span class="hljs-keyword" style="font-weight: 700; color: navy;">FROM</span> Players <span class="hljs-keyword" style="font-weight: 700; color: navy;">WHERE</span> Age &gt;= <span class="hljs-number" style="color: rgb(136, 0, 0);">18</span>;</pre>
                         <br> 
                         <img  src="images/query1.png" alt="Query #1 Output" /> 
                     </p>   
                     <p class="lesson-text">
-                        In the above query, we selected the Name and Sport of each person in the Players table whose age 
+                        In the above query, we selected the 'Name' and 'Sport' of each person in the 'Players' table whose age 
                         is at least 18. We could also add a <code>ORDER BY Sport</code> after the <code>WHERE</code> command
-                        in order to see our derived table sorted by Sport. <br>
+                        in order to see our derived table sorted by 'Sport'. <br>
                         If we were instead only interested in the sports that have players over 18, we could take out the <code>Name</code> attribute
-                        from our <code>SELECT</code> command. However, when running this query, you'll notice sports come up multiple times.
+                        from our <code>SELECT</code> command. However, when running this query, you'll notice the same sports come up multiple times.
                         We can get around this by using the <code>DISTINCT</code> keyword. <br><br>
                         <pre class="hljs" style="display: block; overflow-x: auto; padding: 0.5em; background-color: rgb(244, 244, 244); color: rgb(0, 0, 0);"><span class="hljs-keyword" style="font-weight: 700; color: navy;">SELECT</span> <span class="hljs-keyword" style="font-weight: 700; color: navy;">DISTINCT</span> Sport <span class="hljs-keyword" style="font-weight: 700; color: navy;">FROM</span> Players <span class="hljs-keyword" style="font-weight: 700; color: navy;">WHERE</span> Age &gt;= <span class="hljs-number" style="color: rgb(136, 0, 0);">18</span> <span class="hljs-keyword" style="font-weight: 700; color: navy;">ORDER</span> <span class="hljs-keyword" style="font-weight: 700; color: navy;">BY</span> Sport;</pre><br>
                         <img  src="images/query2.png" alt="Query #2 Output" />
@@ -290,23 +293,23 @@ Sport <span class="hljs-built_in" style="font-weight: 700; color: navy;">VARCHAR
                     <p  class="lesson-text"> <a href="https://dev.mysql.com/doc/refman/8.0/en/select.html"><u><strong><code>Functions</code></strong></u></a><br>
                     <br>
                     Although it's useful to be able to retrieve entries from our database, sometimes we may be interested in 
-                    characteristics of our data. SQL keywords such as <code>AVG, COUNT, SUM, MAX, MIN</code> can be used to 
+                    characteristics of our data. SQL keywords such as <code>AVG, COUNT, SUM, MAX,</code> and <code> MIN</code> can be used to 
                     return characteristics of a column. Here we find some summary statistics of the 
-                    basketball players' age. We use the <code>AS</code> keyword to rename the columns in our derived table.
+                    basketball team's age distribution. We use the <code>AS</code> keyword to rename the columns in our derived table.
                     <br><br>
                     <pre class="hljs" style="display: block; overflow-x: auto; padding: 0.5em; background-color: rgb(244, 244, 244); color: rgb(0, 0, 0);"><span class="hljs-keyword" style="font-weight: 700; color: navy;">SELECT</span> <span class="hljs-keyword" style="font-weight: 700; color: navy;">AVG</span>(Age) <span class="hljs-keyword" style="font-weight: 700; color: navy;">AS</span> Average, <span class="hljs-keyword" style="font-weight: 700; color: navy;">MAX</span>(Age) <span class="hljs-keyword" style="font-weight: 700; color: navy;">AS</span> Maximum, <span class="hljs-keyword" style="font-weight: 700; color: navy;">MIN</span>(Age) <span class="hljs-keyword" style="font-weight: 700; color: navy;">AS</span> Minimum, <span class="hljs-keyword" style="font-weight: 700; color: navy;">COUNT</span>(AGE) <span class="hljs-keyword" style="font-weight: 700; color: navy;">AS</span> <span class="hljs-string" style="color: rgb(0, 85, 0);">'Count'</span>, <span class="hljs-keyword" style="font-weight: 700; color: navy;">SUM</span>(AGE) <span class="hljs-keyword" style="font-weight: 700; color: navy;">AS</span> <span class="hljs-string" style="color: rgb(0, 85, 0);">'Sum'</span> 
 <span class="hljs-keyword" style="font-weight: 700; color: navy;">FROM</span> Players 
 <span class="hljs-keyword" style="font-weight: 700; color: navy;">WHERE</span> Sport = <span class="hljs-string" style="color: rgb(0, 85, 0);">'Basketball'</span>;</pre>
                     </p>   
                     <p  class="lesson-text">
-                        What if we wanted to filter our data based on the characters within a <code>VARCHAR</code> attribute? If we wanted
-                        to find the average age of the players whose name ends with the letter l we can use SQL Wildcards which
+                        What if we wanted to filter our data based on the letters within non-numerical data? For instance, if we wanted
+                        to find the average age of the players whose names end with the letter 'l' we can use SQL Wildcards which
                         make use of the <code>LIKE</code> keyword.<br><br>
                         <pre class="hljs" style="display: block; overflow-x: auto; padding: 0.5em; background-color: rgb(244, 244, 244); color: rgb(0, 0, 0);"><span class="hljs-keyword" style="font-weight: 700; color: navy;">SELECT</span> <span class="hljs-keyword" style="font-weight: 700; color: navy;">AVG</span>(Age) <span class="hljs-keyword" style="font-weight: 700; color: navy;">AS</span> Average <span class="hljs-keyword" style="font-weight: 700; color: navy;">FROM</span> Players <span class="hljs-keyword" style="font-weight: 700; color: navy;">WHERE</span> Name <span class="hljs-keyword" style="font-weight: 700; color: navy;">LIKE</span> <span class="hljs-string" style="color: rgb(0, 85, 0);">"%l"</span>;</pre>
                     </p>
                     <p  class="lesson-text">
-                        The <code>LIKE</code> keyword compares a <code>VARCHAR</code> to a specified pattern. The <code>%</code>
-                        in <code>"%l"</code> means and sequence of characters that ends with l. The <code>%</code> is what's called
+                        The <code>LIKE</code> keyword compares a <code>VARCHAR</code> (a word/string) to a specified pattern. The <code>%</code>
+                        in <code>"%l"</code> signifies a sequence of characters that ends with l. The <code>%</code> is what's called
                         a <i>Wildcard Character</i>. These are often helpful when looking for specific patters within non-numerical
                         data. A name starting with M would use the wildcard <code>"M%"</code>, while a name whose second letter is r would
                         use <code>"_r%"</code>. You can read more about wildcards <a id = "GroupBy" href="https://www.w3schools.com/sql/sql_wildcards.asp"><u>here</u></a>.
@@ -326,7 +329,7 @@ Sport <span class="hljs-built_in" style="font-weight: 700; color: navy;">VARCHAR
                         <p  class="lesson-text">
                             One confusing part of the <code>GROUP BY</code> command is knowing when to use <code>WHERE</code> versus
                             <code>HAVING</code> for conditional queries. <code>WHERE</code> is used <i>before</i> the <code>GROUP BY</code>
-                            command whereas <code>HAVING</code> is used <i>after</i> the GROUP BY clause. Here are a couple examples to help.<br><br>
+                            command whereas <code>HAVING</code> is used <i>after</i> the GROUP BY clause. Here are a couple of examples to help out.<br><br>
                             <pre class="hljs" style="display: block; overflow-x: auto; padding: 0.5em; background-color: rgb(244, 244, 244); color: rgb(0, 0, 0);"><span class="hljs-keyword" style="font-weight: 700; color: navy;">SELECT</span> Sport, <span class="hljs-keyword" style="font-weight: 700; color: navy;">COUNT</span>(Name) <span class="hljs-keyword" style="font-weight: 700; color: navy;">AS</span> Total 
 <span class="hljs-keyword" style="font-weight: 700; color: navy;">FROM</span> Players 
 <span class="hljs-keyword" style="font-weight: 700; color: navy;">WHERE</span> Age &gt;= <span class="hljs-number" style="color: rgb(136, 0, 0);">18</span> 
@@ -372,12 +375,12 @@ Sport <span class="hljs-built_in" style="font-weight: 700; color: navy;">VARCHAR
 <span class="hljs-keyword" style="font-weight: 700; color: navy;">ON</span> Players.Sport = Coaches.Sport;</pre><br>
                             <img src="images/leftjoin.png" alt="Left Join" />
                         </p>
-                        <p  class="lesson-text"> In the query above, we're retrieving tha names of each player along with their coaches.
+                        <p  class="lesson-text"> In the query above, we're retrieving the names of each player along with their coaches.
                             Their coaches are determined by their sport which is why we joined <code>ON Players.Sport = Coaches.Sport</code>.
                             However, I included a <code>LEFT JOIN</code> in my query when combining both tables, what is this? A <code>LEFT JOIN</code>
                             is a method of joining two tables. It starts with each entry in the left table (Players) and then <i>matches</i> it to a value on the right
                             table (Coaches) based on their shared attribute (Sport), a <code>LEFT JOIN</code> is the same as as
-                            <code>LEFT OUTER JOIN</code>. The best way to understand the various joins is through venn diagrams. Here's a helpful
+                            <code>LEFT OUTER JOIN</code>. There are other joins like right joins, inner joins, full-outer joins, and others. The best way to understand the various joins is by visualizing the joins using venn diagrams. Here's a helpful
                             and easy diagram I found on <a href="https://www.reddit.com/r/SQL/comments/108xpy/visual_guide_to_sql_joins/"><u>Reddit</u></a> that shows the different types of joins. <br><br>
                             
                         </p>
@@ -391,8 +394,8 @@ Sport <span class="hljs-built_in" style="font-weight: 700; color: navy;">VARCHAR
                         <!-- NESTED QUERIES -->
                         <h1 class="post_title"> Nested Queries </h1>
                         <p class="lesson-text">
-                            Sometimes the queries we write will be <i>nested</i>. A nested query, sometimes called a subquery, is a
-                            <code>SELECT</code> statement <i>within</i> the <code>WHERE</code> clause of <i>another</i> query. You can
+                            Sometimes we may need to write more complex queries and make use of <i>nested</i> queries. A nested query, sometimes called a subquery, is a
+                            <code>SELECT</code> statement <i>within</i> another <code>SELECT</code> clause. You can
                             think of it as a query that's based on another query. We'll start off with a simple example. Let's say we wanted
                             a list of players with the same name as a coach. We could this simply by: <br><br>
                             <pre class="hljs" style="display: block; overflow-x: auto; padding: 0.5em; background-color: rgb(244, 244, 244); color: rgb(0, 0, 0);"><span class="hljs-keyword" style="font-weight: 700; color: navy;">SELECT</span> <span class="hljs-keyword" style="font-weight: 700; color: navy;">DISTINCT </span> Name 
@@ -402,9 +405,9 @@ Sport <span class="hljs-built_in" style="font-weight: 700; color: navy;">VARCHAR
                         <p class="lesson-text">
                             After running this query, we get <code>Brian</code> as an output, the only common name between the two tables. In this example 
                             the subquery is <code>"SELECT DISTINCT Name FROM Coaches"</code> within the <code>"SELECT DISTINCT Name FROM Players WHERE..."</code> query.
-                            Now let's do a slightly more complicated nested query. How could we query the Names and Sports of the coaches who coach teams
-                            where the average age is at least 17 or that has more than two players. Although this sounds complex, its often easiest
-                            to break down the problem into smaller parts. The first part being how to query the Name and Sport of Coaches within the Coach table. 
+                            Now let's do a slightly more complicated nested query. How could we query the 'Names' and 'Sports' of the coaches who coach teams
+                            whose players' average age is at least 17, or, who coach a team that has more than two players. Although this sounds complex, it's often easiest
+                            to break down the problem into smaller parts. The first part being how to query the 'Name' and 'Sport' of 'Coaches' within the 'Coach' table. 
                             The next part is figuring out how to query the sports whose players meet the conditions. The last part requires the use of the
                             <code>GROUP BY</code> clause, as illustrated below.<br><br>
                             <pre class="hljs" style="display: block; overflow-x: auto; padding: 0.5em; background-color: rgb(244, 244, 244); color: rgb(0, 0, 0);"><span class="hljs-keyword" style="font-weight: 700; color: navy;">SELECT</span> Name, Sport
@@ -416,16 +419,11 @@ Sport <span class="hljs-built_in" style="font-weight: 700; color: navy;">VARCHAR
     <span class="hljs-keyword" style="font-weight: 700; color: navy;">HAVING</span> <span class="hljs-keyword" style="font-weight: 700; color: navy;">COUNT</span>(Name) &gt; <span class="hljs-number" style="color: rgb(136, 0, 0);">2</span> <span class="hljs-keyword" style="font-weight: 700; color: navy;">OR</span> <span class="hljs-keyword" style="font-weight: 700; color: navy;">AVG</span>(Age)&gt;=<span class="hljs-number" style="color: rgb(136, 0, 0);">17</span>);</pre>
                         </p>
                         <p class="lesson-text">
-                            Subqueries are extremely useful when using SQL and can get complicated very quickly. My strategy is to take the query
-                            you're trying to write, and break it down into its queries and subqueries individually if possible. From there you can
+                            Subqueries are extremely useful when using SQL and can get complicated very quickly. A good strategy is to take the query
+                            you're trying to write, and break it down into its queries and subqueries individually if possible. From there, you can
                             combine your queries and subqueries to reach your final query. Remember, practice is key.
                         </p>
                 </div>
-
-
-
-
-
 
 
                 <div id="SQL-Resources">
@@ -438,7 +436,7 @@ Sport <span class="hljs-built_in" style="font-weight: 700; color: navy;">VARCHAR
                         
                         <ul class = "bullets">
                             <li>  Here are a couple of places you can practice SQL commands. I personally recommend
-                                Hackerrank though have found all three helpful. <a href="https://www.hackerrank.com/domains/sql"><u>Hackerrank</u></a>, 
+                                Hackerrankl, though have found all three helpful. <a href="https://www.hackerrank.com/domains/sql"><u>Hackerrank</u></a>, 
                                 <a href="https://www.w3schools.com/sql/exercise.asp"><u>W3Schools</u></a>, <a href="https://sqlzoo.net/"><u>SQL Zoo</u></a>.
                             
                             </li>
@@ -1588,7 +1586,7 @@ y_pred = elastic.predict(X_test)
                                 will be averaged around &mu;. 
                                 <br><br>
                                 <strong><u>ARMA Models</u></strong><br><br>
-                                Now that we understand conceptually how AR and MA models work, let's learn how we can combine these into an ARMA model.
+                                Now that we understand conceptually how both AR and MA models work, let's learn how we can combine these into an ARMA model.
 
 
                                 
