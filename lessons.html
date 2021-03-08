@@ -122,9 +122,9 @@
                     <li><a class="lesson-item" href="#Linear-Regression">Machine Learning Models</a></li>  
                     <li><a class="lesson-item" href="#Linear-Regression">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Linear Regression</a></li>
                     <li><a class="lesson-item" href="#Ridge">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Ridge, LASSO, Elastic Net</a></li> 
-                    <li>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Logistic Regression</li>
-                    <li>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Confusion Matrix</li>
-                    <li>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;AUC and ROC</li>
+                    <li><a class="lesson-item" href="#Logit">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Logistic Regression</a></li>
+                    <li><a class="lesson-item" href="#Confusion">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Confusion Matrix</li>
+                    <li><a class="lesson-item" href="#AUC-ROC">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;AUC and ROC</li>
                     <li>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Decision Trees</li>
                     <li>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Random Forest</li>
                     <li>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;K-Nearest Neighbors</li>             
@@ -132,6 +132,7 @@
                     <li>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Naive Bayes</li>
                     <li>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;K-Means Clustering</li>
                     <li>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Neural Networks</li>
+                    <li>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Bagging and Boosting</li>
                     <li><a class="lesson-item" href="#ARMA">Time-Series Models</a></li>
                     <li>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Seasonality</li>
                     <li>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Stationarity</li>
@@ -484,7 +485,7 @@ Sport <span class="hljs-built_in" style="font-weight: 700; color: navy;">VARCHAR
                     <li>  You can download Python <a href="https://www.python.org/downloads/"><u>here</u></a>.</li>
 
                     <li>  Most Python code written here will be written on a Jupyter Notebook. You can reference 
-                        <a href="https://jupyter.org/install"><u>this guide</u></a> on Jupyter's site for installation.</li>
+                        <a href="https://jupyter.org/install"><u>this guide</u></a> on Jupyter's site for installation. Google Colab works as well.</li>
   
                     <li>  Some important libraries we'll be using for data preprocessing include pandas, numpy, matplotlib, and seaborn. All of which can be installed
                         following these <a href="https://docs.python.org/3/installing/index.html"><u>guidelines</u></a>.
@@ -498,15 +499,15 @@ Sport <span class="hljs-built_in" style="font-weight: 700; color: navy;">VARCHAR
                 <div id="Structuring-Data">
                 <h1 class="post_title"> Structuring Data </h1>
                 <p class="lesson-text">    The first thing we have to do is load our data into our Jupyter Notebook. To open up your Jupyter Notebook, 
-                    simply open up terminal and type <code>jupyter notebook</code>. A full guide on the interface can be found 
+                    simply open up your command prompt/terminal and type <code>jupyter notebook</code>. A full guide on the interface can be found 
                     <a href="https://jupyter-notebook.readthedocs.io/en/latest/notebook.html"><u>here</u></a>.
                     Let's first import pandas into our notebook. We'll reference it as "pd" for simplicity.
                     <br><br>
                     <pre class="hljs" style="display: block; overflow-x: auto; padding: 0.5em; background-color: rgb(244, 244, 244); color: rgb(0, 0, 0);"><span class="hljs-keyword" style="font-weight: 700; color: navy;">import</span> pandas <span class="hljs-keyword" style="font-weight: 700; color: navy;">as</span> pd</pre>
                 </p>
-                <p class="lesson-text"> Pandas is a powerful tool used for manipulating data providing functioanlities to make working with out data easier. The CSV file referenced in this part of the tutorial can be downloaded 
-                    <a href="supplements/Sample_Stocks.csv" download><u>here</u></a>. The first powerful tool in pandas we'll make use of is a dataframe.
-                    You can think of a dataframe like a spreadsheet or data table. It's a data structure representing a two-dimensional table. Let's read in our data from CSV into a dataframe object and look at the first few rows of our data.
+                <p class="lesson-text"> Pandas is a powerful tool used for manipulating data by providing functionalities to make working with out data easier. The CSV file referenced in this part of the tutorial can be downloaded 
+                    <a href="supplements/Sample_Stocks.csv" download><u>here</u></a>. The first powerful tool in pandas we'll make use of is a DataFrame.
+                    You can think of a DataFrame like a spreadsheet or a data table. It's a data structure representing a two-dimensional table. Let's read in our data from our CSV file and parse it into a DataFrame object to look at the first few rows of our data.
                     <br><br>
                     <pre class="hljs" style="display: block; overflow-x: auto; padding: 0.5em; background-color: rgb(244, 244, 244); color: rgb(0, 0, 0);"><span class="hljs-attribute" style="color: rgb(0, 85, 0);">stock_data</span> = pd.read_csv(<span class="hljs-string" style="color: rgb(0, 85, 0);">'Sample_Stocks.csv'</span>) <span class="hljs-comment" style="color: rgb(136, 0, 0);"></span>
 stock_data.head()   </pre>
@@ -515,7 +516,7 @@ stock_data.head()   </pre>
                 </p>
                 <p class="lesson-text"> 
                     
-                    The <code>head(n)</code> function displays the first few rows of our table. You can specify the last few rows using tail(). Placing a integer parameter (<code>head(n) or tail(n)</code>) displays the first or last <code>n</code> rows. We can get summary statistics of our data as well through the <code>describe()</code> function. 
+                    The <code>head()</code> function displays the first few rows of our table. You can specify the last few rows using tail(). Specifying an integer parameter (<code>head(n) or tail(n)</code>) displays the first or last <code>n</code> rows. We can get summary statistics of our data as well through the <code>describe()</code> function. 
                     <br><br>
                     <pre class="hljs" style="display: block; overflow-x: auto; padding: 0.5em; background-color: rgb(244, 244, 244); color: rgb(0, 0, 0);">stock_data[<span class="hljs-string" style="color: rgb(0, 85, 0);">'HINDEX'</span>].describe() <span class="hljs-comment" style="color: rgb(136, 0, 0);"># Describes the HINDEX attribute</span>
 stock_data.groupby(<span class="hljs-keyword" style="font-weight: 700; color: navy;">by</span>=<span class="hljs-string" style="color: rgb(0, 85, 0);">'Stock'</span>).describe() <span class="hljs-comment" style="color: rgb(136, 0, 0);"># Describes all attributes grouped by 'Stock'</span>
@@ -524,21 +525,21 @@ stock_data.groupby(<span class="hljs-keyword" style="font-weight: 700; color: na
                     <img  src="images/volumedescribe.png" alt="Volume describe() Output" />        
                 </p>
                 <p class="lesson-text"> 
-                    After looking through the columns, you may realize "HINDEX" is relatively useless as its always zero. We can delete 
+                    After looking through the columns, you may realize "HINDEX" is relatively useless as it's always zero. We can delete 
                     this column using: 
                     <br><br><pre class="hljs" style="display: block; overflow-x: auto; padding: 0.5em; background-color: rgb(244, 244, 244); color: rgb(0, 0, 0);">stock_data.drop(columns = [<span class="hljs-string" style="color: rgb(0, 85, 0);">'HINDEX'</span>])</pre> 
                 </p>
                 <p class="lesson-text"> 
                     Using SQL, we were able to query a database in order to retrieve specific information. Thankfully, pandas provides a similar functionality. Let's
                     say we were interested in finding all the entries of stock A with a price of over $46.00. We can do this by using conditionals within
-                    the pandas <code>loc</code> function. Let's try this out. 
+                    the pandas <code>loc</code> (locate) function. Let's try this out. 
                         <br><br><pre class="hljs" style="display: block; overflow-x: auto; padding: 0.5em; background-color: rgb(244, 244, 244); color: rgb(0, 0, 0);">stock_data.loc[(stock_data[<span class="hljs-string" style="color: rgb(0, 85, 0);">'Stock'</span>]==<span class="hljs-string" style="color: rgb(0, 85, 0);">'A'</span>) &amp; (stock_data[<span class="hljs-string" style="color: rgb(0, 85, 0);">'Price'</span>]&gt;<span class="hljs-number" style="color: rgb(136, 0, 0);">46</span>)]</pre>
                         
                 </p>
                 <p class="lesson-text"> 
                     When we run this, we get an error message saying <code>TypeError: '>' not supported between instances of 'str' and 'int'</code>
                     What this message is telling us is we're trying to compare a string type variable to an integer. We'll have to 
-                    convert the 'Price' column into floating point numbers before running our query. We can make use of the <code>replace()</code> and <code>astype()</code> functions.<br><br><pre class="hljs" style="display: block; overflow-x: auto; padding: 0.5em; background-color: rgb(244, 244, 244); color: rgb(0, 0, 0);">stock_data[<span class="hljs-string" style="color: rgb(0, 85, 0);">'Price'</span>] = stock_data[<span class="hljs-string" style="color: rgb(0, 85, 0);">'Price'</span>].replace(<span class="hljs-string" style="color: rgb(0, 85, 0);">'[\$,]'</span>, <span class="hljs-string" style="color: rgb(0, 85, 0);">''</span>, regex=<span class="hljs-symbol" style="color: rgb(0, 85, 0);">True</span>).astype(float)
+                    convert the 'Price' column into floating point numbers before running our query. We can make use of the <code>replace()</code> function to remove the dollar signs and <code>astype()</code> function to convert the column.<br><br><pre class="hljs" style="display: block; overflow-x: auto; padding: 0.5em; background-color: rgb(244, 244, 244); color: rgb(0, 0, 0);">stock_data[<span class="hljs-string" style="color: rgb(0, 85, 0);">'Price'</span>] = stock_data[<span class="hljs-string" style="color: rgb(0, 85, 0);">'Price'</span>].replace(<span class="hljs-string" style="color: rgb(0, 85, 0);">'[\$,]'</span>, <span class="hljs-string" style="color: rgb(0, 85, 0);">''</span>, regex=<span class="hljs-symbol" style="color: rgb(0, 85, 0);">True</span>).astype(float)
 stock_data.loc[(stock_data[<span class="hljs-string" style="color: rgb(0, 85, 0);">'Stock'</span>]==<span class="hljs-string" style="color: rgb(0, 85, 0);">'A'</span>) &amp; (stock_data[<span class="hljs-string" style="color: rgb(0, 85, 0);">'Price'</span>]&gt;<span class="hljs-number" style="color: rgb(136, 0, 0);">46</span>)]</pre>      
                 <br>
                 <img  src="images/pandasquery.png" alt="Query Result" />
@@ -555,7 +556,7 @@ stock_data.loc[(stock_data[<span class="hljs-string" style="color: rgb(0, 85, 0)
 
                 <div id="Missing-Values">
                         <h1 class="post_title"> Missing Data </h1>
-                        <p class="lesson-text">    Part of cleaning your data is dealing with missing values. One way to detect if your dataset has missing values
+                        <p class="lesson-text">    Part of our data cleaning process is dealing with missing values. One way to detect if your dataset has missing values
                             is to use the <code>.info()</code> function. Using the dataset from the <a href="#Structuring-Data"><u>previous lesson</u></a>,  <code>stock_data.info()</code> outputs the following:
                             <br><br>
                             <img  src="images/nulldetection.png" alt="info() output" />
@@ -563,7 +564,7 @@ stock_data.loc[(stock_data[<span class="hljs-string" style="color: rgb(0, 85, 0)
                             <a href="https://pandas.pydata.org/pandas-docs/stable/reference/api/pandas.DataFrame.dropna.html"><u><strong><code>dropna()</code></strong></u></a><br>
                             We can see our dataset only has 35 non-null price values and 37 non-null volume values out of 40 total values.
                             One way to deal with missing values is to delete the rows that have at least one value missing. Using pandas,
-                            this can be done through the <code>dropna()</code> function, which will return a dataframe with all rows containing
+                            this can be done by calling the <code>dropna()</code> function on our DataFrame, returning a DataFrame with all rows containing
                             missing values deleted. <br>
                             <br>
                             <a href="https://pandas.pydata.org/pandas-docs/stable/reference/api/pandas.DataFrame.fillna.html"><u><strong><code>fillna()</code></strong></u></a><br>
@@ -574,25 +575,25 @@ stock_data.loc[(stock_data[<span class="hljs-string" style="color: rgb(0, 85, 0)
                             <code>fillna()</code> <a href="https://pandas.pydata.org/pandas-docs/stable/reference/api/pandas.DataFrame.fillna.html"><u>here</u></a>.
                             One way to use <code>fillna()</code> is with the parameter <code>method = 'ffill' </code>. This parameter
                             propogates all non-null values forward, replacing each null value with the previous non-null value.
-                            Similarly <code>method = 'bfil'</code> does the opposite. <br><br>
-                            <pre class="hljs" style="display: block; overflow-x: auto; padding: 0.5em; background-color: rgb(244, 244, 244); color: rgb(0, 0, 0);">stock_data.drop(columns = [<span class="hljs-string" style="color: rgb(0, 85, 0);">'HINDEX'</span>], inplace = <span class="hljs-keyword" style="font-weight: 700; color: navy;">True</span>)
+                            Conversely, <code>method = 'bfill'</code> does the opposite. <br><br>
+                            <pre class="hljs" style="display: block; overflow-x: auto; padding: 0.5em; background-color: rgb(244, 244, 244); color: rgb(0, 0, 0);">stock_data.fillna(method = 'ffill', inplace = True)
 stock_data</pre>
                             <br>
                             <img  src="images/fillna2.png" alt="FFill" />
                             </p>
-                            <p class="lesson-text"> Previously the values for 'Price' and 'Volume' for the entry at index 12
+                            <p class="lesson-text"> Previously, the values for 'Price' and 'Volume' for the entry at index 12
                                 were both NaN. After using the <code>ffill</code> method of <code>fillna()</code> the values for 'Price'
                                 and 'Volume' were replaced with the 'Price' and 'Volume' values for the entry at index 11. A snippet showing this change is
-                                shown above. The inplace parameter in the above function call signifies that the outputted dataframe
-                                should replace our current dataframe.
+                                shown above. The inplace parameter in the above function call signifies that the outputted DataFrame
+                                should replace our current DataFrame and make changes "in place."
                                 <br>
                                 <br>
                                 <a href="https://pandas.pydata.org/pandas-docs/version/0.16/generated/pandas.DataFrame.interpolate.html"><u><strong><code>interpolate()</code></strong></u></a><br>
-                                Another way to fill missing values, especially useful for time-series data, is the interpolate method. Interpolating data
-                                is very helpful and there are many ways to do it. One way of the simplest ways that does not involve the fitting
-                                of a complex model to our data is using the <code>interpolate()</code> function. It defaults to a linear method
+                                Another way to fill missing values, which is especially useful for time-series data, is the interpolate method. Interpolating data
+                                is very helpful and there are many ways to do it. One of the simplest ways to do this that does not involve  fitting
+                                a complex model to our data, is using the <code>interpolate()</code> function. It defaults to a linear method
                                 which replaces all missing values with the <i>linear average</i> of the non-null values surrounding it. It can be called on
-                                an entire dataframe object like shown below, however, is often useful for individual serieses as well (like our 'Price' column alone). Read more about that
+                                an entire DataFrame object like shown below, however, it can be useful for an individual series as well (i.e our 'Price' column alone). Read more about that
                                 <a href="https://pandas.pydata.org/pandas-docs/stable/reference/api/pandas.Series.interpolate.html"><u>here</u></a>.
                                 <br><br>
                                 <pre class="hljs" style="display: block; overflow-x: auto; padding: 0.5em; background-color: rgb(244, 244, 244); color: rgb(0, 0, 0);">stock_data.interpolate(<span class="hljs-function"><span class="hljs-keyword" style="font-weight: 700; color: navy;">method</span>='<span class="hljs-title" style="font-weight: 700; color: navy;">linear</span>', <span class="hljs-title" style="font-weight: 700; color: navy;">inplace</span>=<span class="hljs-title" style="font-weight: 700; color: navy;">True</span>) </span></pre>
@@ -664,13 +665,13 @@ stock_data</pre>
                         <h1 class="post_title"> Univariate Exploration </h1>
                         <p class="lesson-text"> The first step to looking into our now "cleaned" data is
                             to perform a univariate analysis. A univariate analysis is when we look at the characteristics
-                            and plots of each variable <i>individually</i> in order to gain insight into our variables. We'll
+                            and plots of each variable <i>individually</i> in order to gain insight into our variables as a whole. We'll
                             be making use of a few new libraries like Matplotlib and Seaborn, which you should install now if you plan
-                            on following along. (See <a href="#Explore-Setup"><u>setup</u></a> for more information.) The best way
+                            on following along. (See <a href="#Explore-Setup"><u>setup</u></a> for more information). The best way
                             to start looking into your data is to visualize your data. For this exercise we'll use the
                             following <a href="#Explore-Setup"><u>CSV</u></a> file. The dataset we're using is
                             the Iris dataset (read more <a href="https://archive.ics.uci.edu/ml/datasets/Iris"><u>here</u></a>). 
-                            Even though this dataset is preloaded in <code>sklearn</code> library, it's best we practice importing
+                            Even though this dataset is preloaded in the <code>sklearn</code> library, it's best we practice importing
                             our own datasets. Here is the code requried
                             to read in our data and get it ready for exploration. Feel free to copy and paste. <br><br>
                             <pre class="hljs" style="display: block; overflow-x: auto; padding: 0.5em; background-color: rgb(244, 244, 244); color: rgb(0, 0, 0);"><span class="hljs-keyword" style="font-weight: 700; color: navy;">import</span> pandas <span class="hljs-keyword" style="font-weight: 700; color: navy;">as</span> pd
@@ -701,9 +702,9 @@ plt.show()</pre><br>
                     <p class="lesson-text">
                     These histograms give us insight into our data by showing us each distribution. For instance,
                     we can see that sepal length and sepal width display unimodality (one mode/peak), whereas petal length
-                    and petal width seem more bimodal. We can go one step furthur and look into the kurtosis and skew our each attribute.
+                    and petal width seem more bimodal. We can go one step furthur and look into the kurtosis and skew of each attribute.
                     The kurtosis measures how close our values are to our mean, you can think of it as how "steep" our distribution slopes around
-                    the its mean. Skew on the otherhand shows us if we have more observations on the tails of our data, in other words
+                     its mean. Skew on the otherhand shows us if we have more observations on the tails of our data, in other words,
                     it shows us if our distribution favors the left or right side. <br><br>
                     <pre class="hljs" style="display: block; overflow-x: auto; padding: 0.5em; background-color: rgb(244, 244, 244); color: rgb(0, 0, 0);"><span class="hljs-function"><span class="hljs-title" style="font-weight: 700; color: navy;">print</span><span class="hljs-params">(<span class="hljs-string" style="color: rgb(0, 85, 0);">"Kurtosis"</span>)</span></span>
 <span class="hljs-function"><span class="hljs-title" style="font-weight: 700; color: navy;">print</span><span class="hljs-params">(iris.kurtosis()</span></span>)
@@ -711,8 +712,8 @@ plt.show()</pre><br>
 <span class="hljs-function"><span class="hljs-title" style="font-weight: 700; color: navy;">print</span><span class="hljs-params">(iris.skew()</span></span>)</pre> <br>
                     <img  src="images/kurtosis.png" alt="Kurtosis and Skew" /></p>
                     <p class="lesson-text">
-                    Great! We have our kurtosis and skew values, but what to they mean? A negative skew value indicates that
-                    our data has more observations to the right of the mean, also known as left-skewed. If our value is positive,
+                    Great! We now have our kurtosis and skew values, but what do they mean? A negative skew value indicates that
+                    our data has more observations to the right of the mean, and thinner tails to the left, that's why say the distribution is left-skewed. If our skew is positive,
                     our data is considered right-skewed. However, the magnitude of the skewness values also matter. Our skewness
                     values are between -0.5 and 0.5 which means our data is relatively symmetric. A larger skewness value tends to mean
                     your data is more heavily skewed. In general a skewness value between -1 and 1 is considered acceptable (however
@@ -726,8 +727,8 @@ plt.show()</pre><br>
                     <pre class="hljs" style="display: block; overflow-x: auto; padding: 0.5em; background-color: rgb(244, 244, 244); color: rgb(0, 0, 0);"><span class="hljs-title" style="font-weight: 700; color: navy;">sns</span>.boxplot(<span class="hljs-class"><span class="hljs-keyword" style="font-weight: 700; color: navy;">data</span>=iris)</span></pre><br>
                     <img  id="Out" src="images/boxplot.png" alt="Box-plot" /></p>
                     <p class="lesson-text">
-                    As you can see, we potentially may have outliers in our sepal width attribute. The outliers are denoted by the points
-                    that fall outside the box-plot. There are many ways to deal with outliers, one of which is removing all entries where outliers
+                    As you can see, we have outliers in our sepal width attribute. The outliers are denoted by the points
+                    that fall outside the whiskers of the plot. There are many ways to deal with outliers, one of which is removing all entries where outliers
                     exist. However, determining what should be done with outliers depends on our model. We can train and test our model with
                     and without outliers to see performance. In general, it is a good idea to deal with outliers early to prevent
                     our model from being trained on observations that aren't representative of our dataset as a whole. In order to deal with
@@ -742,9 +743,9 @@ plt.show()</pre><br>
                     What we've done here is removed all the outliers from our data. The way we did this was by looking at something called a z-score, which 
                     represents how many standard deviations an observation is from the mean. Generally, any observation with a z-score over 3 (3 standard deviations
                     from the mean), is considered an outlier. In this code snippet, we iterated through each column and updated our dataframe
-                    with only observations which had a z-score of less than 3. What's interested is when looking at the size of our dataframe before and after,
-                    no observations were deleted, in other words, out data had no outliers.<br><br>
-                    Something you may have wondering is that why our box-plot displayed outliers while our z-score checker did not. The reason for the
+                    with only observations which had a z-score of less than 3. What's interesting is that the size of our dataframe did not change,
+                    no observations were deleted so our data had no outliers.<br><br>
+                    Something you may be wondering is that why our box-plot displayed outliers while our z-score checker did not. The reason for the
                     difference is how outliers are calculated. The z-score looks at the standard deviations an observation is from the mean (read more about z-scores <a href="https://www.statisticshowto.datasciencecentral.com/probability-and-statistics/z-score/"><u>here</u></a>.)
                     With box-plots, outliers are usually determined by looking at how many <i>IQRs</i> our data is from our mean. Data outside <code>k x IQR</code> (where <code>k</code> is usually 1.5)
                     from the quartiles denote outliers in a box-whisker plot. 
@@ -767,12 +768,12 @@ plt.show()</pre><br>
                         of each observation. We did this by passing in the Class attribute for the hue paramater. On either axis of the overall figure
                         are each of our attributes. Each individual figure corresponds to a scatter plot of those attributes. For instance, in the figure on the top row
                         second column, attribute 'Sepal Width' is on the x-axis while attribute 'Sepal Length' is on the y-axis. On the diagonal you'll notice
-                        rather than scatterplots, distributions are shown. Each distribution of each figure along the diagonal, shows the distribution of that specific
+                        rather than scatterplots, distributions are shown. These are the distribution of each 
                         attribute for each Class. <br><br>
-                        The next step is to see what insight we can get from these figures. Looking at the figures, it seems that iris-virginica Class 
+                        The next step is to see what insight we can gain from these figures. It seems like the iris-virginica Class 
                         tends to be the largest in terms of dimensions while the iris-setosa seems to be the smallest. Another thing you can notice is that on the
                         distributions along the diagonal, the peaks and steepnesses aren't the same across classes. This is due to different kurtosis and skew values. If you
-                        look at our kurtosis and skew calculations from the previous lecture, you'll be able to visualize how these metrics translate to a distribution. Something else
+                        look at our kurtosis and skew calculations from the previous lesson, you'll be able to visualize how these metrics translate to a distribution. Something else
                         you'll notice is that our plot for petal length and petal width seem to follow a strong linear correlation. With pair plots, we can look into how correlated
                         variables are with each other. 
                         <br><br>
@@ -791,7 +792,7 @@ sns.heatmap(corr_mat, <span class="hljs-attr">vmax=1,</span> <span class="hljs-a
                         <img  src="images/heatmap.png" alt="Heat Map" />   
                         </p>
                         <p class="lesson-text"> 
-                        Our heat map shows us a visual version of our correlation matrix. our <code>vmax</code> parameter sets the maximum value scale for our correlation. The <code>square</code> parameter
+                        Our heat map shows us a visual version of our correlation matrix. Our <code>vmax</code> parameter sets the maximum value scale for our correlation. The <code>square</code> parameter
                         gives us both sides of our matrix rather than a "staircase" version. The <code>annot</code> parameter displays the numeric value for the correlation within each square.                     
                         </p>
 
@@ -800,13 +801,13 @@ sns.heatmap(corr_mat, <span class="hljs-attr">vmax=1,</span> <span class="hljs-a
                             <!-- feature-engineering -->
                             <h1 class="post_title"> Feature Engineering </h1>
 
-                            <p class="lesson-text"> Now that we've explored our data, it's time for us to develop the features for our model. We need to alter the features we'll use in our model as well as potentially transform
+                            <p class="lesson-text"> Now that we've learned a few techniques in exploring our data, it's time for us to develop the features for our model. We need to alter the features we'll use in our model as well as potentially transform
                                 these features in order to help develop stronger predictive models. What concepts are considered part of feature engineering and what aren't is subjective. Think of feature engineering as the final step
                             in figuring out the best way to change our features to better be able to predict our target. When working with our dataset in this lesson, we'll be using a lot of the concepts from the Data Pre-Processing series. 
                             Instead of continuing our use of the Iris dataset, let's look into a dataset that has more features. This will help make understanding certain
-                            feature engineering concepts easier (we'll go back to the Iris dataset for the next lesson). For this lesson, we'll use the Capital Bikeshare Service dataset, a dataset about a bikesharing service in the Metro DC area (download <a href="supplements/bikeshare.csv" download><u>here</u></a> data from Kaggle). Our goal is to create a model
-                            to predict bike traffic (out 'cnt' column).</p>
-                            Let's first take a look at our data.<br><br>
+                            feature engineering concepts easier (we'll go back to the Iris dataset for the next lesson). For this lesson, we'll use the Capital Bikeshare Service dataset, a dataset about a bikesharing service in the Metro DC area (download data <a href="supplements/bikeshare.csv" download><u>here</u></a>  from Kaggle). Our goal is to create a model
+                            to predict bike traffic (the 'cnt' column).
+                            Let's first take a look at our data.</p><br><br>
                             <pre class="hljs" style="display: block; overflow-x: auto; padding: 0.5em; background-color: rgb(244, 244, 244); color: rgb(0, 0, 0);"><span class="hljs-keyword" style="font-weight: 700; color: navy;">import</span> pandas <span class="hljs-keyword" style="font-weight: 700; color: navy;">as</span> pd
 
 bikedata = pd.read_csv(<span class="hljs-string" style="color: rgb(0, 85, 0);">'bikeshare.csv'</span>)
@@ -825,7 +826,7 @@ bikedata.head()</pre>
                                 <code>bikedata[bikedata['holiday']==1].count()[0]</code>
                                 <br><br>
                                 You'll notice out of our 731 total entries, only 21 are holidays - thats roughly 2.5% of our dataset. One thing we haven't learned yet is the concept of training and testing sets. That's when we divide our dataset into two sets to fit our model and test its performance.
-                                Having a binary feature with very few "true" instances could throw our model off during training/testing. This is because we're not sure that the holiday feature we'll show up evenly. Although we can get around this using stratified k-fold cross-validation (we'll also get into that later),
+                                Having a binary feature with very few "true" instances could throw our model off during training/testing. This is because we're not sure that the holiday feature will show up evenly. Although we can get around this using stratified k-fold cross-validation (we'll also get into that later),
                                 it's better for us to remove the feature altogether as it may introduce unnecessary variance.
                                 <br><br>
                                 Often times, you won't be lucky enough to have a dataset that already has the dates split into weekdays, seasons, etc. This dataset has clearly already been pre-processed. If you're only given dates and want to create new features. Simply create a new column
@@ -837,8 +838,8 @@ bikedata.head()</pre>
                                 <img src="images/updatedbikehead.png">
                                 <br><br>
                                 One more thing we can do is categorize our numerical data. Another term used for this is <i>encoding</i>. In school, 90-100 is an A, 80-89 is a B, 70-79 is a C, etc. This is an example of a <i>numerical mapping</i>,
-                                where certain ranges correspond to certain categorical variables or bins. When looking at our data, one feature I think could benefit from this sort of encoding is windspeed. Most people split days into either windy or not windy when making decisions so why shouldn't we?
-                                We can now bin our 'windspeed' feature. It's important to make sure each of your bins has enough representation in your total dataset, this will help reduce variance (we'll get more into that later) within your model's results.
+                                where certain ranges correspond to certain categorical variables or bins. When looking at our data, one feature I think could benefit from this sort of encoding is windspeed. Most people split days into either windy or not windy when making decisions, so let's do the same.
+                                We can now bin our 'windspeed' feature. It's important to make sure each of our bins has enough representation in our total dataset, this will help reduce variance (we'll get more into that later) within our model's results.
                                 <br>
                                 Let's first get a summary of our 'windspeed' feature using the <code>describe()</code> function.<br><br>
                                 <img src="images/windhead.png"><br><br>
@@ -857,8 +858,8 @@ bikedata[<span class="hljs-string" style="color: rgb(0, 85, 0);">'windspeed'</sp
                                 Like I mentioned earlier, the dataset we imported has already been preprocessed by the uploader and no features like this need to be created.
                                 <br><br>
                                 One important concept we skimmed over is <i>multicollinearity</i>. Multicollinearity is a fancy way of saying our features are correlated with each other. For instance, the season and temperature features may be correlated since temperatures vary according to season.
-                                Likewise, the weather situation ('weathersit') would be correlated with one of our weather features. One method we'll go into in our LASSO lesson is using L1 regularization for feature selection to address this multicollinearity. In the next lesson,
-                                we'll go through a common model used for dimensionality reduction (we'll learn this in the next lesson), called a Principal Component Analysis or PCA.
+                                Likewise, the weather situation ('weathersit') could be correlated with one or more of our weather features. One method we'll go into in our <a href="#Ridge" ><u>LASSO lesson</u></a> is using L1 regularization for feature selection to address this multicollinearity. In the next lesson,
+                                we'll go through a common model used for dimensionality reduction called a Principal Component Analysis (PCA).
 
 
                             </p>
@@ -908,7 +909,7 @@ bikedata[<span class="hljs-string" style="color: rgb(0, 85, 0);">'windspeed'</sp
                                     Now that we understand the process of principal component analysis using singular value decomposition (PCA using SVD), let's look into how we can implement it.
                                     First, make sure you have your iris dataset properly loaded into a dataframe using the <code>read_csv</code> function. (To see the full
                                     instructions on setting up go <a href="#Univariate"><u>here</u></a>. The CSV file
-                                    can be downloaded <a href="supplements/iris.csv" download><u>here</u></a>.<br><br>
+                                    can be downloaded <a href="supplements/iris.csv" download><u>here</u></a>).<br><br>
                                     We'll start by standardizing our features. This means setting the mean and variance to 0 and 1 respectively. We can do this by subtracting the mean from each point (something we did above), and then dividing by the
                                     standard deviation. Luckily, sklearn makes this easy for us. <br><br>
                                     <pre class="hljs" style="display: block; overflow-x: auto; padding: 0.5em; background-color: rgb(244, 244, 244); color: rgb(0, 0, 0);">x = iris<span class="hljs-selector-class">.loc</span>[:, [<span class="hljs-string" style="color: rgb(0, 85, 0);">'Sepal Length'</span>, <span class="hljs-string" style="color: rgb(0, 85, 0);">'Sepal Width'</span>, <span class="hljs-string" style="color: rgb(0, 85, 0);">'Petal Length'</span>, <span class="hljs-string" style="color: rgb(0, 85, 0);">'Petal Width'</span>]]<span class="hljs-selector-class">.values</span>
@@ -950,7 +951,7 @@ plt.show()</pre><br>
                                 <h1 class="post_title"> Useful Resources </h1>
 
                                 <p class="lesson-text"> In this lesson, we learned how to explore our data and understand how our variables relate
-                                    to each other. We went through a few functionalities of the seaborn and pandas libraries and a highly recommend learning how to
+                                    to each other. We went through a few functionalities of the seaborn and pandas libraries and I highly recommend learning how to
                                     tweak paramaters for various visualizations. 
                                 </p>
                                 
@@ -1012,8 +1013,8 @@ plt.show()</pre><br>
                                 <!-- TRAIN AND TEST -->
                                 <h1 class="post_title"> Training and Testing Sets</h1>
                                 <p class="lesson-text">
-                                    Before we start learning how to use models, it's important to understand what it means to "train" and "test" your data.
-                                    When you "train" your data, you are fitting your model to a part of your dataset. "Testing" your data is when you feed the other part of your dataset
+                                    Before we start learning how to use models, it's important to understand what it means to "train" and "test" in the context of machine learning.
+                                    When you "train" your model, you are fitting your model to a part of your dataset. "Testing" your data is when you feed the other part of your dataset
                                     into your newly trained model in order to see how it performs. You can see how it performs by comparing your model's forecasts with the actual values in your dataset.
                                     We'll be going much more in-depth on how to do all this in later lectures. Figuring out your train/test ratio is important to prevent under or overfitting.
                                 
@@ -1023,16 +1024,17 @@ plt.show()</pre><br>
                                     a validation set may not be helpful and a 70/30 train/test split could work. With larger datasets, using cross-validation can help with fitting the model. We'll split our iris dataset from the previous lessons below.
                                     <br><br>
                                     <pre class="hljs" style="display: block; overflow-x: auto; padding: 0.5em; background-color: rgb(244, 244, 244); color: rgb(0, 0, 0);"><span class="hljs-built_in" style="font-weight: 700; color: navy;">from</span> sklearn.model_selection <span class="hljs-built_in" style="font-weight: 700; color: navy;">import</span> train_test_split
-X_train, X_test, y_train, y_test = <span class="hljs-built_in" style="font-weight: 700; color: navy;">train_test_split</span>(iris, iris[<span class="hljs-string" style="color: rgb(0, 85, 0);">'Class'</span>], <span class="hljs-built_in" style="font-weight: 700; color: navy;">test_size</span>=0.3)</pre>
+X = iris.<span class="hljs-built_in" style="font-weight: 700; color: navy;">drop(columns=['Class'])</span>
+X_train, X_test, y_train, y_test = <span class="hljs-built_in" style="font-weight: 700; color: navy;">train_test_split</span>(X, iris[<span class="hljs-string" style="color: rgb(0, 85, 0);">'Class'</span>], <span class="hljs-built_in" style="font-weight: 700; color: navy;">test_size</span>=0.3)</pre>
                                     </p>
                                     <p class="lesson-text">
                                         <code>X_train</code> represents the inputs we'll be training our model on, while <code>X_test</code> 
-                                        represents the inputs we'll be using for testing our model. Similarly, <code>y_test</code> and <code>y_train</code>
+                                        represents the inputs we'll be using for testing our model. Similarly, <code>y_train</code> and <code>y_test</code>
                                         are both the outputs we'll be using for training and testing respectively. The <code>train_test_split</code> function splits our <code>iris</code> dataset, with <code>iris['Class']</code>  being the target variable, into a training and testing set according to the ratio in the <code>test_size</code> paramater.
                                         <br><br>
                                         One of the reasons <code>train_test_split</code> is more useful than just manually splitting a Series is because it defaults to <i>shuffling</i> our data. This means instead of just taking the first 70% of your dataset as your training set, it'll shuffle your dataset first to prevent
                                         potential bias based on how the data was prepared or inputted into your database. The <code>train_test_split</code> function can also <i>stratify</i> our data. <br><br>
-                                        <pre class="hljs" style="display: block; overflow-x: auto; padding: 0.5em; background-color: rgb(244, 244, 244); color: rgb(0, 0, 0);">X_train, X_test, y_train, y_test = <span class="hljs-built_in" style="font-weight: 700; color: navy;">train_test_split</span>(iris, iris[<span class="hljs-string" style="color: rgb(0, 85, 0);">'Class'</span>], <span class="hljs-built_in" style="font-weight: 700; color: navy;">stratify</span>=iris[<span class="hljs-string" style="color: rgb(0, 85, 0);">'Class'</span>], <span class="hljs-built_in" style="font-weight: 700; color: navy;">test_size</span>=0.3)</pre>
+                                        <pre class="hljs" style="display: block; overflow-x: auto; padding: 0.5em; background-color: rgb(244, 244, 244); color: rgb(0, 0, 0);">X_train, X_test, y_train, y_test = <span class="hljs-built_in" style="font-weight: 700; color: navy;">train_test_split</span>(X, iris[<span class="hljs-string" style="color: rgb(0, 85, 0);">'Class'</span>], <span class="hljs-built_in" style="font-weight: 700; color: navy;">stratify</span>=iris[<span class="hljs-string" style="color: rgb(0, 85, 0);">'Class'</span>], <span class="hljs-built_in" style="font-weight: 700; color: navy;">test_size</span>=0.3)</pre>
                                         
                                     </p>
                                     <p class="lesson-text">
@@ -1046,7 +1048,7 @@ X_train, X_test, y_train, y_test = <span class="hljs-built_in" style="font-weigh
                         <h1 class="post_title"> Cross Validation</h1>
                         <p class="lesson-text">
                             Cross-Validation is a method to reduce overall bias in our model's predictions. We'll be focusong on <code>k-fold cross-validation</code>. Let's say we took 70% of our data for training and 30% for testing.
-                            We would only be training our model on one specific training and testing set, this may not be the best option because our model might perform better on specific subsets of our data than other subsets. How can we 
+                            We would only be training our model on one specific training and testing set, this may not be the best option because our model might perform better on specific subsets of our data compared to other subsets. How can we 
                             get around this? One solution is to use <i>multiple</i> training and testing sets and then looking at the <i>overall</i> result across <i>all</i> sets. This makes it much easier to compare different machine learning models
                             because we'll have a better idea of how each model would perform across multiple testing sets. Luckily, this is one of the main benefits of <code>k-fold cross-validation</code>. <br><br>
                             K-fold cross validation works by dividing out dataset into k subsets, and running our learning algorithm k times, with each bin being the testing set for a different iteration. I'll give you an example.
@@ -1061,11 +1063,11 @@ X_train, X_test, y_train, y_test = <span class="hljs-built_in" style="font-weigh
                             <pre class="hljs" style="display: block; overflow-x: auto; padding: 0.5em; background-color: rgb(244, 244, 244); color: rgb(0, 0, 0);"><span class="hljs-keyword" style="font-weight: 700; color: navy;">from</span> sklearn<span class="hljs-selector-class">.model_selection</span><span class="hljs-keyword" style="font-weight: 700; color: navy;"> import </span>KFold
 folds = <span class="hljs-keyword" style="font-weight: 700; color: navy;">KFold</span>(n_splits=<span class="hljs-number" style="color: rgb(136, 0, 0);">10</span>)
 <span class="hljs-keyword" style="font-weight: 700; color: navy;">for</span> train_index, test_index <span class="hljs-keyword" style="font-weight: 700; color: navy;">in</span> folds.split(iris):
-    X_train, X_test, y_train, y_test = iris<span class="hljs-selector-class">.iloc</span>[train_index], iris<span class="hljs-selector-class">.iloc</span>[test_index], iris[<span class="hljs-string" style="color: rgb(0, 85, 0);">'Class'</span>]<span class="hljs-selector-class">.iloc</span>[train_index], iris[<span class="hljs-string" style="color: rgb(0, 85, 0);">'Class'</span>]<span class="hljs-selector-class">.iloc</span>[test_index]</pre><br><br>
+    X_train, X_test, y_train, y_test = X<span class="hljs-selector-class">.iloc</span>[train_index], X<span class="hljs-selector-class">.iloc</span>[test_index], iris[<span class="hljs-string" style="color: rgb(0, 85, 0);">'Class'</span>]<span class="hljs-selector-class">.iloc</span>[train_index], iris[<span class="hljs-string" style="color: rgb(0, 85, 0);">'Class'</span>]<span class="hljs-selector-class">.iloc</span>[test_index]</pre><br><br>
                                 Now we'll have our training and testing sets ready. Another common type of cross-validation is Leave-One-Out Cross Validation (LOOCV). LOOCV is a type of k-fold cross-validation where k = n, or the total number of data points in our dataset. This is when <i>each</i> of our observations will
                                 individually be a testing set when training our model.
                                 Obviously, as k increases, the computation time increases as well, since more training and testing will have to occur. This is why LOOCV is only recommended for small datasets. When choosing your k, it's important to keep in mind the size of your dataset
-                                as well as the complexity of your model. One other reason a high k may not be advisable is due to the variance-bias tradeoff. Something we'll get into in our next lesson.
+                                as well as the complexity of your model. One other reason a high k may not be advisable is due to the bias-variance tradeoff. Something we'll get into in our next lesson.
                             </p>
                             </div>
                 <div id="Bias-Variance">
@@ -1075,16 +1077,16 @@ folds = <span class="hljs-keyword" style="font-weight: 700; color: navy;">KFold<
                             When choosing your model, it's important to keep the bias-variance tradeoff in mind. Let's look into what bias and variance are.
                             <br><br>
                             <strong>Bias</strong><br>
-                            Bias is how well the average or our model's predictions compares to the actual value. One way to think of it is like throwing darts at a dartboard where the center is your expected output. 
+                            Bias is how well our model's predictions compare to the expected values. One way to think of it is like throwing darts at a dartboard where the center is your expected output. 
                             If your model had low bias, the darts would be around the center - meaning we did a pretty good job <i>on average</i> in predicting our output. However, we're also interested in decreasing the <i>variability</i>
                             in those predictions. In the dart analogy, that's like making the darts we threw closer together. This brings us to <i>variance</i>.<br><br>
                             <strong>Variance</strong><br>
-                            Whent training a model, if the model becomes overfitted on our training set, it may perform very well when fitting that specific set, however when testing it on
-                            a different set of data, the model may not perform as well. You can think of the variation in how our model performs on these sets of data as the <i>variance</i> of our model.
+                            When training a model, if the model becomes overfitted on our training set, it may perform very well when fitting that specific subset of data, but may not perform well when tested on
+                            a different set of data. You can think of the variation in how our model performs on these sets of data as the <i>variance</i> of our model.
                             Ideally, we want to reduce the variance in order to have more precise outputs. When throwing darts, if the darts are close together, you have low variance whereas if the darts we threw
                             are far apart, we have high variance. Here's a <a href="https://www.pinterest.com/pin/514043744937666589/?lp=true"><u>visualization</u></a> of the dart analogy.<br>
                             <img  src="images/biasvariability.png" alt="Dart Analogy" /><br><br>
-                            When making out model, if we train our model to much on our training set it becomes <i>overfitted</i>. This means it will perform very well on the training set but not perform well when tested. The variation in how it performs
+                            When making our model, if we train our model too much on our training set it becomes <i>overfitted</i>. This means it will perform very well on the training set but not perform well when tested. The variation in how it performs
                             between these two sets is why we say it has <i>high variance</i>. If our model is <i>underfitted</i> that means we haven't fit our model well and we have <i>high bias</i>. Here's a figure to help out. <br><br>
                             <img  src="images/underoverfit.png" alt="Under and Overfitting" /><br><br>
                             Now that we know what bias and variance are and how they relate to our model's fit, we can look into the trade-off. When using an overly-simplistic model, we'll have high bias since our model doesn't fit our data well. To lower this bias, we can
@@ -1533,6 +1535,187 @@ y_pred = elastic.predict(X_test)
 
                     </p>
                         </div>
+
+                        <div id="Logit">
+
+                            <!-- Logistic Regression -->
+                            <h1 class="post_title"> Logistic Regression (Logit)</h1>
+                            <p class="lesson-text">
+                                Here we'll get into one of the most commonly implemented classification models, <strong>Logistic Regression</strong>, We've already looked into a Linear Regression model
+                                that can predict a continuous variable, but what if we need to classify our data? That's where a Logit model comes in. Let's first quickly review how we did linear regression.
+                                We fit a line to our data and found the optimal coefficients for our linear model that took the form:<br><br>
+                                <a href="https://www.codecogs.com/eqnedit.php?latex=y=a_{0}&space;&plus;&space;a_{1}x_{1}&space;&plus;&space;a_{2}x_{2}&space;...&space;&plus;&space;a_{n}x_{n}" target="_blank"><img src="https://latex.codecogs.com/gif.latex?y=a_{0}&space;&plus;&space;a_{1}x_{1}&space;&plus;&space;a_{2}x_{2}&space;...&space;&plus;&space;a_{n}x_{n}" title="y=a_{0} + a_{1}x_{1} + a_{2}x_{2} ... + a_{n}x_{n}" /></a>
+                                </p>
+                                <p class="lesson-text">
+                                    Our logistic regression model will be very similar to our linear regression model. In fact, a logistic regression is really just a linear regression on the log-odds of your data. This will be easier to understand
+                                    with an example. Let's say we want to figure out whether or not a student-athelete plays basketball or soccer solely based on his/her height. We can take our data in the form (height, sport) and encode our bins
+                                    (sports) into numbers. We can say a soccer player is a '0' while a basketball player is a '1'. To read more on how encoding works, check out the Feature Engineering lesson
+                                    <a href="#Feature-Engineering"><u>here</u></a>. Since we have two classes, this problem is known as a <strong>binary classification</strong> problem.  We can use logistic regression for multi-class classification but for now, let's start with a simple binary classification. Below is a side-by-side view of our data and plot:<br><br>
+                                    <img  style="display: inline-block" src="images/logit-base.png" alt="Logit" /><br><br>
+                                    In the above plot, you'll notice that there is an overlap in heights between the basketball players and soccer players, usually when working with data this will happen. Depending on your model and your loss/cost functions, you
+                                    will need to take care of this one way or another. When we go into SVM's, you'll see how we can use this information to decide between hard and soft-margins as well as how we can add regularization
+                                    to our models to help us generalize. For now, let's think of a shape that could fit this data well. A typical line doesn't work between we have no values between 0 and 1, but we could fit what's called a Sigmoid function. Here's a
+                                    visualization of a line (red dotted) and a a sigmoid function (green) fitted onto our data.<br><br>
+                                    <img style="display: inline-block" src="images/sig_vs_line.png" alt="Sigmoid_Line" /><br><br>
+                                    As you can see from above, the 'S' shape (sigmoid) fit our data better than a line. Let's try to understand what the sigmoid graph in the above plot is <i>really</i> telling us. Our sigmoid function has a lower-bound of 0 and an upper-bound of 1 - similar to a probability or likelihood. That's because we can think of the output of our sigmoid function as the <i>probability</i> of the observation belonging to 
+                                    class '1'. Why wouldn't linear regression work well here? Well, the probability that someone is a soccer player or a basketball player will be between 0 and 1 and the line of best fit will continue to both positive and negative infinity. Luckily, we can still make use of our linear regression model and modify it to create our Logit model. Let's think about how we can do this. A line with a non-zero slope will have a range from negative infinity to positive infinity, 
+                                    while our data has a range of 0 to 1. What if we transformed our data from having a range of 0 to 1 to having a range of negative infinity to infinity? Instead of modeling the probability of our data, we could model the <i>log odds</i> of our data. This can be done using the formula below:<br><br>
+                                    <img src="https://latex.codecogs.com/gif.latex?%5Cinline%20LogOdds%3Dlog%28%5Cfrac%7Bp%7D%7B1-p%7D%29" title="LogOdds=log(\frac{p}{1-p})" /><br><br>
+                                    We just transformed our y-axis from being probability to being log-odds. What are log odds though? Recall that the odds of an event happening is the probability it will happen divided by the probability it won't happen. What are the odds you roll a die and see a number greater than 1?
+                                    Well the probability of getting a 2,3,4, or 5 is 5/6 while the probability of getting a 1 is 1/6. The odds are then 5/6 divided by 1/6 which is 5. So we would say we have a 5 to 1 odds on that bet. As for why we take the logarithm of these odds, I recommend watching the StatQuest video on odds vs. log-odds <a href="https://www.youtube.com/watch?v=8nm0G-1uJzA&ab_channel=StatQuestwithJoshStarmer"><u>here</u></a>, though I'll try my best to briefly summarize why here.
+                                    The issue with regular odds is that the when the probability of the event happening is less than 0.5, our p/(1-p) is between 0 and 1. If the probability of the event happening is greater than 0.5 however, the odds can take values from 1 to infinity. Since the ranges in both cases aren't symmetrical, this will cause our model to be biased towards probabilities greater than 0.5. We can take the logarithm of these odds and it will become symmetrical. Here's how that works. <br>
+                                    The odds (p/(1-p)) can take on values from 0 to infinity when the probability (p) 
+                                    approaches 0 and 1 respectively. When p is very small and close to 0, log(p/1-p) approaches log(0/1) which approaches negative infinity. When the probably of the event is almost certain and close to 1, log(p/(1-p)) approaches log(1/0) which equals log(1) - log(0) which equals
+                                    0 - (negative infinity) or infinity. Let's recap this transformation. <br><br>
+                                    <ul>
+                                        <li>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; 1, Started with probabilities - Range:  0 to 1.</li>
+                                        <li>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; 2. Converted the probabilities into odds - Range: 0 to infinity</li>
+                                        <li>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; 3. Converted odds into log-odds - Range: -infinity to infinity</li>
+                                    </ul></p>
+                                    <p class="lesson-text">
+                                    Now that our data has been transformed to be in the range of negative infinity to infinity we can perform a linear regression on our transformed data. This is what our transformed data looks like now:
+                                    <br><br>
+                                    <img  style="display: inline-block" src="images/log-odds-plot.png" alt="Log-Odds" />
+                                </p>
+                                <p class="lesson-text">
+                                    One thing you'll notice right off the bat is that the y-values in our transformed data are either negative infinity or infinity. This is because our probabilities of a player being a soccer player or basketball player were 0 and 1 - we already knew those probabilities because we were given them! The issue is that
+                                    we can't use our "typical" least-squares to minmize our error since our errors are technically infinite. What we can do is use a Maximum-Likelihood Estimation (read the lesson on MLE<a href="#MLE"><u>here</u></a>) to find our coefficients. Once we find our line of best fit, we'd have successfully created a model to
+                                    related our input (heights of players) log odds of an event (the player being a basketball player). The thing is, this isn't what we set out to do. We need to find a way to relate the input to probabilities. Here's where the math comes in. Below you can see how we can use the equation of the line we just fit (expression in green)
+                                    and transform it into a sigmoid function simply by converting the log odds (a natural log in this case) to probabilities by solving for p. I purposely highlighted the linear expression we get from fitting our line to the transformed data in green so you can see how it comes into play in our final equation.
+                                    <br><br>
+                                    <img  style="display: inline-block" src="images/logit-derivation.png" alt="Log-Odds" />
+                                </p>
+                                <p class="lesson-text">
+                                    This expression is the form of our Logit model. If we want to <i>classify</i> our data, we will need to conver this probability to either a 0 or 1. One simple say to do this is by setting a threshold value, let's say 0.5 and saying any value above 0.5 will be classified as 1 while any value below 0.5 will be classified as a 0.
+                                    It's important to note that the threshold will not always be 0.5. Sometimes we may use a lower or higher threshold function depending on whether we want to reduce our Type-I or Type-II error (we'll get into this in the next couple of lessons including ROC and AUC curves). Let's now look at how to do a logistic regression in Python
+                                    using sklearn.<br><br>
+                                     <i>As a reminder, this is very basic code and does not make use of any sort of hyperparameter tuning or reguliarization techniques. In practice, a logistic regression model will have to be optimized and a default model may not always perform best. You can read the previous lessons on optimizers and loss-functions to see the possibilities.
+                                    In addition, we will later get into hyperparameter tuning (specifically with neural networks) later on and the overall procedure will be somewhat similar to hyperparameter tuning for other ML models like a Logit model. Nonetheless, the code is provided below for the classification of the Iris dataset we've been working on provided from the UC Irvine ML repository (<a href="https://archive.ics.uci.edu/ml/datasets/Iris">data</a>).</i> <br><br>
+                                    </p>
+                                    <div style="background: #ffffff; overflow:auto;width:auto;border:solid gray;border-width:.1em .1em .1em .8em;padding:.2em .6em;"><pre style="margin: 0; line-height: 125%"><span style="color: #008800; font-weight: bold">import</span> <span style="color: #0e84b5; font-weight: bold">pandas</span> <span style="color: #008800; font-weight: bold">as</span> <span style="color: #0e84b5; font-weight: bold">pd</span>
+<span style="color: #008800; font-weight: bold">from</span> <span style="color: #0e84b5; font-weight: bold">sklearn.linear_model</span> <span style="color: #008800; font-weight: bold">import</span> LogisticRegression
+<span style="color: #008800; font-weight: bold">from</span> <span style="color: #0e84b5; font-weight: bold">sklearn.model_selection</span> <span style="color: #008800; font-weight: bold">import</span> train_test_split
+<span style="color: #008800; font-weight: bold">from</span> <span style="color: #0e84b5; font-weight: bold">sklearn.metrics</span> <span style="color: #008800; font-weight: bold">import</span> accuracy_score
+<span style="color: #008800; font-weight: bold">from</span> <span style="color: #0e84b5; font-weight: bold">sklearn.preprocessing</span> <span style="color: #008800; font-weight: bold">import</span> OneHotEncoder
+                                        
+<span style="color: #888888"># Reading in the Data</span>
+iris <span style="color: #333333">=</span> pd<span style="color: #333333">.</span>read_csv(<span style="background-color: #fff0f0">'iris.csv'</span>)
+iris<span style="color: #333333">.</span>columns<span style="color: #333333">=</span>[<span style="background-color: #fff0f0">'Sepal Length'</span>, <span style="background-color: #fff0f0">'Sepal Width'</span>, <span style="background-color: #fff0f0">'Petal Length'</span>, <span style="background-color: #fff0f0">'Petal Width'</span>, <span style="background-color: #fff0f0">'Class'</span>]
+iris[<span style="background-color: #fff0f0">'Class'</span>] <span style="color: #333333">=</span> iris[<span style="background-color: #fff0f0">'Class'</span>]<span style="color: #333333">.</span>astype(<span style="background-color: #fff0f0">'category'</span>)
+                                        
+<span style="color: #888888"># Train-Test Split (80-20 Split)</span>
+X <span style="color: #333333">=</span> iris<span style="color: #333333">.</span>drop(columns<span style="color: #333333">=</span>[<span style="background-color: #fff0f0">'Class'</span>])
+Y <span style="color: #333333">=</span> iris[<span style="background-color: #fff0f0">'Class'</span>]<span style="color: #333333">.</span>cat<span style="color: #333333">.</span>codes
+X_train, X_test, y_train, y_test <span style="color: #333333">=</span> train_test_split(X, Y, test_size<span style="color: #333333">=</span><span style="color: #6600EE; font-weight: bold">0.2</span>)
+                                        
+<span style="color: #888888"># Logistic Regression - Be Careful, it defaults to L2-Regularization</span>
+logit <span style="color: #333333">=</span> LogisticRegression(penalty <span style="color: #333333">=</span> <span style="background-color: #fff0f0">'none'</span>) 
+logit<span style="color: #333333">.</span>fit(X_train, y_train)
+y_pred <span style="color: #333333">=</span> logit<span style="color: #333333">.</span>predict(X_test)
+</pre></div>
+                                         
+                            </div>
+                            <p class="lesson-text">
+                                Please be aware that the Logistic Regression model from sklearn defaults to a L2 Reguliarzation. To remove this you will have to explicitly state: penalty = 'none' as a parameter. Next, let's look into how we can analyze the results of our classification model.
+                                </p>
+                           
+
+                                <div id="Confusion">
+
+                                    <!-- Confusion Matrix -->
+                                    <h1 class="post_title"> Confusion Matrix</h1>
+                                    <p class="lesson-text">
+                                        Now that we've learned our first classification model. Let's look into how we can see how well it did. One way to see this is by using something called a <strong>Confusion Matrix</strong>. A confusion matrix
+                                        can help us see how well our binary-classification model performed by comparing how the model classified both positive and negative examples. Below is an example of what a confusion matrix would look like. (<a href="https://miro.medium.com/max/2102/1*fxiTNIgOyvAombPJx5KGeA.png"><u>Source</u></a>)
+                                        <br><br>
+                                        <img  style="display: inline-block" src="images/confusion_matrix.png" alt="Confusion-Matrix" />
+                                        
+                                        </p>
+                                        <p class="lesson-text">
+                                        The top left square represents the number of examples that were positive and were predicted to be positive by the model - this is called the number of <strong>True Positives (TP)</strong>. The top right square represents the number of examples that were negative, but the model falsely classified as positive - the <strong>False Positives (FP)</strong>. Similarly, the bottom left square represents the number of examples the model classified as negative but were actually positive - <strong> False Negatives (FN)</strong>, and the bottom right square represents the number of negative examples that were correctly classified as negative - <strong>True Negatives (TN)</strong>. Next, let's look into the two main types of errors we will face with binary classification - Type I and Type II.
+                                        </p>
+                                        <br><br>
+                                        <strong><u>Type I and Type II Errors</u></strong>
+                                        <p class="lesson-text">
+                                            The first type of error is known as a <strong>Type I error</strong>. A type I error occurs when we falsely reject a true null hypothesis, or in other words, when the model classifies an example as positive when it is actually negative (false positives). A <strong>Type II</strong> error is when we fail to reject a false null hypothesis, or in other words, when the model classifies an example as negative when it was really positive (false negative). 
+                                            <br><br>
+                                            The best way to think about this is if we have a test to diagnose cancer in a patient. Our false positive rate would be our Type I error and our false negative rate would be our Type II error. In this example, which error do you think is more important and should be minimized? Ideally, we want to be able to diagnose a patient who has cancer as often as possible so they can receive a timely treatment. Misclassifying someone who doesn't have cancer as having cancer would allow that individual to receive further tests in order to diagnose whether or not he/she truly does have cancer and decide what the best course of action is. On the other hand, misclassifying someone who has cancer and concluding they do not have cancer will be more costly since that individual will not be able to get the early care he/she needs which may even lead to his/her death. In this case, it is quite obvious that we want to reduce our false negative rate (Type II error). Can you think of an example where we would want to minimize our false positive rate instead?
+                                            <br><br>
+                                            What if we had to create a model to determine whether or not someone committed a serious crime that carries a lengthy sentence. If we falsely convict an innocent man, we could end up ruining his life. Ideally, we want to ensure that we minimize the number of false convictions, or <i>false positives</i> in our model. This is the equivalent of minimizing the Type I error. Before we get into how we can use an ROC and AUC to do that, let's first learn some terminology.
+                                            </p>
+                                            <br><br>
+                                            <strong><u>Accuracy, Precision, Recall, F1 Score</u></strong>
+                                            <p class="lesson-text">
+                                            Below are the formulas for accuracy, predicion, recall, and an F1 score. <br><br>
+                                            <img  style="display: inline-block" src="images/recall-formulas.png" alt="Formulas" />
+                                            </p>
+                                            <p class="lesson-text">
+                                                As you can see above the accuracy is the proportion of examples our model predicted correctly, our precision is the proportion of examples our model classified as positive that were in fact positive, our recall shows us our true positive rate and our F1 Score is the harmonic mean of our precision and recall. The F1 score is derived from the F-score with the parameter beta equal to 1. You can read more about the F-score <a href="https://en.wikipedia.org/wiki/F-score"><u>here</u></a>. Now that we have an idea of how these values are calculated. Let's see how we can use ROC and AUC in order to analyze these metrics. 
+                                                </p>
+                                    </div>         
+
+                                    <div id="AUC-ROC">
+
+                                        <!-- AUC and ROC -->
+                                        <h1 class="post_title"> Area Under Curve and Receiver Operating Characeristics (AUC & ROC)</h1>
+                                        <p class="lesson-text">
+                                            Now that we understand the idea behind a confusion matrix and the four main metrics, is there a way we can use them to figure out an optimal threshold for our classification problem? What about a way to compare which classification models work best? The answer is yes and yes. First, let's get familiar with two terms: <strong>sensitivity and specificity</strong>. These two metrics are similar to the metrics we discussed earlier, in fact, sensitivity (True Positive Rate) is just our recall from earlier. Specificity (True Negative Rate) is the proportion of negative examples that the model correctly classified as negative. I've summarized the two equations below: <br><br>
+                                            <img  style="display: inline-block" src="images/specificity.png" alt="Specificity" />
+                                            </p> <br><br>
+                                            <strong><u>Receiver Operating Characteristics (ROC) Curve</u></strong>
+                                            <p class="lesson-text">
+                                                Let's quickly recap how we got our confusion matrix. We created a classification model, predicted probabilities using the classification model, and then converted the probabilities to classes based on if they were above or below a certain threshold. This means for every threshold, there exists a different confusion matrix. We usually think of the threshold as simply 0.5 since logically, if an example has more than a 50% chance of belonging to a class, we should put it in that class. The problem with using 0.5 is that it does not take into account whether or not we are trying to minimize our false positive or false negative rate and it may not work well depending on what data is fed in. Remember in our previous lesson we discussed two scenarios where we would want to minimize our Type I and Type II errors. Choosing a different threshold is one way we can minimize those errors. <br><br>
+                                                The ROC curve plots the sensitivity (true positive rate) on the y-axis, and 1-specificity (false positive rate) on the x-axis. For each threshold we pick, we will get a new confusion matrix and can plot the TPR and FPR on the ROC curve. To summarize we will:<br><br>
+                                                <ul>
+                                                        <li>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; 1, Create a Classifier</li>
+                                                        <li>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; 2. Computer Confusion Matricies for different thresholds.</li>
+                                                        <li>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; 3. Computer the Sensitivity and Specificity of each Confusion Matrix</li>
+                                                        <li>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; 4. Plot the (FPR, TPR) for each threshold.</li>
+                                                    </ul>
+                                            </p>
+                                            <p class="lesson-text">
+                                                    Here we can see what an ROC curve would look like:<br><br>
+                                                    <img  style="display: inline-block" src="images/roc-curve.png" alt="ROC Curve" />
+                                                </p>
+                                            <p class="lesson-text">
+                                                        In the above plot, each point represents a different threshold using in the classification model. A line connecting the points (0,0)and (1,1) show the points at which the false positive rate equals the true positive rate. Ideally, we want to maximize the true positive rate while minimizing the false positive rate. In the diagram above, the points highlighted in yellow show the best points according to our aforementioned criterion. These points also map to a different threshold value. Which threshold value we would use in this specific case would depend on whether or not we want to maximize our true positive rate or minimize our false positive rate. This decision varies depending on what the classification problem is.<br><br>
+                                                        So now we know that given a classifier, we can map different threshold values to different confusion matricies and thus different points on the ROC curve, Like each threshold value had a seperate confusion matrix, each classifier has a seperate ROC curve. What if there was a way we could look at the ROC curves of different classification models and determine which classifier is better? Lukcily we can do that using the AUC. 
+                                                    </p><br><br>
+                                                    <strong><u>Area Under the Curve (AUC)</u></strong>
+                                                    <p class="lesson-text">
+                                                        The idea behind AUC is quite simple. Since ideally we want our false positive rate to be as low as possible and true positive rate to be as high as possible, we want to be as far left from the line that connects (0,0) and (1,1) as possible. THis is because the points closer to that line and to the right of that line, have a higher false positive rate than true positive rate. One thing we can do is plot the ROC curves for each classifier and then take the area under those curves to compare the models to each other. The model with the highest AUC will be better since it better optimizes for both a higher TPR and a lower FPR. This will come in handy later when we learn more classification models.
+                                                        </p>
+                                        </div>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
                     <div id="ARMA">
 
                             <!-- ARMA -->
