@@ -261,7 +261,7 @@ body a:hover
     padding-bottom: 170px;
     min-height: calc(100vh - 170px);
     background-color: #19134E; 
-    background-image:url(images/bghome.png); 
+    background-image:url(images/lessonsbg3.png); 
     background-repeat: repeat; 
     background-position: center top; 
     background-size: cover;
@@ -274,7 +274,7 @@ body a:hover
     padding-bottom: 170px;
     min-height: calc(100vh - 170px);
     background-color: #19134E; 
-    background-image:url(images/lessonsbg.png); 
+    background-image:url(images/lessonsbg3.png); 
     background-repeat: repeat; 
     background-position: center top; 
     background-size: cover;
@@ -348,12 +348,12 @@ h1.big-title
 
 #services .section-title-holder
 {
-    background-color: #32DB8A
+    background-color: #2d2575
 }
 
 #services .section-title-holder span
 {
-    color: #55B286;
+    color: #ffffff;
 }
 
 .service-holder 
@@ -375,6 +375,7 @@ h1.big-title
     width: 240px;
     margin-top: 55px;
     margin-left: 5px;
+    
 }
 
 .service-title 
@@ -401,12 +402,12 @@ h1.big-title
 
 #portfolio .section-title-holder
 {
-    background-color: rgb(255, 186, 66);
+    background-color: #8981d3;
 }
 
 #portfolio .section-title-holder span
 {
-    color: #e3a436;
+    color: #ffffff;
 }
 
 .page-template-page-portfolio .section
@@ -466,6 +467,7 @@ h1.big-title
     overflow: hidden;
     position: relative;
     display: block;
+    
 }
 
 .grid-item 
@@ -476,6 +478,7 @@ h1.big-title
     box-sizing:border-box;
     -moz-box-sizing:border-box;
     -webkit-box-sizing:border-box; 
+    
 }
 
 .grid-item img 
@@ -500,6 +503,7 @@ h1.big-title
 .grid-item.p_one
 {
     width: 800px;
+    
 }
 
 .portfolio-text-holder
